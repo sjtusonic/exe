@@ -1,0 +1,12 @@
+*.swp
+*.log
+bashell
+cshell
+cpp
+ctags
+verilog
+embeded_network
+python
+perl
+java
+grep
