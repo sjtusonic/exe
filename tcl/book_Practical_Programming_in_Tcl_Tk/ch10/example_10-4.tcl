@@ -6,7 +6,7 @@ proc lassign {valueList args} {
    if {[llength $valueList]==0} {
       set valueList [list {}]
    }
-   uplevel 1 [list foreach $args $valueList {break}]
+   uplevel 1 [list foreach $args $valueList {break}] ;# tricky, use foreach {a b c} {1 2 3 4 5} to batch-assign
    return [lrange $valueList [llength $args] end]
 }
 

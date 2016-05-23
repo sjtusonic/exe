@@ -2,7 +2,6 @@
 *.log
 bashell
 cshell
-cpp
 ctags
 verilog
 embeded_network
