@@ -13,7 +13,12 @@ int f5_1 () {
    tblock=localtime(&timer);
    cout<<asctime(tblock)<<endl;
    ////////////////////////////////////////////////
-   cout<<is_prime(6)<<endl;
+   for(int i=1;i<=1000;i++) {
+      if(is_prime(i)) {
+         cout<<i<<"\tis prime!"<<endl;
+      }
+   }
+   //cout<<is_prime(6)<<endl;
    ////////////////////////////////////////////////
    tblock=localtime(&timer);
    cout<<asctime(tblock)<<endl;

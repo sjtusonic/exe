@@ -18,11 +18,11 @@ int main4_4 () {
    int up_bound=100000;
    cout<<"计算"<<up_bound<<"以内完数："<<endl;
    for(int n=1;n<=up_bound;n++) {
-	  if (is_full_num(n)) {
-		 cout<<setw(4)<<"="<<n<<""<<endl;
-	  }
+      if (is_full_num(n)) {
+         cout<<setw(4)<<"="<<n<<""<<endl;
+      }
    }
-////////////////////////////////////////////////
+   ////////////////////////////////////////////////
    tblock=localtime(&timer);
    cout<<asctime(tblock)<<endl;
    //cout<<(int)tblock<<endl;

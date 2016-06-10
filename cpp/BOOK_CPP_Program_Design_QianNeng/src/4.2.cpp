@@ -15,7 +15,7 @@ int main4_2 () {
    timer=time(NULL);
    tblock=localtime(&timer);
    cout<<asctime(tblock)<<endl;
-////////////////////////////////////////////////
+   ////////////////////////////////////////////////
 
    double sum=0;
    for (int cnt=1;cnt<=15;cnt++) {
@@ -24,7 +24,7 @@ int main4_2 () {
       printf("ITER:%20d \tincr:%20.0f \tsum:%20.0f\n",cnt,incr,sum);
    }
 
-////////////////////////////////////////////////
+   ////////////////////////////////////////////////
    tblock=localtime(&timer);
    cout<<asctime(tblock)<<endl;
    //cout<<(int)tblock<<endl;

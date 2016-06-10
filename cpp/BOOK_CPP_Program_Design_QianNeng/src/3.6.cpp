@@ -10,7 +10,7 @@ int main3_6 () {
    int i;
    while (true) {
       cin>>i;
-   
+
       if (i>100 ) {         cout<<"Error"<<endl;
       } else if (i<0 ) {    cout<<"Error"<<endl;
       } else if (i>=90 ) {  cout<<"A"<<endl;

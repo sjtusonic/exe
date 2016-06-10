@@ -21,17 +21,17 @@ int main3_5 () {
    string tag;
    for (int x=7;x<=20;x++) {
 
-can_div_by_3=" ";
-can_div_by_5=" ";
-can_div_by_7=" ";
+      can_div_by_3=" ";
+      can_div_by_5=" ";
+      can_div_by_7=" ";
 
       if (x%3==0) {can_div_by_3="3";      }
       if (x%5==0) {can_div_by_5="5";      }
       if (x%7==0) {can_div_by_7="7";      }
 
       if (can_div_by_3==" "
-        && can_div_by_5==" "
-        && can_div_by_7==" "
+            && can_div_by_5==" "
+            && can_div_by_7==" "
          ) {
          tag="X";
       } else {
@@ -39,12 +39,12 @@ can_div_by_7=" ";
       }
 
       cout
-      <<setw(width)<<x
-      <<setw(width)<<can_div_by_3
-      <<setw(width)<<can_div_by_5
-      <<setw(width)<<can_div_by_7
-      <<setw(width)<<tag
-      <<endl;
+         <<setw(width)<<x
+         <<setw(width)<<can_div_by_3
+         <<setw(width)<<can_div_by_5
+         <<setw(width)<<can_div_by_7
+         <<setw(width)<<tag
+         <<endl;
    }
 
 

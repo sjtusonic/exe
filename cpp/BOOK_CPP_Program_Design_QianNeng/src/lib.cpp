@@ -10,19 +10,19 @@ using namespace std;
 double myfac (int n) {// FUNC
    if (n<=1) {return 1;
    } else {
-	   double r=n*myfac(n-1);
-	   cout <<"myfac "<<n<<" = "<<r<<endl;
-	   return r;
+      double r=n*myfac(n-1);
+      cout <<"myfac "<<n<<" = "<<r<<endl;
+      return r;
    }
 }
 
 double calc_sum_of_power (int n,int power=3) {// FUNC
    double sum=0;
    while (n!=0) {
-	  int curr=n%10;
-	  double p=pow(curr,power);
-	  sum+=p;
-	  n=n/10;
+      int curr=n%10;
+      double p=pow(curr,power);
+      sum+=p;
+      n=n/10;
    }
    return sum;
 }
@@ -51,16 +51,16 @@ bool is_full_num (int n, int print=0) {// FUNC
    int up_bound=n-1;
    for (int i=1;i<=up_bound;i++) {
 
-	  if (n%i==0) {
-		 if (print==1) printf("%d ",i);
-		 n_left-=i;
-	  }
+      if (n%i==0) {
+         if (print==1) printf("%d ",i);
+         n_left-=i;
+      }
    }
    if (n_left==0 && !print) {
-	  is_full_num (n,1);
-	  return true;
+      is_full_num (n,1);
+      return true;
    } else {
-	  return false;
+      return false;
    }
 }
 
@@ -90,10 +90,10 @@ bool is_int (double v) {// FUNC
 //   return 1.1;
 //}
 
-bool item_is_in_array (int i,int a[] ,int a_length) {// FUNC
+bool item_is_in_array (int item,int array[] ,int a_length) {// FUNC
    bool tag=false;
    for (int j=0;j<a_length;j++) {
-      if (i==a[j]) {tag=true;break;}
+      if (item==array[j]) {tag=true;break;}
    }
    return tag;
 }
@@ -140,6 +140,43 @@ void show_array(int a[],int size,bool in_a_line=true,int num_of_marker=0, int  m
       da[i]=(double)a[i];
    }
    show_array(da,size,in_a_line,num_of_marker,marker);
+}
+
+void show_array(bool a[],int size,bool in_a_line=true,int num_of_marker=0, int  marker[]=0) {// FUNC
+   if (in_a_line) {
+      for (int i=0;i<size;i++) {// print index line
+         //cout<<"swap:"<<","<<a[i+1]endl;
+         char tag;
+         if (item_is_in_array(i,marker,num_of_marker)) {
+            tag='M';
+         }else{
+            tag=' ';
+         }
+         printf("%9d%1c,",i,tag);
+      }
+      printf("\n");
+      for (int i=0;i<size;i++) {// print value line
+         //cout<<"swap:"<<","<<a[i+1]endl;
+         //printf("%10.2f,",a[i]);
+         if(a[i]) {printf("%10s,","A");
+         } else {printf("%10s,","_");}
+      }
+      printf("\n");
+   } else {
+      printf("--------------\n");
+      printf("show array of size %d\n",size);
+      for (int i=0;i<size;i++) {
+         char tag;
+         if (item_is_in_array(i,marker,num_of_marker)) {
+            tag='M';
+         }else{
+            tag=' ';
+         }
+         //cout<<"swap:"<<","<<a[i+1]endl;
+         printf("array[%5d](%10.2f)%10c\n",i,a[i],tag);
+      }
+      printf("--------------\n");
+   }
 }
 
 void sort_bubble(double a [],int size,int return_list[]) {// FUNC

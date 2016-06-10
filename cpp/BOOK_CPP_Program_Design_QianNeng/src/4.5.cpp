@@ -29,7 +29,7 @@ int f4_5 () {
       printf("hit gnd:%d times, incr:%f, total:%f\n",cnt_hit_gnd,incr,sum);
       h=h/2;
    }
-////////////////////////////////////////////////
+   ////////////////////////////////////////////////
    tblock=localtime(&timer);
    cout<<asctime(tblock)<<endl;
    //cout<<(int)tblock<<endl;

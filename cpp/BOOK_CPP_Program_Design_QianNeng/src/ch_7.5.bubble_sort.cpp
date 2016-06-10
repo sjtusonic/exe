@@ -1,11 +1,11 @@
 #include <stdio.h>
 #include <iostream>
 //#include <iostream.h>
-#include "7.5.h"
+#include "ch_7.5.h"
 #include "lib.h"
 using   namespace   std;
 
-int f7_5() {
+int f_ch_7_5() {
    //double a[]={3,2,1,4,6,-8,100,10};
    //double a[]={8,7,6,5,4,3,2,1};
    double a[]={1,2,3,4,5,6,7,8};

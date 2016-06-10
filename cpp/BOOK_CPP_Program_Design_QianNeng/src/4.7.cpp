@@ -15,7 +15,7 @@ int f4_7 (double a=2) {
    ////////////////////////////////////////////////
    double after=10;
    double before;
-   
+
    for (int ans=1;ans<=10000;ans++) {
       before=after;
       after=0.5*(before+a/before);
@@ -27,7 +27,7 @@ int f4_7 (double a=2) {
    }
 
    cout<<a<<"^0.5="<<after<<endl;
-////////////////////////////////////////////////
+   ////////////////////////////////////////////////
    tblock=localtime(&timer);
    cout<<asctime(tblock)<<endl;
    //cout<<(int)tblock<<endl;

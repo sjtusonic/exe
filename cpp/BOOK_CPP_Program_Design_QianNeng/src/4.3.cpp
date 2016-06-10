@@ -14,13 +14,13 @@ int main4_3 () {
    timer=time(NULL);
    tblock=localtime(&timer);
    cout<<asctime(tblock)<<endl;
-////////////////////////////////////////////////
+   ////////////////////////////////////////////////
    for (int cnt=0;cnt<=1e4;cnt++) {
       if (is_tulip(cnt,3)) {
          cout<<cnt<<endl;
       }
    }
-////////////////////////////////////////////////
+   ////////////////////////////////////////////////
    tblock=localtime(&timer);
    cout<<asctime(tblock)<<endl;
    //cout<<(int)tblock<<endl;

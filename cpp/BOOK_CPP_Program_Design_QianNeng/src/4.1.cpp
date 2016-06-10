@@ -18,7 +18,7 @@ int main4_1 () {
    double now  =calc_use_do (1,1e-8);
    double ideal=calc_use_do (1,1e-14);
    double diff=ideal-now;
-   
+
    cout<<ideal<<endl;
    printf("%e = %e - %e \n",diff,ideal,now);
 

@@ -17,7 +17,7 @@ ${BIN_TARGET}:${OBJ}
 	$(CC) $(OBJ)  -o $@
 
 ${DIR_OBJ}/%.o:${DIR_SRC}/%.cpp
-	$(CC) $(CFLAGS) -c  $< -o $@ > compile.log
+	$(CC) $(CFLAGS) -c  $< -o $@ 
 .PHONY:clean run
 clean:
 	#find ${DIR_OBJ} -name *.o -exec rm -rf {}

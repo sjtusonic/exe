@@ -148,16 +148,17 @@ void show_array(int a[],int size,bool in_a_line=true,int num_of_marker=0, int  m
    show_array(da,size,in_a_line,num_of_marker,marker);
 }
 
-void sort_bubble(double a [],int size,int return_list[]) {// FUNC
+void sort_bubble(int return_list[],double a [],int size) {// FUNC
    //int return_list[2];
-   int swap_cnt=0;
-   int diff_cnt=0;
+   int assign_cnt=0;
+   int cmpr_cnt=0;
    bool swap_tag=1;
    int pass=1;
    while (swap_tag) {
       cout<<"ITER from 0,1 to $-1,"<<size-pass<<endl;
       swap_tag=0;
       for (int i=0;i<size-pass;i++) {
+         cmpr_cnt++;
          if (a[i]<a[i+1]) {
             swap_tag=1;
             //cout<<"swap:"<<","<<a[i+1]endl;
@@ -167,15 +168,14 @@ void sort_bubble(double a [],int size,int return_list[]) {// FUNC
             double temp=a[i];
             a[i]=a[i+1];
             a[i+1]=temp;
+            assign_cnt+=3;
             show_array(a,size,true,2,tmp);
-            swap_cnt++;
          }
-         diff_cnt++;
       }
-      //cout<<"diff_cnt="<<diff_cnt<<endl;
-      //cout<<"swap_cnt="<<swap_cnt<<endl;
-      return_list[0]=diff_cnt;
-      return_list[1]=swap_cnt;
+      //cout<<"cmpr_cnt="<<cmpr_cnt<<endl;
+      //cout<<"assign_cnt="<<assign_cnt<<endl;
+      return_list[0]=cmpr_cnt;
+      return_list[1]=assign_cnt;
       show_array(return_list,2,false);
       pass++;
    }
@@ -203,5 +203,12 @@ int* gen_rand_array_int (int from,int to) {// FUNC
    return gen_rand_array_int(from,to,0);
 }
 
+
+std::string int2string(int n){
+   stringstream ss;
+   ss<<n;
+   string n_str=ss.str();
+   return n_str;
+}
 
 #endif
