@@ -1,0 +1,153 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+BIN_TARGET	Makefile	/^BIN_TARGET = ${DIR_BIN}\/${TARGET}$/;"	m
+CC	Makefile	/^CC = g++$/;"	m
+CFLAGS	Makefile	/^CFLAGS = -v -g -Wall -I${DIR_INC}$/;"	m
+Cat	include/Cat.h	/^class Cat$/;"	c
+Cat::GetAge	include/Cat.h	/^      int GetAge();$/;"	p	class:Cat	access:public	signature:()
+Cat::GetAge	src/Cat.cpp	/^int Cat::GetAge() {$/;"	f	class:Cat	signature:()
+Cat::Meow	include/Cat.h	/^      void Meow();$/;"	p	class:Cat	access:public	signature:()
+Cat::Meow	src/Cat.cpp	/^void Cat::Meow() {$/;"	f	class:Cat	signature:()
+Cat::SetAge	include/Cat.h	/^      void SetAge(int age);$/;"	p	class:Cat	access:public	signature:(int age)
+Cat::SetAge	src/Cat.cpp	/^void Cat::SetAge(int age) {$/;"	f	class:Cat	signature:(int age)
+Cat::itsAge	include/Cat.h	/^      int itsAge;$/;"	m	class:Cat	access:protected
+DIR_BIN	Makefile	/^DIR_BIN = .\/bin$/;"	m
+DIR_INC	Makefile	/^DIR_INC = .\/include$/;"	m
+DIR_OBJ	Makefile	/^DIR_OBJ = .\/obj$/;"	m
+DIR_SRC	Makefile	/^DIR_SRC = .\/src$/;"	m
+GetAge	include/Cat.h	/^      int GetAge();$/;"	p	class:Cat	access:public	signature:()
+GetAge	src/Cat.cpp	/^int Cat::GetAge() {$/;"	f	class:Cat	signature:()
+INT	src/3.4.cpp	/^typedef int INT;$/;"	t	file:
+INT	src/3.5.cpp	/^typedef int INT;$/;"	t	file:
+INT	src/3.6.cpp	/^typedef int INT;$/;"	t	file:
+INT	src/chapter4.6_calc_PI.cpp	/^typedef int INT;$/;"	t	file:
+LIB_CPP	include/lib.h	2;"	d
+LIB_CPP	src/lib.cpp	2;"	d	file:
+Meow	include/Cat.h	/^      void Meow();$/;"	p	class:Cat	access:public	signature:()
+Meow	src/Cat.cpp	/^void Cat::Meow() {$/;"	f	class:Cat	signature:()
+Node	include/Node.h	/^struct Node {$/;"	s
+Node::a	include/Node.h	/^   int a;$/;"	m	struct:Node	access:public
+Node::next	include/Node.h	/^   Node*next;$/;"	m	struct:Node	access:public
+OBJ	Makefile	/^OBJ = $(patsubst %.cpp,${DIR_OBJ}\/%.o,$(notdir ${SRC})) $/;"	m
+SRC	Makefile	/^SRC = $(wildcard ${DIR_SRC}\/*.cpp)  $/;"	m
+SetAge	include/Cat.h	/^      void SetAge(int age);$/;"	p	class:Cat	access:public	signature:(int age)
+SetAge	src/Cat.cpp	/^void Cat::SetAge(int age) {$/;"	f	class:Cat	signature:(int age)
+TARGET	Makefile	/^TARGET = main$/;"	m
+a	include/Node.h	/^   int a;$/;"	m	struct:Node	access:public
+calc_diag_sum	include/7.5.h	/^double calc_diag_sum(double a[][10],int n) ;$/;"	p	signature:(double a[][10],int n)
+calc_diag_sum	src/7.5.cpp	/^double calc_diag_sum(double a[][10],int n) {$/;"	f	signature:(double a[][10],int n)
+calc_sum_of_power	include/lib.h	/^double calc_sum_of_power (int n,int power=3) ;$/;"	p	signature:(int n,int power=3)
+calc_sum_of_power	src/lib.cpp	/^double calc_sum_of_power (int n,int power=3) {\/\/ FUNC$/;"	f	signature:(int n,int power=3)
+calc_use_do	include/lib.h	/^double calc_use_do (double x, double stop=1e-8) ;$/;"	p	signature:(double x, double stop=1e-8)
+calc_use_do	src/lib.cpp	/^double calc_use_do (double x, double stop=1e-8) {\/\/ FUNC$/;"	f	signature:(double x, double stop=1e-8)
+f11_2	include/11.2.h	/^void f11_2();$/;"	p	signature:()
+f11_2	src/11.2.cpp	/^void f11_2(){$/;"	f	signature:()
+f11_5	include/11.5.h	/^void f11_5();$/;"	p	signature:()
+f11_5	src/11.5.cpp	/^void f11_5() {$/;"	f	signature:()
+f4_10	include/4.10.h	/^int f4_10 (int year) ;$/;"	p	signature:(int year)
+f4_10	src/4.10.cpp	/^int f4_10 (int year) {$/;"	f	signature:(int year)
+f4_5	include/4.5.h	/^int f4_5 () ;$/;"	p	signature:()
+f4_5	src/4.5.cpp	/^int f4_5 () {$/;"	f	signature:()
+f4_6	include/4.6.h	/^int f4_6 () ;$/;"	p	signature:()
+f4_6	src/4.6.cpp	/^int f4_6 () {$/;"	f	signature:()
+f4_7	include/4.7.h	/^int f4_7 (double a) ;$/;"	p	signature:(double a)
+f4_7	src/4.7.cpp	/^int f4_7 (double a=2) {$/;"	f	signature:(double a=2)
+f4_8	include/4.8.h	/^int f4_8();$/;"	p	signature:()
+f4_8	src/4.8.cpp	/^int f4_8 () {$/;"	f	signature:()
+f4_9	include/4.9.h	/^int f4_9 () ;$/;"	p	signature:()
+f4_9	src/4.9.cpp	/^int f4_9 () {$/;"	f	signature:()
+f5_1	include/5.1.h	/^int f5_1 () ;$/;"	p	signature:()
+f5_1	src/5.1.cpp	/^int f5_1 () {$/;"	f	signature:()
+f5_2	include/5.2.h	/^int f5_2 () ;$/;"	p	signature:()
+f5_2	src/5.2.cpp	/^int f5_2 () {$/;"	f	signature:()
+f5_6	include/5.6.h	/^void f5_6() ;$/;"	p	signature:()
+f5_6	src/5.6.cpp	/^void f5_6() {$/;"	f	signature:()
+f5_9	include/5.9.h	/^int f5_9 (int year) ;$/;"	p	signature:(int year)
+f5_9	src/5.9.cpp	/^int f5_9 (int year) {$/;"	f	signature:(int year)
+f7_5	include/7.5.h	/^void f7_5() ;$/;"	p	signature:()
+f7_5	src/7.5.cpp	/^void f7_5() {$/;"	f	signature:()
+f8_1	include/8.1.h	/^void f8_1();$/;"	p	signature:()
+f8_1	src/8.1.cpp	/^void f8_1() {$/;"	f	signature:()
+f8_2	include/8.2.h	/^void f8_2() ;\/\/FUNC$/;"	p	signature:()
+f8_2	src/8.2.cpp	/^void f8_2() {\/\/FUNC$/;"	f	signature:()
+f8_4	include/8.4.h	/^void f8_4() ;\/\/FUNC$/;"	p	signature:()
+f8_4	src/8.4.cpp	/^void f8_4() {\/\/FUNC$/;"	f	signature:()
+f8_9	include/8.9.h	/^void f8_9();$/;"	p	signature:()
+f8_9	src/8.9.cpp	/^void f8_9() {$/;"	f	signature:()
+f9_1	include/9.1.h	/^int f9_1();$/;"	p	signature:()
+f9_1	src/9.1.cpp	/^int f9_1()$/;"	f	signature:()
+f_ch4_6	src/chapter4.6_calc_PI.cpp	/^int f_ch4_6 () {$/;"	f	signature:()
+f_ch_7_5	include/ch_7.5.h	/^int f_ch_7_5() ;$/;"	p	signature:()
+f_ch_7_5	src/ch_7.5.bubble_sort.cpp	/^int f_ch_7_5() {$/;"	f	signature:()
+f_decrypt	include/8.4.h	/^void f_decrypt(char*,int);$/;"	p	signature:(char*,int)
+f_decrypt	src/8.4.cpp	/^void f_decrypt(char*c,int offset){$/;"	f	signature:(char*c,int offset)
+f_encrypt	include/8.4.h	/^void f_encrypt (char *c,int string_len,char* offset_list,int offset_list_len) ;$/;"	p	signature:(char *c,int string_len,char* offset_list,int offset_list_len)
+f_encrypt	src/8.4.cpp	/^void f_encrypt (char *c,int string_len,char* offset_list,int offset_list_len) {$/;"	f	signature:(char *c,int string_len,char* offset_list,int offset_list_len)
+findmax	include/8.1.h	/^int* findmax(int* array,int size,int* index);$/;"	p	signature:(int* array,int size,int* index)
+findmax	src/8.1.cpp	/^int* findmax(int* array,int size,int* index) {$/;"	f	signature:(int* array,int size,int* index)
+findmax_use_ptr	include/9.1.h	/^void findmax_use_ptr(int*a,int n, int i, int*pk);$/;"	p	signature:(int*a,int n, int i, int*pk)
+findmax_use_ptr	src/9.1.cpp	/^void findmax_use_ptr(int*a,int size, int i, int*pk)$/;"	f	signature:(int*a,int size, int i, int*pk)
+findmax_use_ref	include/9.1.h	/^void findmax_use_ref(int&a,int n, int i, int&pk);$/;"	p	signature:(int&a,int n, int i, int&pk)
+findmax_use_ref	src/9.1.cpp	/^void findmax_use_ref(int&a,int size, int i, int&pk)$/;"	f	signature:(int&a,int size, int i, int&pk)
+integral	include/5.2.h	/^double integral (double from,double to) ;$/;"	p	signature:(double from,double to)
+integral	src/5.2.cpp	/^double integral (double from,double to) {$/;"	f	signature:(double from,double to)
+is_full_num	include/lib.h	/^bool is_full_num (int n, int print=0) ;$/;"	p	signature:(int n, int print=0)
+is_full_num	src/lib.cpp	/^bool is_full_num (int n, int print=0) {\/\/ FUNC$/;"	f	signature:(int n, int print=0)
+is_int	include/lib.h	/^bool is_int (double v) ;$/;"	p	signature:(double v)
+is_int	src/lib.cpp	/^bool is_int (double v) {\/\/ FUNC$/;"	f	signature:(double v)
+is_prime	include/lib.h	/^bool is_prime (int n, int print=0) ;$/;"	p	signature:(int n, int print=0)
+is_prime	src/lib.cpp	/^bool is_prime (int n, int print=0) {\/\/ FUNC$/;"	f	signature:(int n, int print=0)
+is_tulip	include/lib.h	/^bool is_tulip (int n, int power=3) ;$/;"	p	signature:(int n, int power=3)
+is_tulip	src/lib.cpp	/^bool is_tulip (int n, int power=3) {\/\/ FUNC$/;"	f	signature:(int n, int power=3)
+item_is_in_array	include/lib.h	/^bool item_is_in_array (int i,int a[] ,int a_length) ;$/;"	p	signature:(int i,int a[] ,int a_length)
+item_is_in_array	src/lib.cpp	/^bool item_is_in_array (int item,int array[] ,int a_length) {\/\/ FUNC$/;"	f	signature:(int item,int array[] ,int a_length)
+itsAge	include/Cat.h	/^      int itsAge;$/;"	m	class:Cat	access:protected
+main	src/main.cpp	/^int main() {$/;"	f	signature:()
+main3_4	include/3.4.h	/^int main3_4 () ;$/;"	p	signature:()
+main3_4	src/3.4.cpp	/^int main3_4 () {$/;"	f	signature:()
+main3_5	include/3.5.h	/^int main3_5 () ;$/;"	p	signature:()
+main3_5	src/3.5.cpp	/^int main3_5 () {$/;"	f	signature:()
+main3_6	include/3.6.h	/^int main3_6 () ;$/;"	p	signature:()
+main3_6	src/3.6.cpp	/^int main3_6 () {$/;"	f	signature:()
+main4_1	include/4.1.h	/^int main4_1 () ;$/;"	p	signature:()
+main4_1	src/4.1.cpp	/^int main4_1 () {$/;"	f	signature:()
+main4_2	include/4.2.h	/^int main4_2 () ;$/;"	p	signature:()
+main4_2	src/4.2.cpp	/^int main4_2 () {$/;"	f	signature:()
+main4_3	include/4.3.h	/^int main4_3 () ;$/;"	p	signature:()
+main4_3	src/4.3.cpp	/^int main4_3 () {$/;"	f	signature:()
+main4_4	include/4.4.h	/^int main4_4 () ;$/;"	p	signature:()
+main4_4	src/4.4.cpp	/^int main4_4 () {$/;"	f	signature:()
+myfac	include/lib.h	/^double myfac (int n) ;$/;"	p	signature:(int n)
+myfac	src/lib.cpp	/^double myfac (int n) {\/\/ FUNC$/;"	f	signature:(int n)
+new_born	include/5.9.h	/^int new_born(int n) ;$/;"	p	signature:(int n)
+new_born	src/5.9.cpp	/^int new_born(int n) {$/;"	f	signature:(int n)
+next	include/Node.h	/^   Node*next;$/;"	m	struct:Node	access:public
+poly	include/5.6.h	/^double poly(double n, double x) ;$/;"	p	signature:(double n, double x)
+poly	src/5.6.cpp	/^double poly(double n, double x) {$/;"	f	signature:(double n, double x)
+print_data_type	src/8.9.cpp	/^int print_data_type()$/;"	f	signature:()
+print_data_type	src/8.9.cpp	/^int print_data_type();$/;"	p	file:	signature:()
+print_font_in_the_mid	include/4.8.h	/^void print_font_in_the_mid(int line_width,int c_cnt, char c) ;$/;"	p	signature:(int line_width,int c_cnt, char c)
+print_font_in_the_mid	src/4.8.cpp	/^void print_font_in_the_mid(int line_width, int c_cnt, char c) {$/;"	f	signature:(int line_width, int c_cnt, char c)
+show_array	include/lib.h	/^void show_array(bool   a[],int size,bool in_a_line=true,int num_of_marker=0, int  marker[]=0) ;$/;"	p	signature:(bool a[],int size,bool in_a_line=true,int num_of_marker=0, int marker[]=0)
+show_array	include/lib.h	/^void show_array(double a[],int size,bool in_a_line=true,int num_of_marker=0, int  marker[]=0) ;$/;"	p	signature:(double a[],int size,bool in_a_line=true,int num_of_marker=0, int marker[]=0)
+show_array	include/lib.h	/^void show_array(int    a[],int size,bool in_a_line=true,int num_of_marker=0, int  marker[]=0) ;$/;"	p	signature:(int a[],int size,bool in_a_line=true,int num_of_marker=0, int marker[]=0)
+show_array	src/lib.cpp	/^void show_array(bool a[],int size,bool in_a_line=true,int num_of_marker=0, int  marker[]=0) {\/\/ FUNC$/;"	f	signature:(bool a[],int size,bool in_a_line=true,int num_of_marker=0, int marker[]=0)
+show_array	src/lib.cpp	/^void show_array(double a[],int size,bool in_a_line=true,int num_of_marker=0, int  marker[]=0) {\/\/ FUNC$/;"	f	signature:(double a[],int size,bool in_a_line=true,int num_of_marker=0, int marker[]=0)
+show_array	src/lib.cpp	/^void show_array(int a[],int size,bool in_a_line=true,int num_of_marker=0, int  marker[]=0) {\/\/ FUNC$/;"	f	signature:(int a[],int size,bool in_a_line=true,int num_of_marker=0, int marker[]=0)
+show_array_with_addr	include/8.1.h	/^void show_array_with_addr(int* array,int size);$/;"	p	signature:(int* array,int size)
+show_array_with_addr	src/8.1.cpp	/^void show_array_with_addr(int* array,int size) {$/;"	f	signature:(int* array,int size)
+size	src/9.1.cpp	/^const int size=10;$/;"	v
+sort_bubble	include/lib.h	/^void sort_bubble(double a [],int size,int return_list[]) ;$/;"	p	signature:(double a [],int size,int return_list[])
+sort_bubble	src/lib.cpp	/^void sort_bubble(double a [],int size,int return_list[]) {\/\/ FUNC$/;"	f	signature:(double a [],int size,int return_list[])
+sum	include/5.9.h	/^int sum(int n) ;$/;"	p	signature:(int n)
+sum	src/5.9.cpp	/^int sum(int n) {$/;"	f	signature:(int n)
+sum_big	include/5.9.h	/^int sum_big(int n) ;$/;"	p	signature:(int n)
+sum_big	src/5.9.cpp	/^int sum_big(int n) {$/;"	f	signature:(int n)
+sum_small	include/5.9.h	/^int sum_small(int n) ;$/;"	p	signature:(int n)
+sum_small	src/5.9.cpp	/^int sum_small(int n) {$/;"	f	signature:(int n)
+target_func	include/5.2.h	/^double target_func (double x) ;$/;"	p	signature:(double x)
+target_func	src/5.2.cpp	/^double target_func (double x) {$/;"	f	signature:(double x)

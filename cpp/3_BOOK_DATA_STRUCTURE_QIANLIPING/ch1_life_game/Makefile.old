@@ -1,0 +1,9 @@
+all: ./run
+	./run
+
+compile:
+	g++ main.cpp -c
+clean:
+	rm main.o
+./run: compile
+	g++ main.o -o ./run
