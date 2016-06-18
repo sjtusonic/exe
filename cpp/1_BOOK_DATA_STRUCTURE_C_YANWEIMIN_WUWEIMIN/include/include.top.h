@@ -4,6 +4,10 @@
 #include <iomanip>
 #include <cstdlib>
 #include <time.h>
+#include <assert.h>
+
+#include "2.1_linear_list.h"
+#include "2.1_func.h"
 //#include "3.4.h"
 //#include "3.5.h"
 //#include "3.6.h"

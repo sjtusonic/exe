@@ -12,6 +12,7 @@ BIN_TARGET = ${DIR_BIN}/${TARGET}
 
 CC = g++
 CFLAGS = -v -g -Wall -I${DIR_INC}
+#CFLAGS = -v -g -I${DIR_INC}
 
 ${BIN_TARGET}:${OBJ}
 	make ctags
@@ -31,3 +32,5 @@ ctags:
 	ctags -R --sort=yes --c++-kinds=+px --fields=+iaS --extra=+q
 ctags_system:
 	ctags -R --sort=yes -I __THROW –file-scope=yes –langmap=c:+.h –languages=c,c++ –links=yes –c-kinds=+p --fields=+S -R -f ~/.vim/systags /usr/include /usr/local/include
+valgrind:
+	valgrind --tool=memcheck --show-reachable=yes --leak-check=yes bin/main
