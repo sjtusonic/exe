@@ -15,6 +15,41 @@ MyList::MyList(int a[], int len)
 	}
 }
 //===============================================================================
+MyList::MyList(MyList& other) //copying construct func
+{
+	printf("DEBUG: calling copying constructor\n");
+	int len=other.ListLength();
+	m_list_length=len;
+	m_heap_length=len*2; // use m_heap_length to give a margin in heap for ListInsert, etc.
+	m_list_element=new int[m_heap_length] ;
+	//printf("THIS=%d\x",this);
+	printf("DEBUG: m_list_element=%x\n",m_list_element);
+	for(int i=0;i<len;i++)
+	{
+		*(m_list_element+i)=other.GetElem(i);
+		cout<<"init MyList copy constructor:"<<*(m_list_element+i)<<endl;
+	}
+}
+//===============================================================================
+MyList & MyList::operator=(MyList& other) //copying construct func
+{
+	if(this==&other)
+		return *this;
+
+	printf("DEBUG: calling operator =\n");
+	ClearList();
+	int len=other.ListLength();
+	m_list_length=len;
+	m_heap_length=len*2; // use m_heap_length to give a margin in heap for ListInsert, etc.
+	m_list_element=new int[m_heap_length] ;
+	//printf("DEBUG: m_list_element=%x\n",m_list_element);
+	for(int i=0;i<len;i++)
+	{
+		*(m_list_element+i)=other.GetElem(i);
+		cout<<"init MyList copy constructor:"<<*(m_list_element+i)<<endl;
+	}
+}
+//===============================================================================
 MyList::~MyList()
 {
 	delete [] m_list_element;
@@ -160,7 +195,11 @@ int MyList::NextElem(int cur_e)
 //===============================================================================
 void MyList::ListInsert(int ind , int e)
 {
-	for(int i=m_list_length-1;i>=0;i--)
+	if (ind>m_list_length || ind<0) {
+		printf("MyList::ListInsert fail: index=%d,m_list_length=%d",ind,m_list_length);
+		return;
+	}
+	for(int i=m_list_length;i>=0;i--)
 	{
 		if(i>=ind){
 			printf("DEBUG: move (%x)%d->(%x)\n",m_list_element+i,*(m_list_element+i),m_list_element+i+1);
@@ -171,6 +210,18 @@ void MyList::ListInsert(int ind , int e)
 		}
 	}
 	m_list_length++;
+}
+//===============================================================================
+void MyList::ListPush(int e)
+{
+	ListInsert(m_list_length,e);
+}
+//===============================================================================
+int MyList::ListPop()
+{
+	int r =GetElem(m_list_length-1);
+	m_list_length--;
+	return r;
 }
 //===============================================================================
 void MyList::ListDelete(int ind )
@@ -196,6 +247,21 @@ void MyList::ListTraverse(bool (*visit)(int* a), bool pre_order)
 		for(int i=m_list_length-1;i>=0;i--)
 		{
 			visit(m_list_element+i);
+		}
+	}
+}
+//===============================================================================
+void MyList::ListUnion(MyList& b,MyList & Lunion)
+{
+	cout<<"print b:============================"<<endl;
+	b.PrintList();
+	Lunion=b;
+	Lunion.PrintList();
+	for(int i=0;i<m_list_length;i++)
+	{
+		if(b.LocateElem(GetElem(i),compare)==-1) 
+		{
+			Lunion.ListPush(GetElem(i));
 		}
 	}
 }
