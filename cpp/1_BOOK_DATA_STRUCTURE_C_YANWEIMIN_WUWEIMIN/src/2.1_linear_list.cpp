@@ -4,20 +4,35 @@ using namespace std;
 //===============================================================================
 MyList::MyList(int a[], int len)
 {
+	m_name="NA";
+	MyList(a,len,"NA");
+}
+//===============================================================================
+MyList::MyList(int a[], int len, string n)
+{
+	//instanceCounterMyList++;
+	m_name=n;
 	m_list_length=len;
 	m_heap_length=len*2; // use m_heap_length to give a margin in heap for ListInsert, etc.
 	m_list_element=new int[m_heap_length] ;
-	printf("DEBUG: m_list_element=%x\n",m_list_element);
+	printf("DEBUG: INIT MyList, m_list_element=%x\n",m_list_element);
+	cout<<"name is:"<<m_name<<endl;
 	for(int i=0;i<len;i++)
 	{
 		*(m_list_element+i)=a[i];
 		cout<<"init MyList:"<<*(m_list_element+i)<<endl;
+	}
+	for(int i=len;i<m_heap_length;i++) // it's necessary to init the [m_list_length,m_heap_length), or Valgrind checker will release Error because of mem does not initialised.
+	{
+		*(m_list_element+i)=-1;
 	}
 }
 //===============================================================================
 MyList::MyList(MyList& other) //copying construct func
 {
 	printf("DEBUG: calling copying constructor\n");
+	m_name="COPY_"+other.m_name;
+	cout<<"name is:"<<m_name<<endl;
 	int len=other.ListLength();
 	m_list_length=len;
 	m_heap_length=len*2; // use m_heap_length to give a margin in heap for ListInsert, etc.
@@ -29,6 +44,10 @@ MyList::MyList(MyList& other) //copying construct func
 		*(m_list_element+i)=other.GetElem(i);
 		cout<<"init MyList copy constructor:"<<*(m_list_element+i)<<endl;
 	}
+	for(int i=len;i<m_heap_length;i++)
+	{
+		*(m_list_element+i)=-1;
+	}
 }
 //===============================================================================
 MyList & MyList::operator=(MyList& other) //copying construct func
@@ -37,16 +56,22 @@ MyList & MyList::operator=(MyList& other) //copying construct func
 		return *this;
 
 	printf("DEBUG: calling operator =\n");
+	m_name="EQUAL_"+other.m_name;
+	cout<<"name is:"<<m_name<<endl;
 	ClearList();
 	int len=other.ListLength();
 	m_list_length=len;
 	m_heap_length=len*2; // use m_heap_length to give a margin in heap for ListInsert, etc.
 	m_list_element=new int[m_heap_length] ;
 	//printf("DEBUG: m_list_element=%x\n",m_list_element);
-	for(int i=0;i<len;i++)
+	for(int i=0;i<m_heap_length;i++)
 	{
-		*(m_list_element+i)=other.GetElem(i);
-		cout<<"init MyList copy constructor:"<<*(m_list_element+i)<<endl;
+		if (i<m_list_length) {
+			*(m_list_element+i)=other.GetElem(i);
+			cout<<"init MyList copy constructor:"<<*(m_list_element+i)<<endl;
+		} else {
+			*(m_list_element+i)=-1;
+		}
 	}
 }
 //===============================================================================
@@ -54,7 +79,8 @@ MyList::~MyList()
 {
 	delete [] m_list_element;
 	m_list_element=NULL;
-	printf("DEBUG delete: m_list_element=%x\n",m_list_element);
+	//printf("DEBUG delete: m_list_element=%x\n",m_list_element);
+	cout<<"DEBUG delete MyList <"<<m_name<<"> m_list_element="<<m_list_element<<endl;
 }
 //===============================================================================
 int MyList::ListLength()
@@ -193,6 +219,7 @@ int MyList::NextElem(int cur_e)
 //	return NULL;
 //}
 //===============================================================================
+//cout<<""<<<<""<<<<""<<<<""<<<<""<<<<""<<<<""<<<<""<<<<""<<<<""<<<<""<<<<""<<<<""<<<<""<<<<""<<<<""<<<<""<<<<""<<<<""<<<<""<<endl;
 void MyList::ListInsert(int ind , int e)
 {
 	if (ind>m_list_length || ind<0) {
@@ -201,8 +228,12 @@ void MyList::ListInsert(int ind , int e)
 	}
 	for(int i=m_list_length;i>=0;i--)
 	{
+		int* ind_ptr=m_list_element+i;
 		if(i>=ind){
 			printf("DEBUG: move (%x)%d->(%x)\n",m_list_element+i,*(m_list_element+i),m_list_element+i+1);
+			//cout<<"DEBUG: move ("<<<<""<<<<<<<<<<<<<<endl;
+			//cout<<"DEBUG: move ("<<m_list_element+i<<")"<<*(m_list_element+i)<<"->("<<m_list_element+i+1<<")"<<endl;
+			//cout<<"DEBUG: move ("<<ind_ptr<<")"<<*(ind_ptr)<<"->("<<m_list_element+i+1<<")"<<endl;
 			*(m_list_element+i+1)=*(m_list_element+i);
 		} 
 		if(i==ind) {

@@ -1,7 +1,11 @@
+#ifndef INCLUDE_TOP_H
+#define INCLUDE_TOP_H
 #include <math.h>
 #include <stdio.h>
 #include <iostream>
 #include <iomanip>
+#include <string.h>
+#include <string>
 #include <cstdlib>
 #include <time.h>
 #include <assert.h>
@@ -38,3 +42,6 @@
 //#include "Node.h"
 //#include "Queue.h"
 //#include "11.5.h"
+//
+using namespace std;
+#endif INCLUDE_TOP_H

@@ -1,7 +1,12 @@
+#include "include.top.h"
+using namespace std;
+//int instanceCounterMyList=-1;
+
 class MyList 
 {
 	public:
 		MyList(int[],int);
+		MyList(int[],int,string);
 		MyList(MyList& other);//copying construct func
 		MyList & operator=(MyList& other);//copying construct func
 		~MyList();
@@ -23,6 +28,7 @@ class MyList
 		void ListTraverse(bool (*visit)(int*),bool pre_order=true);
 		void ListUnion(MyList&,MyList& Lunion); // how to use the reference of a class
 	private:
+		string m_name;
 		int *m_list_element;
 		int *m_list_relation;
 		int m_list_length;

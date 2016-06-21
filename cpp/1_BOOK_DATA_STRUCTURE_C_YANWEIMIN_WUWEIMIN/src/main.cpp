@@ -9,8 +9,13 @@ int main() {
 	tblock=localtime(&timer);
 	cout<<asctime(tblock)<<endl;
 	////////////////////////////////////////////////
+	//string s="test";
+	//cout<<"this is "<<s<<endl;
+	//return 0;
+	////////////////////////////////////////////////
 	int u[5]={101,77,303,7,21};
-	MyList l1(u,5);
+	MyList l1(u,5,"l1");
+	MyList lX(l1);
 	l1.PrintList(5);
 	l1.PrintList(5,true);
 	cout<<"LENGTH="<<l1.ListLength()<<endl;
@@ -36,6 +41,7 @@ int main() {
 	printf("ListInsert:===================\n");
 	l1.PrintList(-1,true);
 	l1.ListInsert(5,999);
+	return 0;
 	l1.PrintList(-1,true);
 	//return 0;
 	printf("ListDelete:===================\n");
