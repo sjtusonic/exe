@@ -2,6 +2,20 @@
 using namespace std;
 
 //===============================================================================
+MyList::MyList()
+{
+	int len=0;
+	m_name="NA";
+	m_list_length=len;
+	//m_heap_length=len*2; // use m_heap_length to give a margin in heap for ListInsert, etc.
+	m_heap_length=10; 
+	m_list_element=new int[m_heap_length] ;
+	for(int i=len;i<m_heap_length;i++) 
+	{
+		*(m_list_element+i)=-1;
+	}
+}
+//===============================================================================
 MyList::MyList(int a[], int len)
 {
 	m_name="NA";
@@ -83,6 +97,12 @@ MyList::~MyList()
 	cout<<"DEBUG delete MyList <"<<m_name<<"> m_list_element="<<m_list_element<<endl;
 }
 //===============================================================================
+void MyList::SetName(string n)
+{
+	m_name=n;
+}
+
+//===============================================================================
 int MyList::ListLength()
 { 
 	return m_list_length;
@@ -103,13 +123,13 @@ void MyList::PrintList(int printLen,bool detailed) // default value setting is o
 	}
 
 	if (detailed) {
-		cout<<"PrintList details:"<<endl;
+		cout<<"PrintList details of <"<<m_name<<"> :"<<endl;
 		for(int i=0;i<max;i++)
 		{
 			PrintItem(i);
 		}
 	}else {
-		cout<<"PrintList:"<<endl;
+		cout<<"PrintList of <"<<m_name<<"> :"<<endl;
 		for(int i=0;i<max;i++)
 		{
 			cout<<*(m_list_element+i)<<" ";
@@ -142,6 +162,12 @@ int MyList::GetElem(int ind)
 {
 	assert (ind<m_list_length) ;
 	return *(m_list_element+ind);
+}
+//===============================================================================
+void MyList::SetElem(int ind,int value)
+{
+	assert (ind<m_list_length) ;
+	*(m_list_element+ind)=value;
 }
 //===============================================================================
 int MyList::LocateElem(int e,bool (*compare)(int a,int b)) // notice: the format of function-pointer
@@ -287,12 +313,56 @@ void MyList::ListUnion(MyList& b,MyList & Lunion)
 	cout<<"print b:============================"<<endl;
 	b.PrintList();
 	Lunion=b;
-	Lunion.PrintList();
+	Lunion.SetName("Lunion");
+	//Lunion.PrintList();
 	for(int i=0;i<m_list_length;i++)
 	{
 		if(b.LocateElem(GetElem(i),compare)==-1) 
 		{
 			Lunion.ListPush(GetElem(i));
 		}
+	}
+}
+//===============================================================================
+void MyList::ListSwap(int ind1,int ind2)
+{
+	if (  ind1<0 || ind1>=m_list_length
+		|| ind2<0 || ind2>=m_list_length
+		|| ind1==ind2)
+	{
+		return ;
+	}
+	int tmp=GetElem(ind1);
+	SetElem(ind1,GetElem(ind2));
+	SetElem(ind2,tmp);
+}
+//===============================================================================
+void MyList::ListSort()// bubble sort
+{
+	for(int range=m_list_length-1;range>=0;range--)
+	{
+		for(int i=0;i<range;i++)
+		{
+			if(GetElem(i)>GetElem(i+1))
+			{
+				ListSwap(i,i+1);
+			}
+		}
+	}
+}
+//===============================================================================
+void MyList::ListReverse()// Reverse
+{
+	int list_length_bk=m_list_length;
+	int ll[list_length_bk];
+	int ind=0;
+
+	while (!ListEmpty())
+	{
+		ll[ind++]=ListPop();
+	}
+	for(int i=0;i<list_length_bk;i++)
+	{
+		ListPush(ll[i]);
 	}
 }
