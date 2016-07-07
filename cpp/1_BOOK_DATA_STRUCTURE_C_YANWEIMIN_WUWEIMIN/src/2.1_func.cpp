@@ -3,10 +3,11 @@ using namespace std;
 
 int f_test_linear_list() {
 	int u[5]={101,77,303,7,21};
-	MyList l0(u,23,"l0");
+	MyList l0(u,15,"l0");
 	//MyList l0(u,23);
+	l0.PrintList(l0.ListLength(),true);
+	return 0;
 	cout<<l0.ListLength()<<endl;
-	//return 0;
 	MyList l1(u,5,"l1");
 	MyList lX(l1);
 	l1.PrintList(5);

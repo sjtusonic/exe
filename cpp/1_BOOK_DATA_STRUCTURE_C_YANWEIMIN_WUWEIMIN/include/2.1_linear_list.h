@@ -1,7 +1,11 @@
+#ifndef M_2_1_LINEAR_LIST_H
+#define M_2_1_LINEAR_LIST_H
 #include "include.top.h"
 using namespace std;
 //int instanceCounterMyList=-1;
 
+#define LIST_INIT_SIZE 10
+#define LIST_INCR_SIZE 5
 class MyList 
 {
 	public:
@@ -33,6 +37,7 @@ class MyList
 		void ListSwap(int ind1,int ind2);
 		void ListSort();  // bubble sort
 		void ListReverse();  
+		void HeapRealloc();
 		//void ListSort(int start=0,int end=-1);  // quick sort
 	private:
 		string m_name;
@@ -41,3 +46,4 @@ class MyList
 		int m_list_length;
 		int m_heap_length;
 }; 
+#endif //M_2_1_LINEAR_LIST_H

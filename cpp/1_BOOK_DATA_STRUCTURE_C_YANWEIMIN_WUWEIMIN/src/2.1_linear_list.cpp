@@ -8,8 +8,10 @@ MyList::MyList()
 	m_name="NA";
 	m_list_length=len;
 	//m_heap_length=len*2; // use m_heap_length to give a margin in heap for ListInsert, etc.
-	m_heap_length=10; 
-	m_list_element=new int[m_heap_length] ;
+	m_heap_length=LIST_INIT_SIZE; 
+	//m_list_element=new int[m_heap_length] ;
+	m_list_element=(int*)malloc(LIST_INIT_SIZE*sizeof(int));
+	HeapRealloc();
 	for(int i=len;i<m_heap_length;i++) 
 	{
 		*(m_list_element+i)=-1;
@@ -18,7 +20,7 @@ MyList::MyList()
 //===============================================================================
 MyList::MyList(int a[], int len)
 {
-	m_name="NA";
+	//m_name="NA";
 	MyList(a,len,"NA");
 }
 //===============================================================================
@@ -27,8 +29,11 @@ MyList::MyList(int a[], int len, string n)
 	//instanceCounterMyList++;
 	m_name=n;
 	m_list_length=len;
-	m_heap_length=len*2; // use m_heap_length to give a margin in heap for ListInsert, etc.
-	m_list_element=new int[m_heap_length] ;
+	//m_heap_length=len*2; // use m_heap_length to give a margin in heap for ListInsert, etc.
+	m_heap_length=LIST_INIT_SIZE;
+	//m_list_element=new int[m_heap_length] ;
+	m_list_element=(int*)malloc(m_heap_length*sizeof(int));
+	HeapRealloc();
 	printf("DEBUG: INIT MyList, m_list_element=%x\n",m_list_element);
 	cout<<"name is:"<<m_name<<endl;
 	for(int i=0;i<len;i++)
@@ -36,10 +41,10 @@ MyList::MyList(int a[], int len, string n)
 		*(m_list_element+i)=a[i];
 		cout<<"init MyList:"<<*(m_list_element+i)<<endl;
 	}
-	for(int i=len;i<m_heap_length;i++) // it's necessary to init the [m_list_length,m_heap_length), or Valgrind checker will release Error because of mem does not initialised.
-	{
-		*(m_list_element+i)=-1;
-	}
+	//for(int i=len;i<m_heap_length;i++) // it's necessary to init the [m_list_length,m_heap_length), or Valgrind checker will release Error because of mem does not initialised.
+	//{
+	//	*(m_list_element+i)=-1;
+	//}
 }
 //===============================================================================
 MyList::MyList(MyList& other) //copying construct func
@@ -49,8 +54,11 @@ MyList::MyList(MyList& other) //copying construct func
 	cout<<"name is:"<<m_name<<endl;
 	int len=other.ListLength();
 	m_list_length=len;
-	m_heap_length=len*2; // use m_heap_length to give a margin in heap for ListInsert, etc.
-	m_list_element=new int[m_heap_length] ;
+	//m_heap_length=len*2; // use m_heap_length to give a margin in heap for ListInsert, etc.
+	m_heap_length=LIST_INIT_SIZE; 
+	//m_list_element=new int[m_heap_length] ;
+	m_list_element=(int*)malloc(m_heap_length*sizeof(int));
+	HeapRealloc();
 	//printf("THIS=%d\x",this);
 	printf("DEBUG: m_list_element=%x\n",m_list_element);
 	for(int i=0;i<len;i++)
@@ -75,8 +83,11 @@ MyList & MyList::operator=(MyList& other) //copying construct func
 	ClearList();
 	int len=other.ListLength();
 	m_list_length=len;
-	m_heap_length=len*2; // use m_heap_length to give a margin in heap for ListInsert, etc.
-	m_list_element=new int[m_heap_length] ;
+	//m_heap_length=len*2; // use m_heap_length to give a margin in heap for ListInsert, etc.
+	m_heap_length=LIST_INIT_SIZE;
+	//m_list_element=new int[m_heap_length] ;
+	m_list_element=(int*)malloc(m_heap_length*sizeof(int));
+	HeapRealloc();
 	//printf("DEBUG: m_list_element=%x\n",m_list_element);
 	for(int i=0;i<m_heap_length;i++)
 	{
@@ -91,10 +102,43 @@ MyList & MyList::operator=(MyList& other) //copying construct func
 //===============================================================================
 MyList::~MyList()
 {
-	delete [] m_list_element;
+	//delete [] m_list_element;
+	free(m_list_element);
 	m_list_element=NULL;
 	//printf("DEBUG delete: m_list_element=%x\n",m_list_element);
 	cout<<"DEBUG delete MyList <"<<m_name<<"> m_list_element="<<m_list_element<<endl;
+}
+//===============================================================================
+void MyList::HeapRealloc()
+{
+	int m_heap_length_bk=m_heap_length;
+	//while (m_list_length>m_heap_length) 
+	//{
+	//	// use realloc to handle mem space opened by 'new', will cause valgrind Error
+	//	int *newbase=(int*)realloc(m_list_element,(m_heap_length+LIST_INCR_SIZE)*sizeof(int));
+	//	if(!newbase) exit(OVERFLOW);
+	//	cout<<"DEBUG: newbase="<<newbase<<endl;
+	//	m_list_element=newbase;
+	//	m_heap_length+=LIST_INCR_SIZE;
+	//	cout<<"Info:MyList::HeapRealloc(): add more heap size to"<<m_heap_length<<endl;
+	//}
+	//m_list_element=new int[m_heap_length] ;
+	//m_list_element=(int*)malloc(m_heap_length*sizeof(int));
+	
+	// use realloc to handle mem space opened by 'new', will cause valgrind Error
+	
+	printf("DEBUG HeapRealloc: m_list_length=%d;m_heap_length=%d\n",m_list_length,m_heap_length);
+	if (m_list_length<=m_heap_length) {//no need to realloc
+		return;
+	}
+	m_heap_length=m_list_length;
+	cout <<"DEBUG: HeapRealloc from:"<<m_heap_length_bk<<" to:"<<m_heap_length<<endl;
+	int *newbase=(int*)realloc(m_list_element,m_heap_length*sizeof(int));
+	for(int i=m_heap_length_bk;i<m_heap_length;i++)
+	{
+		cout <<"DEBUG: init for address:"<<m_list_element+i<<endl;
+		*(m_list_element+i)=-1;
+	}
 }
 //===============================================================================
 void MyList::SetName(string n)
@@ -142,7 +186,8 @@ void MyList::PrintList(int printLen,bool detailed) // default value setting is o
 void MyList::ClearList()
 {
 	m_list_length=0;
-	delete [] m_list_element;
+	//delete [] m_list_element;
+	free(m_list_element);
 	m_list_element=NULL;
 	//printf("DEBUG clear: m_list_element=%d\n",m_list_element);
 }
@@ -366,3 +411,5 @@ void MyList::ListReverse()// Reverse
 		ListPush(ll[i]);
 	}
 }
+
+
