@@ -1,19 +1,12 @@
 #include "include.top.h"
 using namespace std;
 
-
-int main() {
-	time_t timer;
-	struct tm *tblock;
-	timer=time(NULL);
-	tblock=localtime(&timer);
-	cout<<asctime(tblock)<<endl;
-	////////////////////////////////////////////////
-	//string s="test";
-	//cout<<"this is "<<s<<endl;
-	//return 0;
-	////////////////////////////////////////////////
+int f_test_linear_list() {
 	int u[5]={101,77,303,7,21};
+	MyList l0(u,23,"l0");
+	//MyList l0(u,23);
+	cout<<l0.ListLength()<<endl;
+	//return 0;
 	MyList l1(u,5,"l1");
 	MyList lX(l1);
 	l1.PrintList(5);
@@ -66,6 +59,7 @@ int main() {
 	cout<<l1.ListPop()<<endl;
 	l1.PrintList(-1);
 	printf("ListUnion:=========\n");
+	return 0;
 	l1.PrintList(-1);
 	int v[5]={33,44,55,66,77};
 	MyList l2(v,5,"l2");
@@ -73,7 +67,7 @@ int main() {
 	MyList lunion(v,5,"lunion");
 	l1.ListUnion(l2,lunion);
 	lunion.PrintList(-1);
-	//return 0;
+	return 0;
 	printf("ListSwap:=========\n");
 	l1.PrintList(-1);
 	l1.ListSwap(0,1);
@@ -90,10 +84,23 @@ int main() {
 	l1.PrintList(-1);
 	l1.ListSort();
 	l1.PrintList(-1);
-	////////////////////////////////////////////////
-	tblock=localtime(&timer);
-	cout<<asctime(tblock)<<endl;
-	cout<<"END"<<endl;
+	printf("HeapRealloc:==========\n");
+	MyList l3(v,15,"l3");
+	l1.PrintList(-1);
+	l1.ListPush(1);
+	l1.ListPush(1);
+	l1.ListPush(1);
+	l1.ListPush(1);
 	return 0;
 }
 
+bool compare(int a,int b)
+{
+	//if (a==b){return true;}
+	//return false;
+	return (a==b);
+}
+bool visit(int *a)
+{
+	printf("visit (%x)%d\n",a,*a);
+}
