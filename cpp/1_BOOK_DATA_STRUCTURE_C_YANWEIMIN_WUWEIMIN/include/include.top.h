@@ -1,5 +1,8 @@
 #ifndef INCLUDE_TOP_H
 #define INCLUDE_TOP_H
+
+#define VNAME(name) (#name) // a macro that can print var out
+
 #include <math.h>
 #include <stdio.h>
 #include <iostream>
