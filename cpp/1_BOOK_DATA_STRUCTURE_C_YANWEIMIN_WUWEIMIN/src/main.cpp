@@ -1,7 +1,7 @@
 #include "include.top.h"
 using namespace std;
 
-int main() 
+int main()  // FUNC
 {
 	time_t timer;
 	struct tm *tblock;
@@ -14,7 +14,8 @@ int main()
 	//return 0;
 	////////////////////////////////////////////////
 	
-	f_test_linear_list();
+	//f_test_linear_list();
+ 	f_test_Stack() ;
 
 	////////////////////////////////////////////////
 	tblock=localtime(&timer);

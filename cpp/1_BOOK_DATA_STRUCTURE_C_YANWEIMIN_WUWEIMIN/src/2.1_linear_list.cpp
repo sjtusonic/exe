@@ -2,8 +2,9 @@
 using namespace std;
 
 //===============================================================================
-MyList::MyList()
+MyList::MyList() // FUNC
 {
+	cout<<"Info: construct MyList"<<endl;
 	int len=0;
 	m_name="NA";
 	m_list_length=len;
@@ -18,13 +19,13 @@ MyList::MyList()
 	}
 }
 //===============================================================================
-MyList::MyList(int a[], int len)
+MyList::MyList(int a[], int len) // FUNC
 {
 	//m_name="NA";
 	MyList(a,len,"NA");
 }
 //===============================================================================
-MyList::MyList(int a[], int len, string n)
+MyList::MyList(int a[], int len, string n) // FUNC
 {
 	//instanceCounterMyList++;
 	m_name=n;
@@ -47,7 +48,7 @@ MyList::MyList(int a[], int len, string n)
 	//}
 }
 //===============================================================================
-MyList::MyList(MyList& other) //copying construct func
+MyList::MyList(MyList& other) //copying construct func // FUNC
 {
 	printf("DEBUG: calling copying constructor\n");
 	m_name="COPY_"+other.m_name;
@@ -72,7 +73,7 @@ MyList::MyList(MyList& other) //copying construct func
 	}
 }
 //===============================================================================
-MyList & MyList::operator=(MyList& other) //copying construct func
+MyList & MyList::operator=(MyList& other) //copying construct func // FUNC
 {
 	if(this==&other)
 		return *this;
@@ -100,7 +101,7 @@ MyList & MyList::operator=(MyList& other) //copying construct func
 	}
 }
 //===============================================================================
-MyList::~MyList()
+MyList::~MyList() // FUNC
 {
 	//delete [] m_list_element;
 	free(m_list_element);
@@ -109,7 +110,7 @@ MyList::~MyList()
 	cout<<"DEBUG delete MyList <"<<m_name<<"> m_list_element="<<m_list_element<<endl;
 }
 //===============================================================================
-void MyList::HeapRealloc()
+void MyList::HeapRealloc() // FUNC
 {
 	int m_heap_length_bk=m_heap_length;
 	//while (m_list_length>m_heap_length) 
@@ -141,23 +142,23 @@ void MyList::HeapRealloc()
 	}
 }
 //===============================================================================
-void MyList::SetName(string n)
+void MyList::SetName(string n) // FUNC
 {
 	m_name=n;
 }
 
 //===============================================================================
-int MyList::ListLength()
+int MyList::ListLength() // FUNC
 { 
 	return m_list_length;
 }
 //===============================================================================
-void MyList::PrintItem(int ind)
+void MyList::PrintItem(int ind) // FUNC
 {
 	cout<<"PrintItem("<<ind<<") = ("<<m_list_element+ind<<") "<<*(m_list_element+ind)<<endl;
 }
 //===============================================================================
-void MyList::PrintList(int printLen,bool detailed) // default value setting is only allowed in declaration(h files)
+void MyList::PrintList(int printLen,bool detailed) // default value setting is only allowed in declaration(h files) // FUNC
 {
 	int max;
 	if (printLen==-1) {
@@ -183,7 +184,7 @@ void MyList::PrintList(int printLen,bool detailed) // default value setting is o
 }
 
 //===============================================================================
-void MyList::ClearList()
+void MyList::ClearList() // FUNC
 {
 	m_list_length=0;
 	//delete [] m_list_element;
@@ -192,7 +193,7 @@ void MyList::ClearList()
 	//printf("DEBUG clear: m_list_element=%d\n",m_list_element);
 }
 //===============================================================================
-bool MyList::ListEmpty()
+bool MyList::ListEmpty() // FUNC
 {	
 	if (m_list_element==NULL) {
 		return true;
@@ -203,19 +204,19 @@ bool MyList::ListEmpty()
 	return false;
 }
 //===============================================================================
-int MyList::GetElem(int ind)
+int MyList::GetElem(int ind) // FUNC
 {
 	assert (ind<m_list_length) ;
 	return *(m_list_element+ind);
 }
 //===============================================================================
-void MyList::SetElem(int ind,int value)
+void MyList::SetElem(int ind,int value) // FUNC
 {
 	assert (ind<m_list_length) ;
 	*(m_list_element+ind)=value;
 }
 //===============================================================================
-int MyList::LocateElem(int e,bool (*compare)(int a,int b)) // notice: the format of function-pointer
+int MyList::LocateElem(int e,bool (*compare)(int a,int b)) // notice: the format of function-pointer // FUNC
 {
 	for(int i=0;i<m_list_length;i++)
 	{
@@ -227,7 +228,7 @@ int MyList::LocateElem(int e,bool (*compare)(int a,int b)) // notice: the format
 	return -1;
 }
 //===============================================================================
-int MyList::PriorElem(int cur_e)
+int MyList::PriorElem(int cur_e) // FUNC
 {	
   	cout<<"DEBUG: calling MyList::PriorElem "<<cur_e<<endl;
 	int ind=LocateElem(cur_e,compare);
@@ -238,7 +239,7 @@ int MyList::PriorElem(int cur_e)
 	}
 }
 //===============================================================================
-int MyList::NextElem(int cur_e)
+int MyList::NextElem(int cur_e) // FUNC
 {
   	cout<<"DEBUG: calling MyList::NextElem "<<cur_e<<endl;
 	int ind=LocateElem(cur_e,compare);
@@ -249,7 +250,7 @@ int MyList::NextElem(int cur_e)
 	}
 }
 //===============================================================================
-//int MyList::PriorElem(int cur_e)
+//int MyList::PriorElem(int cur_e) // FUNC
 //{	
 //	int*pre_e;
 //	cout<<"DEBUG: calling MyList::PriorElem "<<cur_e<<endl;
@@ -270,7 +271,7 @@ int MyList::NextElem(int cur_e)
 //	return NULL;
 //}
 //===============================================================================
-//int MyList::NextElem(int cur_e)
+//int MyList::NextElem(int cur_e) // FUNC
 //{	
 //	int*next_e;
 //	cout<<"DEBUG: calling MyList::NextElem "<<cur_e<<endl;
@@ -291,7 +292,7 @@ int MyList::NextElem(int cur_e)
 //}
 //===============================================================================
 //cout<<""<<<<""<<<<""<<<<""<<<<""<<<<""<<<<""<<<<""<<<<""<<<<""<<<<""<<<<""<<<<""<<<<""<<<<""<<<<""<<<<""<<<<""<<<<""<<<<""<<endl;
-void MyList::ListInsert(int ind , int e)
+void MyList::ListInsert(int ind , int e) // FUNC
 {
 	if (ind>m_list_length || ind<0) {
 		printf("MyList::ListInsert fail: index=%d,m_list_length=%d",ind,m_list_length);
@@ -314,19 +315,19 @@ void MyList::ListInsert(int ind , int e)
 	m_list_length++;
 }
 //===============================================================================
-void MyList::ListPush(int e)
+void MyList::ListPush(int e) // FUNC
 {
 	ListInsert(m_list_length,e);
 }
 //===============================================================================
-int MyList::ListPop()
+int MyList::ListPop() // FUNC
 {
 	int r =GetElem(m_list_length-1);
 	m_list_length--;
 	return r;
 }
 //===============================================================================
-void MyList::ListDelete(int ind )
+void MyList::ListDelete(int ind ) // FUNC
 {
 	for(int i=0;i<m_list_length;i++)
 	{
@@ -338,7 +339,7 @@ void MyList::ListDelete(int ind )
 	m_list_length--;
 }
 //===============================================================================
-void MyList::ListTraverse(bool (*visit)(int* a), bool pre_order)
+void MyList::ListTraverse(bool (*visit)(int* a), bool pre_order) // FUNC
 {
 	if (pre_order) {
 		for(int i=0;i<m_list_length;i++)
@@ -353,7 +354,7 @@ void MyList::ListTraverse(bool (*visit)(int* a), bool pre_order)
 	}
 }
 //===============================================================================
-void MyList::ListUnion(MyList& b,MyList & Lunion)
+void MyList::ListUnion(MyList& b,MyList & Lunion) // FUNC
 {
 	cout<<"print b:============================"<<endl;
 	b.PrintList();
@@ -369,7 +370,7 @@ void MyList::ListUnion(MyList& b,MyList & Lunion)
 	}
 }
 //===============================================================================
-void MyList::ListSwap(int ind1,int ind2)
+void MyList::ListSwap(int ind1,int ind2) // FUNC
 {
 	if (  ind1<0 || ind1>=m_list_length
 		|| ind2<0 || ind2>=m_list_length
@@ -382,7 +383,7 @@ void MyList::ListSwap(int ind1,int ind2)
 	SetElem(ind2,tmp);
 }
 //===============================================================================
-void MyList::ListSort()// bubble sort
+void MyList::ListSort()// bubble sort // FUNC
 {
 	for(int range=m_list_length-1;range>=0;range--)
 	{
@@ -396,7 +397,7 @@ void MyList::ListSort()// bubble sort
 	}
 }
 //===============================================================================
-void MyList::ListReverse()// Reverse
+void MyList::ListReverse()// Reverse // FUNC
 {
 	int list_length_bk=m_list_length;
 	int ll[list_length_bk];

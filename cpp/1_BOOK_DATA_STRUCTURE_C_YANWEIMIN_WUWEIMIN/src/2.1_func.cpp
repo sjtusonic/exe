@@ -1,7 +1,7 @@
 #include "include.top.h"
 using namespace std;
 
-int f_test_linear_list() {
+int f_test_linear_list() { // FUNC
 	int u[5]={101,77,303,7,21};
 	MyList l0(u,15,"l0");
 	//MyList l0(u,23);
@@ -94,14 +94,47 @@ int f_test_linear_list() {
 	l1.ListPush(1);
 	return 0;
 }
+int f_test_Stack() { // FUNC
+	cout<<"================================"<<endl;
+	cout<<"TEST STACK"<<endl;
+	MyStack l0;
+	//MyList l0(u,23);
+	l0.Push(1);
+	l0.Push(2);
+	l0.Push(3);
+	l0.PrintList(l0.ListLength(),true);
+	cout<<"POP!"<<endl;
+	cout<<l0.Pop()<<endl;
+	cout<<"POP!"<<endl;
+	cout<<l0.Pop()<<endl;
+	cout<<"================================"<<endl;
+	l0.Unshift(9);
+	l0.Unshift(8);
+	l0.Unshift(7);
+	l0.Unshift(6);
+	l0.Unshift(9);
+	l0.Unshift(8);
+	l0.Unshift(7);
+	l0.PrintList(l0.ListLength(),true);
+	cout<<"SHIFT!"<<endl;
+	cout<<l0.Shift()<<endl;
+	cout<<"SHIFT!"<<endl;
+	cout<<l0.Shift()<<endl;
+	cout<<"SHIFT!"<<endl;
+	cout<<l0.Shift()<<endl;
+	l0.PrintList(l0.ListLength(),true);
+	cout<<"================================"<<endl;
+	return 0;
+}
 
-bool compare(int a,int b)
+bool compare(int a,int b) // FUNC
 {
 	//if (a==b){return true;}
 	//return false;
 	return (a==b);
 }
-bool visit(int *a)
+bool visit(int *a) // FUNC
 {
 	printf("visit (%x)%d\n",a,*a);
+	return true;
 }
