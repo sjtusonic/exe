@@ -3,6 +3,7 @@
 using namespace std;
 const int size=10;
 
+#if 0
 int f9_1()
 {
    int a[size];
@@ -21,7 +22,8 @@ int f9_1()
    cout<<endl;
    //findmax_use_ptr(a,size,0,&n);
    int(&a_ref)[size]=a; //<==> reference an array!
-   findmax_use_ref(a_ref[size],size,0,&n);
+   //findmax_use_ref(a_ref[size],size,0,&n);
+   findmax_use_ref(a_ref,size,0,&n);
    cout<<"max:"<<a[n]<<"index:"<<n<<endl;
    return 0;
 }
@@ -49,4 +51,6 @@ void findmax_use_ref(int(&a)[size],int size, int i, int&pk)
    //}
 }
 
+
+#endif
 

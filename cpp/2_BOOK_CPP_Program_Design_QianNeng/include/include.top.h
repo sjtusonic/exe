@@ -1,6 +1,8 @@
 #include <math.h>
 #include <stdio.h>
 #include <iostream>
+#include <string>
+#include <string.h>
 #include <cstdlib>
 #include "3.4.h"
 #include "3.5.h"
@@ -32,3 +34,5 @@
 #include "Node.h"
 #include "Queue.h"
 #include "11.5.h"
+#include "20.1.h"
+#include "20.2.h"
