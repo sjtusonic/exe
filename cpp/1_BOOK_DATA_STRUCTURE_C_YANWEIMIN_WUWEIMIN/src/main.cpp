@@ -17,7 +17,8 @@ int main()  // FUNC
 	
 	//f_test_linear_list();
 	
- 	f_test_Stack() ;
+ 	//f_test_Stack() ;
+ 	f_test_LinkList() ;
 
 	int a = 1010;
 	string b="test";

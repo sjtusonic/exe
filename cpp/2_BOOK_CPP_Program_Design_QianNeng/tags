@@ -3,7 +3,7 @@
 !_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
-!_TAG_PROGRAM_VERSION	5.8	//
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
 BIN_TARGET	Makefile	/^BIN_TARGET = ${DIR_BIN}\/${TARGET}$/;"	m
 CC	Makefile	/^CC = g++$/;"	m
 CFLAGS	Makefile	/^CFLAGS = -v -g -Wall -I${DIR_INC}$/;"	m
@@ -48,6 +48,8 @@ f11_2	include/11.2.h	/^void f11_2();$/;"	p	signature:()
 f11_2	src/11.2.cpp	/^void f11_2(){$/;"	f	signature:()
 f11_5	include/11.5.h	/^void f11_5();$/;"	p	signature:()
 f11_5	src/11.5.cpp	/^void f11_5() {$/;"	f	signature:()
+f20_1	include/20.1.h	/^void f20_1();$/;"	p	signature:()
+f20_1	src/20.1.cpp	/^void f20_1() {$/;"	f	signature:()
 f4_10	include/4.10.h	/^int f4_10 (int year) ;$/;"	p	signature:(int year)
 f4_10	src/4.10.cpp	/^int f4_10 (int year) {$/;"	f	signature:(int year)
 f4_5	include/4.5.h	/^int f4_5 () ;$/;"	p	signature:()
@@ -78,8 +80,6 @@ f8_4	include/8.4.h	/^void f8_4() ;\/\/FUNC$/;"	p	signature:()
 f8_4	src/8.4.cpp	/^void f8_4() {\/\/FUNC$/;"	f	signature:()
 f8_9	include/8.9.h	/^void f8_9();$/;"	p	signature:()
 f8_9	src/8.9.cpp	/^void f8_9() {$/;"	f	signature:()
-f9_1	include/9.1.h	/^int f9_1();$/;"	p	signature:()
-f9_1	src/9.1.cpp	/^int f9_1()$/;"	f	signature:()
 f_ch4_6	src/chapter4.6_calc_PI.cpp	/^int f_ch4_6 () {$/;"	f	signature:()
 f_ch_7_5	include/ch_7.5.h	/^int f_ch_7_5() ;$/;"	p	signature:()
 f_ch_7_5	src/ch_7.5.bubble_sort.cpp	/^int f_ch_7_5() {$/;"	f	signature:()
@@ -89,10 +89,6 @@ f_encrypt	include/8.4.h	/^void f_encrypt (char *c,int string_len,char* offset_li
 f_encrypt	src/8.4.cpp	/^void f_encrypt (char *c,int string_len,char* offset_list,int offset_list_len) {$/;"	f	signature:(char *c,int string_len,char* offset_list,int offset_list_len)
 findmax	include/8.1.h	/^int* findmax(int* array,int size,int* index);$/;"	p	signature:(int* array,int size,int* index)
 findmax	src/8.1.cpp	/^int* findmax(int* array,int size,int* index) {$/;"	f	signature:(int* array,int size,int* index)
-findmax_use_ptr	include/9.1.h	/^void findmax_use_ptr(int*a,int n, int i, int*pk);$/;"	p	signature:(int*a,int n, int i, int*pk)
-findmax_use_ptr	src/9.1.cpp	/^void findmax_use_ptr(int*a,int size, int i, int*pk)$/;"	f	signature:(int*a,int size, int i, int*pk)
-findmax_use_ref	include/9.1.h	/^void findmax_use_ref(int&a,int n, int i, int&pk);$/;"	p	signature:(int&a,int n, int i, int&pk)
-findmax_use_ref	src/9.1.cpp	/^void findmax_use_ref(int&a,int size, int i, int&pk)$/;"	f	signature:(int&a,int size, int i, int&pk)
 integral	include/5.2.h	/^double integral (double from,double to) ;$/;"	p	signature:(double from,double to)
 integral	src/5.2.cpp	/^double integral (double from,double to) {$/;"	f	signature:(double from,double to)
 is_full_num	include/lib.h	/^bool is_full_num (int n, int print=0) ;$/;"	p	signature:(int n, int print=0)
@@ -121,6 +117,8 @@ main4_3	include/4.3.h	/^int main4_3 () ;$/;"	p	signature:()
 main4_3	src/4.3.cpp	/^int main4_3 () {$/;"	f	signature:()
 main4_4	include/4.4.h	/^int main4_4 () ;$/;"	p	signature:()
 main4_4	src/4.4.cpp	/^int main4_4 () {$/;"	f	signature:()
+min	src/20.1.cpp	/^T min(T& a,T& b) {$/;"	f	signature:(T& a,T& b)
+min	src/20.1.cpp	/^char* min(char* a,char* b) {$/;"	f	signature:(char* a,char* b)
 myfac	include/lib.h	/^double myfac (int n) ;$/;"	p	signature:(int n)
 myfac	src/lib.cpp	/^double myfac (int n) {\/\/ FUNC$/;"	f	signature:(int n)
 new_born	include/5.9.h	/^int new_born(int n) ;$/;"	p	signature:(int n)
