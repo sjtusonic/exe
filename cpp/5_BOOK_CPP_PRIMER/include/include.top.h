@@ -25,13 +25,15 @@
 #include <string> 
 #include <algorithm> 
 
-using namespace std;
+//using namespace std; // you'd better not use using command in header files.
 //--------------------------------------
 // include local files
 //--------------------------------------
 //#include "include/f13_2.h"
 #include "lib.h"
 #include "exe_2.3.1.h"
+#include "ch3.h"
+#include "exe_3.2.h"
 #include "include.top.h"
 
 //--------------------------------------
