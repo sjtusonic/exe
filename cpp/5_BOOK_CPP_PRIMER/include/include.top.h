@@ -12,7 +12,7 @@
 #define SQUARE_VOLUME(a) (a*a*a)
 #define SPHERE_VOLUME(a) (4/3*PI*a*a*a)
 
-#define PRINTVAR(a) cout<<#a<<"\t=\t"<<a<<endl;
+#define PRINTVAR(a) std::cout<<#a<<"\t=\t"<<a<<std::endl;
 
 //--------------------------------------
 // include lib files

@@ -1,5 +1,6 @@
 #include "include.top.h"
-using std::string;
+//using std::string;
+using namespace std;
 void ch3(){
 	string s="hello CH3!";
 	PRINTVAR(s);

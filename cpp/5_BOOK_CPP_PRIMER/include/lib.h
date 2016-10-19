@@ -3,7 +3,7 @@
 #include "include.top.h"
 
 #define PRINT_DEBUG_INFO() \
-	(cout<<"DEBUG: " <<__FILE__<<":" <<__LINE__<<" compiled in " <<__TIME__<<"-" <<__DATE__<<"" <<endl)
+	(std::cout<<"DEBUG: " <<__FILE__<<":" <<__LINE__<<" compiled in " <<__TIME__<<"-" <<__DATE__<<"" <<std::endl)
 
 double myfac (int n) ;
 double calc_sum_of_power (int n,int power=3) ;
