@@ -19,4 +19,4 @@ void show_array(int    a[],int size,bool in_a_line=true,int num_of_marker=0, int
 void show_array(bool   a[],int size,bool in_a_line=true,int num_of_marker=0, int  marker[]=0) ;
 void sort_bubble(double a [],int size,int return_list[]) ;
 void sort_bubble(double a [],int size,int return_list[]) ;
-std::string dec2bin(int n);
+string dec2bin(int n);
