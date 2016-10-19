@@ -5,14 +5,18 @@
 
 #define PRINT(a) (a)
 
-#define PRINT_ARRAY(a,len)  for(int u=0;u<len;u++) {cout<<u<<":\t"<<*a+u<<endl;}
+
+//#ifdef DEBUG
+//	#define PIRNT_DEBUG(cond,msg,) if (cond) cout<<""<<<<""<<endl;
+//#else
+//	#define PIRNT_DEBUG(cond,msg,)
+//#endif
 
 #define SUM_ARRAY(a,len,return_value)  int sum=0;for(int u=0;u<len;u++) {sum+=*a+u;};return_value=sum;
 
 //#define SHOW_VAR(a,b) cout<<a<<"="<<b<<endl;
 //#define PRINTVAR(a) SHOW_VAR(#a,a)
 
-#define PRINTVAR(a) cout<<#a<<"\t=\t"<<a<<endl;
 
 void f13_6() {
 	cout<<"==============="<<endl;

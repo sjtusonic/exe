@@ -36,6 +36,8 @@ using namespace std;
 #include "f13_6.h"
 #include "include.top.h"
 
+#define PRINT_ARRAY(a,len)  for(int u=0;u<len;u++) {cout<<u<<":\t"<<*a+u<<endl;}
+#define PRINTVAR(a) cout<<#a<<"\t=\t"<<a<<endl;
 //--------------------------------------
 
 
