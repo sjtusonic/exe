@@ -235,3 +235,13 @@ string dec2bin(int n) {
 	//cout<<n<<(n<0?"-->-":"-->")<<sss<<"\n"; 
 	return s;
 }
+
+string stringToUpper(string s) {
+	string r;
+	for(auto w:s)
+	{
+		r+=toupper(w);
+	}
+	return r;
+}
+
