@@ -14,6 +14,60 @@ void print_vector(vector<T> v) {
 	}
 }
 
+void f_3_20_redo () {
+	cout<<"---------"<<""<<endl;
+	cout<<"redo exe3.20:"<<""<<endl;
+	cout<<"---------"<<""<<endl;
+
+	vector<int> vec_int_3_21;
+#if 0
+	int buf_num;
+	while(cin>>buf_num)
+	{
+		PRINTVAR(buf_num);
+		vec_int_3_21.push_back(buf_num);
+	}
+#else
+	vec_int_3_21.push_back(1);
+	vec_int_3_21.push_back(4);
+	vec_int_3_21.push_back(2);
+	vec_int_3_21.push_back(33);
+	vec_int_3_21.push_back(6);
+	vec_int_3_21.push_back(7);
+	vec_int_3_21.push_back(17);
+#endif
+	int sum=0;
+	cout<<"print_vector(vec_int_3_21): "<<""<<endl;
+	print_vector(vec_int_3_21);
+	cout<<"1. calc sum of neighbour:"<<""<<endl;
+	for(auto it =vec_int_3_21.cbegin();it!=vec_int_3_21.cend();it++)
+	{
+		auto i=*it;
+		auto i_bk=*(it-1);
+		if(it!=vec_int_3_21.cbegin())
+		{
+			sum=i+i_bk;
+			cout<<"sum="<<sum<<""<<endl;
+		}
+	}
+
+	cout<<"2. calc sum of [0]+[end],[1]+[end-1], etc. :"<<""<<endl;
+	decltype(vec_int_3_21.size()) cntr_i=0,cntr_j=0,size;
+	size=vec_int_3_21.size();
+	PRINTVAR(size);
+	auto it1=vec_int_3_21.cbegin();
+	auto it2=vec_int_3_21.cend()-1;
+	//while(it1!=it2 && it1!=it2+1)
+	while(it1<it2 )
+	{
+		sum=(*it1)+(*it2);
+		cout<<"sum="<<sum<<"="<<(*it1)<<"+"<<*it2<<endl;
+		it1++;
+		it2--;
+	}
+	return;
+}
+
 void exe_3_16() {
 	cout<<"==============="<<endl;
 	cout<<"exe_3_13 & exe_3_16:"<<""<<endl;
@@ -112,7 +166,7 @@ void exe_3_16() {
 	int i_bk;
 	cout<<"print_vector(vec_int): "<<""<<endl;
 	print_vector(vec_int);
-	cout<<"1. calc neighbour:"<<""<<endl;
+	cout<<"1. calc sum of neighbour:"<<""<<endl;
 	for(auto i : vec_int)
 	{
 		if(cntr!=0)
@@ -123,7 +177,7 @@ void exe_3_16() {
 		cntr++;
 		i_bk=i;
 	}
-	cout<<"2. calc [0]+[end],[1]+[end-1], etc. :"<<""<<endl;
+	cout<<"2. calc sum of [0]+[end],[1]+[end-1], etc. :"<<""<<endl;
 	decltype(vec_int.size()) cntr_i=0,cntr_j=0,size;
 	size=vec_int.size();
 	PRINTVAR(size);
@@ -143,4 +197,38 @@ void exe_3_16() {
 		}
 		cntr_i++;
 	}
+	cout<<"==============="<<endl;
+	cout<<"exe_3_21, redo exe:"<<""<<endl;
+	cout<<"==============="<<endl;
+	cout<<"---------"<<""<<endl;
+	cout<<"redo exe3.17:"<<""<<endl;
+	cout<<"---------"<<""<<endl;
+	vector<string> vec_word_3_21;
+#if 0
+	string buf;
+	while(cin>>buf)
+	{
+		PRINTVAR(buf);
+		vec_word_3_21.push_back(buf);
+	}
+#else
+	vec_word_3_21.push_back("a");
+	vec_word_3_21.push_back("b?");
+	vec_word_3_21.push_back("d1");
+	vec_word_3_21.push_back("sdsaf!!");
+#endif
+	cout<<"print_vector(vec_word_3_21):"<<""<<endl;
+	print_vector(vec_word_3_21);
+
+	for(auto it=vec_word_3_21.begin();it!=vec_word_3_21.end();it++)
+	{
+		(*it)=stringToUpper(*it);
+		//cout<<"*it="<<*it<<""<<endl;
+	}
+	cout<<"print_vector(vec_word_3_21):"<<""<<endl;
+	print_vector(vec_word_3_21);
+
+	f_3_20_redo();
+
+
 }

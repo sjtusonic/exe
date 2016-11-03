@@ -22,6 +22,21 @@ string exe1 (string str) {
 
 int main() {
 	exe1("Hello!");
+	cout<<"=============="<<""<<endl;
+	cout<<"pointer of pointer"<<endl;
+	int d=1;
+	int* j=&d;
+	int cnt=0;
+	while(cnt<10)
+	{
+	cout<<"--------------"<<""<<endl;
+		cout<<"ITER= "<<cnt<<""<<endl;
+		cout<<"j= "<<j<<""<<endl;
+		cout<<"sizeof(j)= "<<sizeof(j)<<""<<endl;
+		j=(int*)&j;
+		cnt++;
+	}
+
 
    return 0; 
 }

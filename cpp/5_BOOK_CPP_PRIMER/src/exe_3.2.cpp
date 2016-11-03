@@ -104,6 +104,16 @@ void exe_3_2() {
 		}
 	}
 	PRINTVAR(s10);
+	cout<<"==============="<<endl;
+	cout<<"end"<<""<<endl;
+	cout<<"==============="<<endl;
+	//string u=toupper(s10.begin());
+	string u=string(1,toupper(s10[0]));
+	string out1="Upper first: "+u;
+	//string out1="Upper first: ";
+	cout<<out1<<endl;
+	cout<<"==============="<<endl;
+	cout<<"END OF DEBUG"<<""<<endl;
 
 }
 
