@@ -1,10 +1,9 @@
 #include <math.h>
 #include <stdio.h>
-#include <vector>
 #include "include.top.h"
 
 #define PRINT_DEBUG_INFO() \
-	(std::cout<<"DEBUG: FILE=" <<__FILE__<<":LINE=" <<__LINE__<<":FUNC="<<__FUNCTION__<<" compiled in " <<__TIME__<<"-" <<__DATE__<<"" <<std::endl)
+	(cout<<"DEBUG: " <<__FILE__<<":" <<__LINE__<<" compiled in " <<__TIME__<<"-" <<__DATE__<<"" <<endl)
 
 double myfac (int n) ;
 double calc_sum_of_power (int n,int power=3) ;
@@ -20,15 +19,4 @@ void show_array(int    a[],int size,bool in_a_line=true,int num_of_marker=0, int
 void show_array(bool   a[],int size,bool in_a_line=true,int num_of_marker=0, int  marker[]=0) ;
 void sort_bubble(double a [],int size,int return_list[]) ;
 void sort_bubble(double a [],int size,int return_list[]) ;
-std::string dec2bin(int n);
-std::string stringToUpper(std::string s);
-
-template <class T>
-void print_vector(std::vector<T> v) {
-	std::cout<<"get vector "<<""<<std::endl;
-	std::cout<<"size="<<v.size()<<""<<std::endl;
-	for(auto& c:v)
-	{
-		std::cout<<"\t"<<c<<""<<std::endl;
-	}
-}
+string dec2bin(int n);

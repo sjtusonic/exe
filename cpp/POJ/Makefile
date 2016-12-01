@@ -17,7 +17,7 @@ CFLAGS = -v -g -Wall -I${DIR_INC}
 #CFLAGS = -v -g -I${DIR_INC}
 
 ${BIN_TARGET}:${OBJ}
-	make ctags
+	#make ctags
 	$(CC) $(OBJ)  -o $@ 
 	#-$(CC) $(OBJ)  -o $@ 2> link.log
 	#-cat link.log

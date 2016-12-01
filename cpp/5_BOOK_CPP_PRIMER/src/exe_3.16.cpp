@@ -4,16 +4,6 @@ using namespace std;
 using std::string;
 using std::vector;
 
-template <class T>
-void print_vector(vector<T> v) {
-	std::cout<<"get vector "<<""<<std::endl;
-	cout<<"size="<<v.size()<<""<<endl;
-	for(auto& c:v)
-	{
-		cout<<"\t"<<c<<""<<endl;
-	}
-}
-
 void f_3_20_redo () {
 	cout<<"---------"<<""<<endl;
 	cout<<"redo exe3.20:"<<""<<endl;
@@ -229,6 +219,4 @@ void exe_3_16() {
 	print_vector(vec_word_3_21);
 
 	f_3_20_redo();
-
-
 }
