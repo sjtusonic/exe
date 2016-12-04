@@ -39,6 +39,7 @@ using namespace std;
 #include "poj1002.h"
 #include "poj1003.h"
 #include "poj1006.h"
+#include "poj1753.h"
 
 #define PRINTVAR(a) cout<<#a<<"\t=\t"<<a<<endl;
 #define PRINT_ARRAY(a,len)  for(int u=0;u<len;u++) {cout<<u<<":\t"<<*a+u<<endl;}

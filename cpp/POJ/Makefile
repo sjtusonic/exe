@@ -24,9 +24,9 @@ ${BIN_TARGET}:${OBJ}
 	@echo "=========================================================================================="
 
 ${DIR_OBJ}/%.o:${DIR_SRC}/%.cpp
-	$(CC) $(CFLAGS) -c  $< -o $@  
-	#$(CC) $(CFLAGS) -c  $< -o $@ 2> compile.log
-	#cat compile.log
+	#$(CC) $(CFLAGS) -c  $< -o $@  
+	$(CC) $(CFLAGS) -c  $< -o $@ 2> compile.log
+	cat compile.log
 	@echo "=========================================================================================="
 .PHONY:clean run
 clean:

@@ -11,7 +11,8 @@ int main() {
 	poj1000();
 	poj1001();
 	poj1002();
-	poj1003();
+	//poj1003();
 	poj1006();
+	poj1753();
 	return 0; 
 }
