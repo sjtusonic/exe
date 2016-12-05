@@ -11,6 +11,12 @@ using namespace std;
 
 #include <fstream>
 
+#define SHOW_DETAILS 0
+#define CH0_ENABLE 1
+#define CH1_ENABLE 1
+#define CH2_ENABLE 1
+#define CH3_ENABLE 1
+
 void poj1753 () 
 {
 	cout<<"-----------------------------------------------"<<endl;
@@ -30,16 +36,42 @@ void poj1753 ()
 
 	//----------------------------------------------------------
 	std::cout << "parsing " << filename << " ...\n";
-	Board board_all_zeros,n,t;
-	board_all_zeros.show();
+#if CH0_ENABLE
 
+	std::cout << "----------------------------------------\n";
+	std::cout << "ch0. solve the problem\n";
+	std::cout << "----------------------------------------\n";
+	Board board_read_file("input/poj1753.in");
+	cout<<"board_read_file.show()"<<endl;
+	board_read_file.show();
+	Board board_read_file_bk=board_read_file;
+
+	vector<Board> solution_tranformations;
+	for(int seed0=0;seed0<pow(2,16);seed0++)
+	{
+		Board t;
+		t.deserialize(seed0);
+		board_read_file.transformed_by(t);
+		if (board_read_file.isPure())
+			solution_tranformations.push_back(t);
+	}
+	sort(solution_tranformations.begin(),solution_tranformations.end());
+	std::cout << "----------------------------------------\n";
+	cout<<"solution_tranformations"<<endl;
+	for (auto t:solution_tranformations)
+	{
+		t.show();
+	}
+	std::cout << "----------------------------------------\n";
 	//----------------------------------------------------------
 	// dump output file
-#define SHOW_DETAILS 0
-#define CH1_ENABLE 1
-#define CH2_ENABLE 1
-#define CH3_ENABLE 1
+	outfile<<solution_tranformations[0].sumOfTrue();
+#endif
+
+
 #if CH1_ENABLE
+	Board board_all_zeros,n,t;
+	board_all_zeros.show();
 	std::cout << "----------------------------------------\n";
 	std::cout << "ch1. find all unit transformation s\n";
 	std::cout << "----------------------------------------\n";
@@ -240,10 +272,8 @@ void poj1753 ()
 		}
 	}
 #endif
-	outfile<<"====================="<<endl;
 	//show_board(board);
 
-	outfile<<"====================="<<endl;
 	//----------------------------------------------------------
 
 	std::cout << "FINISH " << " \n";
@@ -371,6 +401,7 @@ Board::Board()
 }
 Board::Board(string in_file_name)
 {
+	//cout<<"calling Board::Board(string)"<<endl;
 	std::ifstream infile(in_file_name);
 	if (!infile)
 		std::cerr << "Couldn't open " << in_file_name << " for reading\n";
@@ -380,7 +411,8 @@ Board::Board(string in_file_name)
 		vector<bool> line_vec;
 		for(auto c:line)
 		{
-			if(c=='b')
+			//cout<<"GOT:"<<c<<endl;
+			if(c=='b' || c=='-')
 				line_vec.push_back(0);
 			else
 				line_vec.push_back(1);

@@ -8,7 +8,7 @@ class Board
 		//-----------------------------------------------------------
 		void show();
 		void random(int);
-		void flip(int,int);
+		virtual void flip(int,int);
 		const vector<vector<bool>>& getBoard() const {return board;};
 		void setBoard(int row,int col,bool v) 
 		{
@@ -58,6 +58,38 @@ class Board
 			}
 			return -1;
 		};
+		virtual void showTransformationSteps (bool mode_from_1=0, string out_fname="") {
+			if (out_fname!="")
+			{
+				std::ofstream outChannel(out_fname,ios::app);
+				for(int row=0;row<getHeight();row++)
+				{
+					for(int col=0;col<getWidth();col++)
+					{
+						if (board[row][col])
+							if (mode_from_1)
+								outChannel<<""<<row+1<<" "<<col+1<<""<<endl;
+							else
+								outChannel<<""<<row<<" "<<col<<""<<endl;
+					}
+				}
+				//outChannel.close();
+			}
+			else 
+			{
+				for(int row=0;row<getHeight();row++)
+				{
+					for(int col=0;col<getWidth();col++)
+					{
+						if (board[row][col])
+							if (mode_from_1)
+								cout<<""<<row+1<<" "<<col+1<<""<<endl;
+							else
+								cout<<""<<row<<" "<<col<<""<<endl;
+					}
+				}
+			}
+		};
 		int  serialize();
 		void deserialize(long,bool as_binary=false);
 		void transformed_by(Board t);
@@ -85,7 +117,7 @@ class Board
 		Board operator+ (Board & rhs)   ;
 		Board operator- (Board & rhs)   ; // set sub
 		//-----------------------------------------------------------
-	private:
+	protected:
 		vector<vector<bool>> board;
 };
 
