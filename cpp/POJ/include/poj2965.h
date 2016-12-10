@@ -1,4 +1,5 @@
 #include "include.top.h"
+
 class GateOfRefrigerator: public Board
 {
 	public:
@@ -7,4 +8,5 @@ class GateOfRefrigerator: public Board
 		};
 		void flip(int,int);
 };
+
 void poj2965 ();

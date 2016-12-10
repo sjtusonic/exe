@@ -2,9 +2,6 @@
 #include <stdio.h>
 #include "include.top.h"
 
-#define PRINT_DEBUG_INFO() \
-	(cout<<"DEBUG: " <<__FILE__<<":" <<__LINE__<<" compiled in " <<__TIME__<<"-" <<__DATE__<<"" <<endl)
-
 double myfac (int n) ;
 double calc_sum_of_power (int n,int power=3) ;
 bool is_tulip (int n, int power=3) ;

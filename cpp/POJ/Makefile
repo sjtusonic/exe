@@ -18,14 +18,14 @@ CFLAGS = -v -g -Wall -I${DIR_INC}
 
 ${BIN_TARGET}:${OBJ}
 	#make ctags
-	$(CC) $(OBJ)  -o $@ 
-	#-$(CC) $(OBJ)  -o $@ 2> link.log
-	#-cat link.log
+	#$(CC) $(OBJ)  -o $@ 
+	-$(CC) $(OBJ)  -o $@ 2> link.log
+	-cat link.log
 	@echo "=========================================================================================="
 
 ${DIR_OBJ}/%.o:${DIR_SRC}/%.cpp
 	#$(CC) $(CFLAGS) -c  $< -o $@  
-	$(CC) $(CFLAGS) -c  $< -o $@ 2> compile.log
+	 $(CC) $(CFLAGS) -c  $< -o $@ 2> compile.log
 	cat compile.log
 	@echo "=========================================================================================="
 .PHONY:clean run

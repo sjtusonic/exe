@@ -2,6 +2,8 @@
 #include <math.h>
 #include <iomanip>
 #include <map>
+#include "poj1753.h"
+#include "poj2965.h"
 
 using namespace std;
 

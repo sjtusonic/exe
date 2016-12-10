@@ -2,6 +2,7 @@
 #include <math.h>
 #include <iomanip>
 #include <map>
+#include "poj1006.h"
 
 using namespace std;
 

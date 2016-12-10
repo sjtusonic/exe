@@ -33,23 +33,18 @@ using namespace std;
 //#include "include/f13_2.h"
 #include "lib.h"
 #include "include.top.h"
-//--------------------------------------
-#include "poj1000.h"
-#include "poj1001.h"
-#include "poj1002.h"
-#include "poj1003.h"
-#include "poj1006.h"
-#include "poj1753.h"
-#include "poj2965.h"
-#include "poj1328.h"
+#include "gnuplot_i.h"
 
 #define PRINTVAR(a) cout<<#a<<"\t=\t"<<a<<endl;
+#define PRINTVAR_hor(a) cout<<#a<<"("<<a<<")\t";
 #define PRINT_ARRAY(a,len)  for(int u=0;u<len;u++) {cout<<u<<":\t"<<*a+u<<endl;}
 #define PRINT_VECTOR(a)  for(auto u=a.begin();u!=a.end();u++) {cout<<*u<<endl;}
 #define PRINT_VECTOR_hor(a)  for(auto u=a.begin();u!=a.end();u++) {cout<<*u<<"\t";};cout<<""<<endl;
 
  #define PRINT_DEBUG_INFO() \
-  (::std::cout<<"DEBUG: FILE="<<__FILE__<<":LINE=" <<__LINE__<<":FUNC="<<__FUNCTION__<<" compiled in " <<__TIME__<<"-" <<__DATE__<<"" <<::std::endl)
+  (::std::cout<<"DEBUG: FILE="<<__FILE__<<":LINE=" <<__LINE__<<":FUNC="<<__FUNCTION__<<"() compiled in " <<__TIME__<<"-" <<__DATE__<<"" <<::std::endl)
+//--------------------------------------
+
 //--------------------------------------
 
 
