@@ -174,7 +174,10 @@ class Gnuplot
 
 
 	    ///\brief set a style during construction
-        Gnuplot(const std::string &style = "points");
+        //Gnuplot(const std::string &style = "points");
+        Gnuplot();
+        Gnuplot(std::string &style );
+        Gnuplot(const std::string &style );
 
         /// plot a single std::vector at one go
         Gnuplot(const std::vector<double> &x,
@@ -489,6 +492,7 @@ class Gnuplot
     template<typename X, typename Y>
     Gnuplot& plot_xy(const X& x, const Y& y, const std::string &title = "");
 
+    Gnuplot& plot_xy(const std::vector<double>& x, const std::vector<double>& y, const std::string &title = "");
 
     /// plot x,y pairs with dy errorbars: x y dy
     ///   from file

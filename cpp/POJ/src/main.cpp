@@ -9,6 +9,7 @@
 #include "poj2965.h"
 #include "poj1328.h"
 #include "poj2109.h"
+#include "poj3295.h"
 //using namespace std;
 
 
@@ -26,7 +27,8 @@ int main() {
 	
 	//poj1753();
 	//poj2965();
-	//poj1328();
-	poj2109();
+	//poj1328(); // use gnuplot
+	//poj2109(); // use bitInt library to calc 22-bit int
+	poj3295(); 
 	return 0; 
 }

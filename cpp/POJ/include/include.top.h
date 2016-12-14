@@ -35,7 +35,7 @@ using namespace std;
 #include "include.top.h"
 #include "gnuplot_i.h"
 
-#define PRINTVAR(a) cout<<#a<<"\t=\t"<<a<<endl;
+#define PRINTVAR(a) cout<<#a<<"\t=\t"<<a<<"\t@"<<__FILE__<<":"<<__LINE__<<":"<<__FUNCTION__<<"()"<<endl;
 #define PRINTVAR_hor(a) cout<<#a<<"("<<a<<")\t";
 #define PRINT_ARRAY(a,len)  for(int u=0;u<len;u++) {cout<<u<<":\t"<<*a+u<<endl;}
 #define PRINT_VECTOR(a)  for(auto u=a.begin();u!=a.end();u++) {cout<<*u<<endl;}

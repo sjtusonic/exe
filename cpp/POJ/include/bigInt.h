@@ -603,6 +603,8 @@ public :
 	Rossi  naive_sqrt();
 	static Rossi  pow(const Rossi& i_base, const Rossi& i_exp, const bool i_iterative = true);
 	static Rossi  pow(const Rossi& i_base, const Unit i_exp, const bool i_iterative = true);
+	static Rossi  pow(const Rossi& i_base, const int i_exp, const bool i_iterative = true);
+	static Rossi  pow(const int&   i_base, const int i_exp, const bool i_iterative = true);
 	static Rossi  naive_pow_iterative(const Rossi& i_base, const Rossi& i_exp);
 	static Rossi  naive_pow_recursive(const Rossi& i_base, const Rossi& i_exp);
 

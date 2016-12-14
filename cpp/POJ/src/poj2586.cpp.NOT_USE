@@ -1,0 +1,133 @@
+#include "include.top.h"
+#include "gnuplot_i.h"
+#include "poj2586.h"
+
+#include <math.h>
+#include <iomanip>
+#include <map>
+
+#if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__TOS_WIN__)
+	#include <conio.h>   //for getch(), needed in wait_for_key()
+	#include <windows.h> //for Sleep()
+	void sleep(int i) { Sleep(i*1000); }
+#endif
+
+
+#define SLEEP_LGTH 2  // sleep time in seconds
+
+//#include <boost/chrono/chrono_io.hpp>
+//#include <boost/chrono/floor.hpp>
+//#include <boost/chrono/round.hpp>
+//#include <boost/chrono/ceil.hpp>
+
+//using namespace boost;
+
+#include <fstream>
+using namespace std;
+
+void poj2586 () 
+{
+#if 1
+	cout<<"-----------------------------------------------"<<endl;
+	cout<<"poj2586"<<endl;
+	//----------------------------------------------------------
+	string filename="input/poj2586.in";
+	std::ifstream infile(filename);
+	if (!infile)
+		std::cerr << "Couldn't open " << filename << " for reading\n";
+
+	//----------------------------------------------------------
+	string filename_out="output/poj2586.out";
+
+	// clean the file "output/poj2586.out"
+	std::ofstream outfile_init(filename_out);
+	outfile_init.close();
+
+	std::ofstream outfile(filename_out,ios::app);
+
+	if (!outfile)
+		std::cerr << "Couldn't open " << filename_out << " for writing\n";
+
+
+	//----------------------------------------------------------
+	std::cout << "parsing " << filename << " ...\n";
+
+	while(getline(infile,line))
+	{
+		//cout<<"LINE:"<<endl;
+		PRINTVAR(line);
+		//PRINTVAR(flag_end_of_one_case);
+		if (line == "") // end of one case
+		{
+			flag_end_of_one_case=true;
+		}
+		else
+		{
+			float a=stof(split(line," ")[0]);
+			float b=stof(split(line," ")[1]);
+			if(a==0 && b==0)// end
+				break;
+			if(flag_start_of_one_case)
+			{
+				cout<<"NEW CASE HERE!"<<endl;
+				int N=a;
+				D=b;
+				PRINTVAR(N);
+				PRINTVAR(D);
+				c.N=N;
+				c.D=D;
+				cases.push_back(c);
+			}
+			else 
+			{
+				// body:
+				p.setLoc(a,b);
+				float d=cases[cases.size()-1].D;
+				p.setD(d);
+
+				cases[cases.size()-1].islands.push_back(p);
+			}
+			if(flag_end_of_one_case)
+			{
+				flag_end_of_one_case=false;
+			}
+		}
+		flag_start_of_one_case=flag_end_of_one_case;
+	}
+
+	for (auto c:cases)
+		c.show();
+
+
+	for (auto c:cases)
+	{
+		//if(!c.checkLegality())
+		//{
+		//	std::cout << "Error: illegal! " << " \n";
+		//	return;
+		//}
+		assert(c.checkLegality());
+		c.solve();
+	}
+	//----------------------------------------------------------
+	// dump output file
+
+	outfile<<"====================="<<endl;
+	//----------------------------------------------------------
+	// dump output file
+	outfile<<"====================="<<endl;
+	//----------------------------------------------------------
+
+
+	std::cout << "FINISH " << " \n";
+	cout<<"-----------------------------------------------"<<endl;
+	outfile.close();
+
+	//for(int cnt=0;cnt<=100;cnt++)
+	//{
+	//float rx=((float)(random()%100))/100;
+	//float ry=((float)(random()%100))/100;
+	//cout<<rx<<" "<<ry<<endl;
+	//}
+#endif
+}

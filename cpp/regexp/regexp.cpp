@@ -5,6 +5,8 @@
 #include <iterator>
 #include <algorithm>
 #include <vector>
+#include <assert.h>   
+
 using namespace std;
 
 #define PRINTVAR(a) cout<<#a<<"\t=\t"<<a<<endl;
@@ -42,7 +44,8 @@ using namespace std;
 //  return 0;
 //}
 
-vector<string> parseFuncInfo(string info) ; // info = "func_name({arg1},{arg2},{arg3},...)";  in {...} there can be any characters like [",(){}<>]
+vector<string> ParseFuncInfo(string info,bool keep_braces=false);  // info = "func_name({arg1},{arg2},{arg3},...)";  in {...} there can be any characters like [",(){}<>]
+inline bool isMatchInBrackets (std::string& exp) ;
 
 int main ()
 {
@@ -112,22 +115,41 @@ int main ()
 	PRINT_DEBUG_INFO();
 
 	std::cout<<"================= "<<std::endl;
-	s1="method (out brace{br1{br2}} ,br0 {br11{br22}br11} br00, {c},   {d e}    ,  {f})";
-	auto r=parseFuncInfo(s1);
+	//s1="method (out brace{br1{br2}} ,br0 {br11{br22}br11} br00, {c},   {d e}    ,  {f})a\n";
+	s1="method(out brace{br1{br2}} )";
+	//s1="method (out brace{br1{br2}} ,\nbr0 {br11{br22}br11} br00, {c},   {d e}    ,  {f})";
+	//s1="abcde";
+	PRINTVAR(s1);
+	auto r=ParseFuncInfo(s1);
 	PRINT_VECTOR(r);
+	
+
+	string ttt="01234567";
+	int end=ttt.size()-1;
+	PRINTVAR(ttt.size());
+	PRINTVAR(ttt.substr(0,3));
+	PRINTVAR(ttt.substr(1,3));
+	PRINTVAR(ttt.substr(2,3));
+	PRINTVAR(ttt.substr(0,end-0));
+	PRINTVAR(ttt.substr(1,end-1));
+	PRINTVAR(ttt.substr(2,end-2));
 }
 
-vector<string> parseFuncInfo(string info)  // info = "func_name({arg1},{arg2},{arg3},...)";  in {...} there can be any characters like [",(){}<>]
+vector<string> ParseFuncInfo(string info,bool keep_braces)  // info = "func_name({arg1},{arg2},{arg3},...)";  in {...} there can be any characters like [",(){}<>]
 {
-	string s1=info;
-	string s1bk=s1;
-	//std::cout<<"BEFORE: "<<s1bk<<std::endl;
-	//s1=std::regex_replace(s1,std::regex("\\{[^,]\\}"),"{ }");
+	string info_bk=info;
+	//std::cout<<"BEFORE: "<<info_bk<<std::endl;
+	//info=std::regex_replace(info,std::regex("\\{[^,]\\}"),"{ }");
+	int found=info.find('\n');
+	//PRINTVAR(found);
+	//PRINTVAR(info.size());
+	assert(found==std::string::npos|| found==info.size()-1);
+	assert(isMatchInBrackets(info));
 	
 	std::smatch m;
 	string s2;
 	string argument_holder;
-	while (std::regex_search(s1,m,std::regex("\\{([^,]+)\\}")))
+	while (std::regex_search(info,m,std::regex("\\{([^,]+)\\}")))
 	{
 		for (auto &x:m)
 		{
@@ -136,9 +158,9 @@ vector<string> parseFuncInfo(string info)  // info = "func_name({arg1},{arg2},{a
 		}
 		s2+=m.prefix().str();
 		s2+="{"+argument_holder+"}";
-		s1=m.suffix().str();
+		info=m.suffix().str();
 	}
-	s2+=s1;
+	s2+=info;
 	//std::cout<<"AFTER : "<<s2<<std::endl;
 
 
@@ -156,31 +178,80 @@ vector<string> parseFuncInfo(string info)  // info = "func_name({arg1},{arg2},{a
 	vector<string> final_vector;
 
 	int begin=0;
-	int end=s1bk.find("(");
-	final_vector.push_back(s1bk.substr(begin,end-begin));
-	auto it=positions.begin();
-	//PRINTVAR(s1bk.size());
-	//while(end!=s1bk.size())
-	while(it!=positions.end())
+	int end=info_bk.find("(");
+	final_vector.push_back(info_bk.substr(begin,end-begin));
+	//auto it=positions.begin();
+	//PRINTVAR(info_bk.size());
+	//while(end!=info_bk.size())
+	
+//	while(it!=positions.end())
+	for(int cnt=0;cnt!=positions.size()+1;cnt++)
 	{
 		begin=end+1;
-		end=(*it++);
-		string tmp=s1bk.substr(begin,end-begin);
+		//end=(*it++);
+		if(cnt!=positions.size())
+			end=positions[cnt];
+		else
+			end=info_bk.find_last_of(")");
+
+		string tmp=info_bk.substr(begin,end-begin);
 		tmp=std::regex_replace(tmp,std::regex("^\\s+"),"");
 		tmp=std::regex_replace(tmp,std::regex("\\s+$"),"");
+
+		if(!keep_braces)
+		{
+			int end;
+			end=tmp.size()-1;
+			if(tmp[0]=='{')
+				tmp=tmp.substr(1,end);
+			end=tmp.size()-1;
+			if(tmp[end]=='}')
+				tmp=tmp.substr(0,end-1);
+		}
+
 		final_vector.push_back(tmp);
 	}
-	begin=end+1;
-	end=s1bk.find_last_of(")");
-	string tmp=s1bk.substr(begin,end-begin);
-	tmp=std::regex_replace(tmp,std::regex("^\\s+"),"");
-	final_vector.push_back(tmp);
-	//std::cout<<"AFTER : "<<final_vector<<std::endl;
-	//std::cout<<"================= "<<std::endl;
-
-	//PRINTVAR(final_vector.size());
-	//PRINT_VECTOR(final_vector);
-	//std::cout<<"================= "<<std::endl;
 	
 	return final_vector;
+}
+
+
+inline bool isMatchInBrackets (std::string& exp) 
+{
+	string pStack;
+	for(int i=0;i<exp.size();i++)
+	{
+		if(
+				exp[i]=='[' ||
+				exp[i]=='{' ||
+				exp[i]=='(' 
+		  )
+			pStack.push_back(exp[i]);
+		if(
+				exp[i]==']' ||
+				exp[i]=='}' ||
+				exp[i]==')' 
+		  )
+		{
+			char c=pStack[pStack.size()-1];
+			pStack.pop_back();
+			if(c=='\a')
+				return false; // if the expression has only closing brackets
+			else if(
+					c=='['&&exp[i]==']' ||
+					c=='{'&&exp[i]=='}' ||
+					c=='('&&exp[i]==')' 
+					)
+			{
+			}
+			else 
+				return false; // if mismatch
+
+		}
+
+	}
+	if(!pStack.empty())
+		return false; // if the expression has only opening brackets
+	else
+		return true;
 }

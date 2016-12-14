@@ -24,6 +24,19 @@ std::string Gnuplot::terminal_std = "aqua";
 #endif
 
 
+//inline Gnuplot::Gnuplot() :gnucmd(NULL) ,valid(false) ,two_dim(false) ,nplots(0)
+Gnuplot::Gnuplot() :gnucmd(NULL) ,valid(false) ,two_dim(false) ,nplots(0)
+{
+    init();
+    set_style("lines");
+}
+Gnuplot::Gnuplot(std::string &style)
+			   :gnucmd(NULL) ,valid(false) ,two_dim(false) ,nplots(0)
+
+{
+    init();
+    set_style(style);
+}
 //------------------------------------------------------------------------------
 //
 // constructor: set a style during construction
@@ -178,6 +191,44 @@ Gnuplot& Gnuplot::plot_xy(const X& x, const Y& y, const std::string &title)
     return *this;
 }
 
+
+#define PRINT_DEBUG_INFO() \
+	(::std::cout<<"DEBUG: FILE="<<__FILE__<<":LINE=" <<__LINE__<<":FUNC="<<__FUNCTION__<<"() compiled in " <<__TIME__<<"-" <<__DATE__<<"" <<::std::endl)
+
+Gnuplot& Gnuplot::plot_xy(const std::vector<double>& x, const std::vector<double>& y, const std::string &title )
+{
+	if (x.size() == 0 || y.size() == 0)
+	{
+		throw GnuplotException("std::vectors too small");
+		return *this;
+	}
+
+	if (x.size() != y.size())
+	{
+		throw GnuplotException("Length of the std::vectors differs");
+		return *this;
+	}
+
+
+	std::ofstream tmp;
+	std::string name = create_tmpfile(tmp);
+	if (name == "")
+		return *this;
+
+	//
+	// write the data to file
+	//
+	for (unsigned int i = 0; i < x.size(); i++)
+		tmp << x[i] << " " << y[i] << std::endl;
+
+	tmp.flush();
+	tmp.close();
+
+
+	plotfile_xy(name, 1, 2, title);
+
+	return *this;
+}
 ///-----------------------------------------------------------------------------
 ///
 /// plot x,y pairs with dy errorbars

@@ -91,8 +91,10 @@ class GUI
 {
 	public :
 		GUI(){
-			GUI_DRAW_NPOINTS=50;
-			Gnuplot g("GUI");
+			GUI_DRAW_NPOINTS=100;
+			//Gnuplot g("GUI");
+			//string s="";
+			Gnuplot g;
 
 			g.reset_all();
 			g.reset_plot();
@@ -126,10 +128,10 @@ class GUI
 			g.plot_xy(x,y,info);
 		}
 		//void drawPoint(Point p);
-		void drawPoint(Point p)
+		void drawPoint(Point p,string mode="lines")
 		{
-			drawCircle(p.getX(),p.getY(),0.01,"lines");
-			drawCircle(p.getX(),p.getY(),p.getD(),"lines");
+			drawCircle(p.getX(),p.getY(),0.01,mode);
+			drawCircle(p.getX(),p.getY(),p.getD(),mode);
 		}
 		int GUI_DRAW_NPOINTS;
 

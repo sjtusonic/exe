@@ -1,5 +1,5 @@
 #include "include.top.h"
-//#include "gnuplot_i.h"
+#include "gnuplot_i.h"
 #include "poj1328.h"
 
 #include <math.h>
@@ -27,6 +27,40 @@ using namespace std;
 
 void poj1328 () 
 {
+#if 0
+	int GUI_DRAW_NPOINTS=50;
+	//int GUI_DRAW_NPOINTS=3;
+	std::string str="lines";
+	Gnuplot g(str);
+	//Gnuplot g;
+
+
+	g.reset_all();
+	g.reset_plot();
+	g.set_grid();
+	std::vector<double> x, y ;
+	//const double PI=3.1415926;
+	double theta=0;
+	double theta_step=2*PI/GUI_DRAW_NPOINTS;
+
+string style="lines",info="try";
+double xc,yc,r=2;
+	for (int i = 0; i < GUI_DRAW_NPOINTS; i++)  // fill double arrays x, y, z
+	{
+		x.push_back(xc+r*(double)cos(theta));             // x[i] = i
+		y.push_back(yc+r*(double)sin(theta)); // y[i] = i^2
+		theta+=theta_step;
+	}
+
+	//cout << endl << endl << "*** user-defined lists of points (x,y)" << endl;
+	//string style="points";
+	//PRINT_VECTOR(x);
+	g.set_style(style);
+	g.plot_xy(x,y,info);
+	wait_for_key();
+#endif
+
+#if 1
 	cout<<"-----------------------------------------------"<<endl;
 	cout<<"poj1328"<<endl;
 	//----------------------------------------------------------
@@ -132,6 +166,14 @@ void poj1328 ()
 	std::cout << "FINISH " << " \n";
 	cout<<"-----------------------------------------------"<<endl;
 	outfile.close();
+
+	//for(int cnt=0;cnt<=100;cnt++)
+	//{
+	//float rx=((float)(random()%100))/100;
+	//float ry=((float)(random()%100))/100;
+	//cout<<rx<<" "<<ry<<endl;
+	//}
+#endif
 }
 
 //--------------------------------------
@@ -183,7 +225,6 @@ void Case::show() {
 };
 void Case::solve() {
 
-	PRINT_DEBUG_INFO();
 	cout<<"get covers:"<<endl;
 	for(Point i:islands)
 	{
@@ -317,25 +358,25 @@ void Case::solve() {
 	}
 
 	try {
-		//GUI gui;
-		//gui.drawCircle(0,0,1,"lines");
-		//
-		//for (auto i:islands)
-		//{
-		//	i.setD(0.1);
-		//	gui.drawPoint(i);
-		//}
-		//for (auto r:radars)
-		//{
-		//	gui.drawPoint(r);
-		//}
-		//wait_for_key();
+		GUI gui;
+		
+		for (auto i:islands)
+		{
+			i.setD(0.1);
+			gui.drawPoint(i);
+		}
+		for (auto r:radars)
+		{
+			gui.drawPoint(r,"steps");
+		}
+		wait_for_key();
 
 		//Gnuplot g("GUI");
+		Gnuplot g;
 
-		//g.reset_all();
-		//g.reset_plot();
-		//g.set_grid();
+		g.reset_all();
+		g.reset_plot();
+		g.set_grid();
 
 
 	} 
@@ -366,6 +407,7 @@ bool Case::checkLegality() {
 		if(p.getY()<=0)
 		{
 			PRINT_DEBUG_INFO();
+			p.show();
 			return false;
 		}
 		if(p.getY()>maxY)
@@ -390,6 +432,7 @@ bool Case::checkLegality() {
 			Point q=*iq;
 			if(p.getX()==q.getX() && p.getY()==q.getY())
 			{
+				p.show();
 				PRINT_DEBUG_INFO();
 				return false;
 			}
