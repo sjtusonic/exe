@@ -1,5 +1,7 @@
 #include "include.top.h"
 #include "WFF.class.h"
+#include <regex>
+
 
 //static string legalChars="KANCEpqrst";
 bool WFF::isLegal()
@@ -67,7 +69,7 @@ bool WFF::isLegal(int level)
 		else if(c=='N')
 		{
 			mOp='N';
-			cout<<prefix<<"GOT Op:"<<c<<endl;
+			//cout<<prefix<<"GOT Op:"<<c<<endl;
 			WFF* n_sub=new WFF("");
 			n_sub->setMForm(mForm.substr(1,mForm.size()));
 			mUnitWFFs.push_back(n_sub);
@@ -75,7 +77,7 @@ bool WFF::isLegal(int level)
 		}
 		else  // K,A,C,E
 		{
-			cout<<prefix<<"GOT Op:"<<c<<endl;
+			//cout<<prefix<<"GOT Op:"<<c<<endl;
 			this->mOp=mForm[0];
 			for(int ind=mForm.size()-1;ind!=1;ind--)
 			{
@@ -87,10 +89,10 @@ bool WFF::isLegal(int level)
 				WFF *t=new WFF("");
 				h->setMForm(head);
 				t->setMForm(tail);
-				PRINTVAR(h->getMForm());
-				PRINTVAR(h);
-				PRINTVAR(t->getMForm());
-				PRINTVAR(t);
+				//PRINTVAR(h->getMForm());
+				//PRINTVAR(h);
+				//PRINTVAR(t->getMForm());
+				//PRINTVAR(t);
 
 				cout<<prefix;
 				PRINTVAR_hor(head);
@@ -211,11 +213,11 @@ bool WFF::calcValue(string cond)
 	if(mForm.size()==1)
 	{
 		int ind=cond.find(mForm);
-		r= cond[ind+1];
-		PRINTVAR_hor(r);
-		PRINTVAR_hor(cond);
-		PRINTVAR_hor(mForm);
-	cout<<endl;
+		r=cond[ind+1]=='1'?1:0;
+		//PRINTVAR_hor(r);
+		//PRINTVAR_hor(mForm);
+		//PRINTVAR_hor(cond);
+		//cout<<endl;
 		return r;
 	}
 	assert(legalChars.find(mOp)!=std::string::npos && isupper(mOp));
@@ -252,12 +254,69 @@ bool WFF::calcValue(string cond)
 		bool v=mUnitWFFs[1]->calcValue(cond);
 		r= u==v;
 	}
-	PRINTVAR_hor(r);
-	PRINTVAR_hor(cond);
-	PRINTVAR_hor(mForm);
-	cout<<endl;
+	//PRINTVAR_hor(r);
+	//PRINTVAR_hor(mForm);
+	//PRINTVAR_hor(cond);
+	//cout<<endl;
 	return r;
 }
+vector<string> WFF::genTestPatterns()
+{
+	vector<string> patterns;
+	string primes;
+	for(auto c:mForm)
+	{
+		if(islower(c) && primes.find(c)==std::string::npos)
+			primes.push_back(c);
+	}
+	//PRINTVAR(primes);
+	string v_pattern;
+	for(auto c:primes)
+	{
+		v_pattern+='0';
+	}
+	//PRINTVAR(v_pattern);
+	string all0=v_pattern;
+	string all1=std::regex_replace(all0,std::regex("0"),"1");
+	//PRINTVAR(all0);
+	//PRINTVAR(all1);
+	while(true)
+	{
+		// gen mix
+		string mix="";
+		for(int ind=0;ind!=primes.size();ind++)
+		{
+			mix+=primes[ind];
+			mix+=v_pattern[ind];
+		}
+		sort(primes.begin(),primes.end());
+		//PRINTVAR(mix);
+		patterns.push_back(mix);
+		//---------
+		// judge and break
+		//PRINTVAR(v_pattern);
+		if(v_pattern==all1)
+			break;
+		//-- v_pattern++
+		for(int ind=v_pattern.size()-1;ind!=-1;ind--)
+		{
+			if(v_pattern[ind]=='0')
+			{
+				v_pattern[ind]='1';
+				break;
+			}
+			else 
+			{
+				v_pattern[ind]='0';
+			}
+		}
+		//---
+	}
+	//PRINTVAR(patterns.size());
+	//PRINT_VECTOR(patterns);
+	return patterns;
+}
+ 
 
 
 vector<int> findAllMatchesInString(string str,string subStr)

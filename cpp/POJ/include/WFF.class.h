@@ -16,12 +16,12 @@ class WFF
 			WFF("");
 		};
 		WFF(string s) {
-			cout<<"Construct:"<<s<<"@"<<this<<endl;
+			//cout<<"Construct:"<<s<<"@"<<this<<endl;
 			mForm=s ;
 			mOp=' ';
 		};
 		~WFF() {
-			cout<<"Deconstruct:"<<mForm<<"@"<<this<<endl;
+			//cout<<"Deconstruct:"<<mForm<<"@"<<this<<endl;
 			for (WFF* p:mUnitWFFs)
 			{
 				delete p;
@@ -35,6 +35,7 @@ class WFF
 		void showMUnitWFFs(int indent=0);
 		//void breakIntoUnitWFFs();
 		bool calcValue(string cond)  ;
+		vector<string> genTestPatterns();
 	private:
 		string mForm;
 		char mOp;

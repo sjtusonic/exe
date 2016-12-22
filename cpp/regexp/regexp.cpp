@@ -124,7 +124,7 @@ int main ()
 	PRINT_VECTOR(r);
 	
 
-	string ttt="01234567";
+	string ttt="01234567\nabcde\n//comments\nline4";
 	int end=ttt.size()-1;
 	PRINTVAR(ttt.size());
 	PRINTVAR(ttt.substr(0,3));
@@ -133,6 +133,14 @@ int main ()
 	PRINTVAR(ttt.substr(0,end-0));
 	PRINTVAR(ttt.substr(1,end-1));
 	PRINTVAR(ttt.substr(2,end-2));
+	//PRINTVAR(std::regex_replace(ttt,regex("^"),"\n//"));
+	//PRINTVAR(std::regex_replace(ttt,regex("\n|^"),"\n//"));
+	
+	std::cout<<"================= "<<std::endl;
+	PRINTVAR(ttt);
+	std::cout<<"================= "<<std::endl;
+	PRINTVAR(std::regex_replace(ttt,regex("(\n|^)([^/])"),"$1// $2"));
+	std::cout<<"================= "<<std::endl;
 }
 
 vector<string> ParseFuncInfo(string info,bool keep_braces)  // info = "func_name({arg1},{arg2},{arg3},...)";  in {...} there can be any characters like [",(){}<>]

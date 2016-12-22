@@ -2,7 +2,6 @@
 #include "gnuplot_i.h"
 #include "poj3295.h"
 #include "WFF.class.h"
-
 #include <math.h>
 #include <iomanip>
 #include <map>
@@ -44,7 +43,6 @@ void poj3295 ()
 		}
 		else
 		{
-
 			PRINTVAR(line);
 			WFF w(line);
 			w.show();
@@ -55,7 +53,31 @@ void poj3295 ()
 			cout<<"w_showMUnitWFFs---------------------------"<<endl;
 			//PRINT_DEBUG_INFO();
 			w.showMUnitWFFs();
-			w.calcValue("p1q1r1s1t1");
+			auto patterns=w.genTestPatterns();
+			vector<bool> values;
+			cout<<"----------------"<<endl;
+			cout<<"TRUTH TABLE:"<<endl;
+			for(auto p:patterns)
+			{
+				bool v=w.calcValue(p);
+				cout<<v<<":\t"<<p<<endl;;
+				values.push_back(v);
+			}
+			cout<<"----------------"<<endl;
+			bool flag_all1=true,flag_all0=true;
+			for(auto v:values)
+			{
+				if(v==true)
+					flag_all0=false;
+				if(v==false)
+					flag_all1=false;
+			}
+			if(flag_all1)
+				cout<<"Tautology:\t"<<w.getMForm()<<endl;
+			else if(flag_all0)
+				cout<<"Inv-Tautology:\t"<<w.getMForm()<<endl;
+			else
+				cout<<"Non-Tautology:\t"<<w.getMForm()<<endl;
 		}
 	}
 
