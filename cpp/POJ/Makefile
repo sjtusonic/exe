@@ -13,7 +13,7 @@ BIN_TARGET = ${DIR_BIN}/${TARGET}
 CC = g++ 
 #CC = g++ -E
 #CC = clang
-CFLAGS = -v -g -Wall -I${DIR_INC}
+CFLAGS = -std=c++11 -v -g -Wall -I${DIR_INC}
 #CFLAGS = -v -g -I${DIR_INC}
 
 ${BIN_TARGET}:${OBJ}

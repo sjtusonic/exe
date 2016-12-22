@@ -1,8 +1,8 @@
 #ifndef POJ1328_H
 #define POJ1328_H
 #include "include.top.h"
-//#include "gnuplot_i.h"
-#include "gnuplot_i.new.hpp"
+#include "gnuplot_i.h"
+//#include "gnuplot_i.new.hpp"
 
 
 class Point
