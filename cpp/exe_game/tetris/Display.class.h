@@ -12,6 +12,8 @@
 #include <algorithm> 
 #include <assert.h>   
 
+#include "Matrix.class.h"
+
 using namespace std;
 class Display {
 	public:
@@ -32,7 +34,8 @@ class Display {
 			cout<<""<<""<<endl;
 			cout<<""<<""<<endl;
 		};
-		void showBoard(){
+		void showBoard(Matrix* m){
+			m->show(1);
 		};
 	private:
 };

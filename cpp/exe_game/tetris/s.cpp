@@ -1,18 +1,9 @@
 //--------------------------------------
 // include lib files
 //--------------------------------------
-#include <math.h>
-#include <stdio.h>
-#include <iostream>
-#include <cstdlib>
-#include <fstream> 
-#include <sstream> 
-#include <string> 
-#include <vector> 
-#include <algorithm> 
-#include <assert.h>   
+//#include <curses.h>
 
-
+#include "global.h"
 #include "Display.class.h"
 #include "Control.class.h"
 #include "TetrisCalc.class.h"
@@ -37,10 +28,33 @@ using namespace std;
 	(::std::cout<<"DEBUG: FILE="<<__FILE__<<":LINE=" <<__LINE__<<":FUNC="<<__FUNCTION__<<"() compiled in " <<__TIME__<<"-" <<__DATE__<<"" <<::std::endl)
 //--------------------------------------
 
+#ifdef UNIT_TEST
 int main()
 {
-	PRINT_DEBUG_INFO();
-	Display* d=new Display();
-	d->showTitle();
+	cout<<"UNIT_TEST MODE"<<""<<endl;
+	// test control
+	cout<<"==================="<<""<<endl;
+	cout<<"TEST CLASS: Constrol"<<""<<endl;
+	cout<<"==================="<<""<<endl;
+	Control c; c.run();
+	cout<<"==================="<<""<<endl;
+
 	return 0;
 }
+#else
+int main()
+{
+	int WIDTH=20;
+	int HEIGHT=30;
+	PRINT_DEBUG_INFO();
+	//
+	Display* d=new Display();
+	d->showTitle();
+	//
+	Matrix* m=new Matrix(HEIGHT,WIDTH,"X");
+	d->showBoard(m);
+	//
+
+	return 0;
+}
+#endif
