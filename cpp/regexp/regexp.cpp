@@ -116,7 +116,8 @@ int main ()
 
 	std::cout<<"================= "<<std::endl;
 	//s1="method (out brace{br1{br2}} ,br0 {br11{br22}br11} br00, {c},   {d e}    ,  {f})a\n";
-	s1="method(out brace{br1{br2}} )";
+	s1="method({br1,{ab,{u}c}}, {br2})";
+	s1="SchedRegionManager::createLatencyRegion({Node 2 'call void (...)* @_ssdm_op_SpecLatency(i32 0, i32 0, [1 x i8]* @p_str) nounwind'})";
 	//s1="method (out brace{br1{br2}} ,\nbr0 {br11{br22}br11} br00, {c},   {d e}    ,  {f})";
 	//s1="abcde";
 	PRINTVAR(s1);
@@ -125,24 +126,26 @@ int main ()
 	
 
 	string ttt="01234567\nabcde\n//comments\nline4";
-	int end=ttt.size()-1;
-	PRINTVAR(ttt.size());
-	PRINTVAR(ttt.substr(0,3));
-	PRINTVAR(ttt.substr(1,3));
-	PRINTVAR(ttt.substr(2,3));
-	PRINTVAR(ttt.substr(0,end-0));
-	PRINTVAR(ttt.substr(1,end-1));
-	PRINTVAR(ttt.substr(2,end-2));
-	//PRINTVAR(std::regex_replace(ttt,regex("^"),"\n//"));
-	//PRINTVAR(std::regex_replace(ttt,regex("\n|^"),"\n//"));
-	
-	std::cout<<"================= "<<std::endl;
+	//int end=ttt.size()-1;
+	//PRINTVAR(ttt.size());
+	//PRINTVAR(ttt.substr(0,3));
+	//PRINTVAR(ttt.substr(1,3));
+	//PRINTVAR(ttt.substr(2,3));
+	//PRINTVAR(ttt.substr(0,end-0));
+	//PRINTVAR(ttt.substr(1,end-1));
+	//PRINTVAR(ttt.substr(2,end-2));
+	////PRINTVAR(std::regex_replace(ttt,regex("^"),"\n//"));
 	PRINTVAR(ttt);
-	std::cout<<"================= "<<std::endl;
-	PRINTVAR(std::regex_replace(ttt,regex("(\n|^)([^/])"),"$1// $2"));
-	std::cout<<"================= "<<std::endl;
+	PRINTVAR(std::regex_replace(ttt,regex("\n"),"\t"));
+	//
+	//std::cout<<"================= "<<std::endl;
+	//PRINTVAR(ttt);
+	//std::cout<<"================= "<<std::endl;
+	//PRINTVAR(std::regex_replace(ttt,regex("(\n|^)([^/])"),"$1// $2"));
+	//std::cout<<"================= "<<std::endl;
 }
 
+#if 0
 vector<string> ParseFuncInfo(string info,bool keep_braces)  // info = "func_name({arg1},{arg2},{arg3},...)";  in {...} there can be any characters like [",(){}<>]
 {
 	string info_bk=info;
@@ -169,7 +172,7 @@ vector<string> ParseFuncInfo(string info,bool keep_braces)  // info = "func_name
 		info=m.suffix().str();
 	}
 	s2+=info;
-	//std::cout<<"AFTER : "<<s2<<std::endl;
+	std::cout<<"AFTER : "<<s2<<std::endl;
 
 
 	int pos=s2.find(",");
@@ -222,7 +225,122 @@ vector<string> ParseFuncInfo(string info,bool keep_braces)  // info = "func_name
 	
 	return final_vector;
 }
+#endif
 
+
+#define PRINTVAR(a) std::cout<<#a<<"\t=\t"<<a<<"\t@"<<__FILE__<<":"<<__LINE__<<":"<<__FUNCTION__<<"()"<<std::endl;
+#define PRINTVAR_hor(a) std::cout<<#a<<"("<<a<<")\t";
+#define PRINT_ARRAY(a,len)  for(int u=0;u<len;u++) {std::cout<<u<<":\t"<<*a+u<<std::endl;}
+#define PRINT_VECTOR(a)  for(auto u=a.begin();u!=a.end();u++) {std::cout<<*u<<std::endl;}
+#define PRINT_VECTOR_hor(a)  for(auto u=a.begin();u!=a.end();u++) {std::cout<<*u<<"\t";};std::cout<<""<<std::endl;
+
+ #define PRINT_DEBUG_INFO() \
+   (::std::cout<<"DEBUG: FILE="<<__FILE__<<":LINE=" <<__LINE__<<":FUNC="<<__FUNCTION__<<"() compiled in " <<__TIME__<<"-" <<__DATE__<<"" <<::std::endl)
+#define PRINT_DEBUG_INFO_PREFIX(p) \
+	  (::std::cout<<p<<"zjc debug: FILE=" <<__FILE__<<":\tLINE=" <<__LINE__<<":\tFUNC="<<__FUNCTION__<<" \tcompiled in " <<__TIME__<<"-" <<__DATE__<<"" <<::std::endl    )
+
+#if 1
+vector<string> ParseFuncInfo(string info, bool keep_braces)  
+{
+	// info = "func_name({arg1},{arg2},{arg3},...)";  in {...} there can be any characters like [",(){}<>]
+	string info_bk=info;
+
+	int found = info.find('\n');
+	bool tmp = ((found == std::string::npos) || (found == info.size() - 1));
+
+	assert(tmp);
+	//DEBUG_ASSERT(tmp);
+
+	tmp = isMatchInBrackets(info);
+	assert(tmp);
+	//DEBUG_ASSERT(tmp);
+
+	std::smatch m;
+	string s2;
+	string argument_holder;
+
+	int cnt_open=0;
+	for(auto c:info_bk)
+	{
+		if(c=='{' )
+		{
+			if(cnt_open==0)s2+=c;
+			else s2+='.';
+			cnt_open++;
+			continue;
+		}
+		if(c=='}' )
+		{
+			cnt_open--;
+			if(cnt_open==0)s2+=c;
+			else s2+='.';
+			continue;
+		}
+
+		if(cnt_open>0)
+			s2+=".";
+		else 
+			s2+=c;
+	}
+
+	int pos=s2.find(",");
+	vector<int> positions;
+
+	while(pos != string::npos)
+	{
+		positions.push_back(pos);
+		pos=s2.find(",", pos+1);
+	}
+	//--------------------------------
+	vector<string> final_vector;
+
+	int begin = 0;
+	int end = info_bk.find("(");
+	final_vector.push_back(info_bk.substr(begin, end - begin));
+
+	for (int cnt = 0; cnt != positions.size() + 1; cnt++)
+	{
+		begin = end + 1;
+		if (cnt != positions.size())
+			end = positions[cnt];
+		else
+			end = info_bk.find_last_of(")");
+
+		string tmp = info_bk.substr(begin, end - begin);
+
+		// delete blanks in both sides:
+		tmp = std::regex_replace(tmp, std::regex("^\\s+"), "");
+		tmp = std::regex_replace(tmp, std::regex("\\s+$"), "");
+
+		tmp = std::regex_replace(tmp, std::regex("[)]$"),""); // remove ending )
+
+		// delete braces in both sides:
+		if(!keep_braces)
+		{
+			int end1 = tmp.size() - 1;
+
+			if (tmp[0] == '{' && tmp[end1] != '}' ||
+					tmp[0] != '{' && tmp[end1] == '}')
+			{
+				std::cout<<"Warning: one of {} is not at side:"<<tmp<<std::endl;
+				std::cout<<"Warning: full string             :"<<info_bk<<std::endl;
+				assert(0);
+				//DEBUG_ASSERT(0);
+			}
+
+			if (tmp[0] == '{')
+				tmp[0] = '"';
+
+			if (tmp[end1] == '}')
+				tmp[end1] = '"';
+		}
+
+		final_vector.push_back(tmp);
+	}
+
+	return final_vector;
+}
+#endif
 
 inline bool isMatchInBrackets (std::string& exp) 
 {
