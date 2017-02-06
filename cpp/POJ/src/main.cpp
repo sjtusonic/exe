@@ -10,6 +10,8 @@
 #include "poj1328.h"
 #include "poj2109.h"
 #include "poj3295.h"
+#include "poj2632.h"
+#include "poj1860.h"
 //using namespace std;
 
 
@@ -29,6 +31,8 @@ int main() {
 	//poj2965();
 	//poj1328(); // use gnuplot
 	//poj2109(); // use bitInt library to calc 22-bit int
-	poj3295(); 
+	//poj3295(); 
+	//poj2632();// board and robots 
+	poj1860(); // graph
 	return 0; 
 }

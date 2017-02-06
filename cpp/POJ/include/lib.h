@@ -2,6 +2,9 @@
 #include <stdio.h>
 #include "include.top.h"
 
+#ifndef LIB_H
+#define LIB_H
+
 double myfac (int n) ;
 double calc_sum_of_power (int n,int power=3) ;
 bool is_tulip (int n, int power=3) ;
@@ -17,3 +20,10 @@ void show_array(bool   a[],int size,bool in_a_line=true,int num_of_marker=0, int
 void sort_bubble(double a [],int size,int return_list[]) ;
 void sort_bubble(double a [],int size,int return_list[]) ;
 string dec2bin(int n);
+std::vector<std::string> split(std::string str,std::string pattern) ;
+std::string join(std::vector<std::string> v,string spliter=" ");
+
+string itos(int a) ;
+vector<string> itos(vector<int> a) ;
+vector<int> stoi(vector<string> sv) ;
+#endif

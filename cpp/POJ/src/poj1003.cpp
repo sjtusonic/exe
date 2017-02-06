@@ -30,7 +30,7 @@ void poj1003 ()
 	//----------------------------------------------------------
 	// GET UPBOUND FOR GENERATING map_card2length
 	float upbound=-1;
-	
+
 	string line;
 	while (infile >> line)
 	{
@@ -42,7 +42,7 @@ void poj1003 ()
 	cout<<"generating map_card2length ..."<<endl;
 	//----------------------------------------------------------
 	// gen map_card2length and map_length2card
-	
+
 	map<int,float> map_card2length;
 	gen_map_card2length(map_card2length,upbound);
 
@@ -62,7 +62,7 @@ void poj1003 ()
 
 	// read filename for the second time, a new file_handle infile1 is needed,
 	//std::ifstream infile1(filename); 
-	
+
 	// or use clear() and seekg(0) to init the file_handle again
 	infile.clear(); 
 	infile.seekg(0);

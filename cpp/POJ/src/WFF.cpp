@@ -3,6 +3,7 @@
 #include <regex>
 
 
+// WFF=Well-Formed Formula 
 //static string legalChars="KANCEpqrst";
 bool WFF::isLegal()
 {

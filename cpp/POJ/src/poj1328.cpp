@@ -178,36 +178,6 @@ double xc,yc,r=2;
 
 //--------------------------------------
 // DEF
-std::vector<std::string> split(std::string str,std::string pattern)
-{
-	std::string::size_type pos;
-	std::vector<std::string> result;
-	string str_bk=str,str_no_repeat_blank;
-	//PRINTVAR(str);
-	for (auto it=str.begin();it!=str.end();it++)
-	{
-		if(it!=str.begin() && *it==' ' && *(it-1)==' ')
-			;
-		else
-			str_no_repeat_blank+=*it;
-	}
-	//PRINTVAR(str_no_repeat_blank);
-	str=str_no_repeat_blank;
-	str+=pattern;
-	int size=str.size();
-
-	for(int i=0; i<size; i++)
-	{
-		pos=str.find(pattern,i);
-		if(pos<size)
-		{
-			std::string s=str.substr(i,pos-i);
-			result.push_back(s);
-			i=pos+pattern.size()-1;
-		}
-	}
-	return result;
-}
 void Case::show() {
 	cout<<"case.show()"<<endl;
 	cout<<"-----------------------------------------------"<<endl;

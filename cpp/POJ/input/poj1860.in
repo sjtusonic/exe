@@ -1,0 +1,20 @@
+// N M S V
+// N - the number of currencies,
+// M - the number of exchange points, 
+// S - the number of currency Nick has 
+// V - the quantity of currency units he has. 
+// The following M lines contain 6 numbers each
+// 6 numbers: 
+// integer A and B - numbers of currencies it exchanges,// real RAB, CAB, RBA and CBA - exchange rates and commissions when exchanging A to B and B to A respectively
+// CAB is commissions/perService
+// RAB is getB/per1A
+// for 100A , you can get B=(100-CAB)*RAB
+// for 1  A , you can get B=(1  -CAB)*RAB
+
+//3 2 1 20.0
+6 5 1 20.0
+A B 5.00 1.00 0.20 1.00
+B C 2.00 1.00 0.50 1.00
+C D 2.00 1.00 0.50 1.00
+B E 2.00 1.00 0.50 1.00
+C F 2.00 1.00 0.50 1.00

@@ -47,5 +47,5 @@ int main() {
 	//stable_sort();
 	exe_operator();
 
-   return 0; 
+	return 0; 
 }

@@ -9,6 +9,7 @@
 using namespace std;
 static string legalChars="KANCEpqrst";
 
+// WFF=Well-Formed Formula 
 class WFF 
 {
 	public:
