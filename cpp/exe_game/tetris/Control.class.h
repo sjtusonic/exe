@@ -32,5 +32,6 @@ class Control
 				return -1;  
 			return c;  
 		}  
+		private:
+		int T; // ms
 };
-

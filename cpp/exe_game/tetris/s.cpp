@@ -29,9 +29,7 @@ using namespace std;
 //--------------------------------------
 
 #ifdef UNIT_TEST
-int main()
-{
-	cout<<"UNIT_TEST MODE"<<""<<endl;
+void test_Control() {
 	// test control
 	cout<<"==================="<<""<<endl;
 	cout<<"TEST CLASS: Constrol"<<""<<endl;
@@ -39,6 +37,30 @@ int main()
 	Control c; c.run();
 	cout<<"==================="<<""<<endl;
 
+}
+void test_Matrix()
+{
+	cout<<"==================="<<""<<endl;
+	cout<<"TEST CLASS: Matrix"<<""<<endl;
+	cout<<"==================="<<""<<endl;
+	int WIDTH=10;
+	int HEIGHT=5;
+	//
+	Display* d=new Display();
+	d->showTitle();
+	//
+	Matrix* m=new Matrix(HEIGHT,WIDTH,"X");
+	d->showBoard(m);
+	//
+	cout<<"==================="<<""<<endl;
+}
+
+int main()
+{
+	cout<<"UNIT_TEST MODE"<<""<<endl;
+	//test_Control();
+
+test_Matrix();
 	return 0;
 }
 #else

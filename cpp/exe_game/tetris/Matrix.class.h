@@ -99,9 +99,9 @@ class Matrix
 		{
 			return isOnEdge(row,col);
 		}
-		void addShape(Shape* shape,int loc_row=0, int loc_col=0,string anchor="up"){
-			shape->loc_row=loc_row;
-			shape->loc_col=loc_col;
+		void addShape(Shape* shape,int ul_row=0, int ul_col=0,string anchor="up"){
+			shape->ul_row=ul_row;
+			shape->ul_col=ul_col;
 			shapeList.push_back(shape);
 		};
 		void applyShape(Shape* shape){// mark shape into board
