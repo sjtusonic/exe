@@ -16,26 +16,28 @@ class Point
 	 *    x
 	 *
 	 */
-	Point(int u,int v){
-		x=u; y=v;
-	}
-	Point shift(Point vector) {
-		Point p2(x+vector.x,y+vector.y);
-		return p2;
-	}
-	void setLoc(int u, int v) { x=u; y=v; }
-	void setLoc(Point p) { x=p.x; y=p.y; }
 	public:
-	int x;
-	int y;
+		Point(int u,int v){
+			x=u; y=v;
+		}
+		Point shift(Point vector) {
+			Point p2(x+vector.x,y+vector.y);
+			return p2;
+		}
+		void setLoc(int u, int v) { x=u; y=v; }
+		void setLoc(Point p) { x=p.x; y=p.y; }
+	public:
+		int x;
+		int y;
 };
 
 class Shape 
 {
 	public:
 		//Shape(unsigned height,unsigned width,string v="0"){};
-		Shape(unsigned height=4,unsigned width=4,string v="#");
+		//Shape(unsigned height=4,unsigned width=4,string v="#");
 		Shape(vector<vector<string> > m);
+		Shape(int type=0,string ori="N");
 		bool touchToShape(Shape* another);
 
 		int getWidthN() ;

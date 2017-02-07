@@ -23,7 +23,7 @@ class Display {
 		};
 		void clear() {system("clear");};
 		void showTitle(){
-			clear();
+			//clear();
 			cout<<""<<""<<endl;
 			cout<<""<<""<<endl;
 			cout<<""<<""<<endl;
@@ -33,9 +33,13 @@ class Display {
 			cout<<""<<""<<endl;
 			cout<<""<<""<<endl;
 			cout<<""<<""<<endl;
+			PRINT_DEBUG_INFO();
 		};
-		void showBoard(Matrix* m){
-			m->show(1);
-		};
+		//void showBoard(Matrix* m){
+		//m->show(1);
+		//};
+		void show(bool compacted=1);
+		void show(int markRow,int markCol, string marker="X");
+		Matrix* m;
 	private:
 };

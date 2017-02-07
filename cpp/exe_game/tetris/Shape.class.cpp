@@ -1,10 +1,23 @@
+#include "global.h"
 #include "Shape.class.h"
 using namespace std;
 
-Shape::Shape(unsigned height=4,unsigned width=4,string v="#"){}
+//Shape::Shape(unsigned height,unsigned width,string v){}
+
 Shape::Shape(vector<vector<string> > m){
 }
-bool Shape::touchToShape(Shape* another){}
+Shape::Shape(int t,string ori)
+{
+	ul_row=0;
+	ul_col=0;
+	type=t;
+	orientation=ori;
+}
+
+bool Shape::touchToShape(Shape* another)
+{
+	return false;
+}
 int Shape::getWidthN() {
 	if(!legalType())
 		return 0;
@@ -62,7 +75,7 @@ bool Shape::legalType()
 		return false;
 	return true;
 };
-void setDots()
+void Shape::setDots()
 {
 	switch(type)
 	{
@@ -81,7 +94,8 @@ void setDots()
 		case 6:
 			break;
 		default:
-			return 0;
+			;
+			//return 0;
 	}
 }
 vector<Point> Shape::getDots()    // return {P1,P2,...Pn}

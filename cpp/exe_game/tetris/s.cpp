@@ -50,9 +50,55 @@ void test_Matrix()
 	d->showTitle();
 	//
 	Matrix* m=new Matrix(HEIGHT,WIDTH,"X");
-	d->showBoard(m);
+	d->show();
 	//
 	cout<<"==================="<<""<<endl;
+}
+void test_flow()
+{
+	// INIT:
+	int WIDTH=10;
+	int HEIGHT=5;
+	//
+	Display* d=new Display();
+	d->showTitle();
+	//
+	Matrix* m=new Matrix(HEIGHT,WIDTH,"X");
+	PRINTVAR(d);
+	d->m=m;
+	d->show();
+
+	Control c; 
+	//c.mat=m;
+	//c.display=d;
+	//c.run();
+
+	// LOOP:
+	while(true)
+	{
+		char ch;
+		cout<<"ch (q to break)=";
+		ch=c.getch();
+		cout<<ch<<""<<endl;
+		if(ch=='q')
+			break;
+		if(ch=='o')// add new shape
+		{
+			cout<<"ADD NEW SHAPE!"<<""<<endl;
+			Shape* s=new Shape();
+			m->addShape(s);
+
+		}
+		if(ch=='r') // will instead by timing-triggered
+		{
+			cout<<"REFRESH!"<<""<<endl;
+			// REFRESH Matrix
+			m->update();
+			// Display
+			d->show();
+			// call
+		}
+	}
 }
 
 int main()
@@ -60,7 +106,9 @@ int main()
 	cout<<"UNIT_TEST MODE"<<""<<endl;
 	//test_Control();
 
-test_Matrix();
+
+	//test_Matrix();
+	test_flow();
 	return 0;
 }
 #else
@@ -68,13 +116,12 @@ int main()
 {
 	int WIDTH=20;
 	int HEIGHT=30;
-	PRINT_DEBUG_INFO();
 	//
 	Display* d=new Display();
 	d->showTitle();
 	//
 	Matrix* m=new Matrix(HEIGHT,WIDTH,"X");
-	d->showBoard(m);
+	d->show();
 	//
 
 	return 0;
