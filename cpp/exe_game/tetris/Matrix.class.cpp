@@ -68,9 +68,53 @@ bool Matrix::isOnEdge(int row,int col)
 void Matrix::addShape(Shape* shape)
 {
 	shapeList.push_back(shape);
+	// zjc TODO
 };
 void Matrix::applyShape(Shape* shape){// mark shape into board
 };
+void Matrix::tick()
+{
+	for (auto shapePtr:shapeList)
+	{
+		// if not hit bottom or other shapes
+		shapePtr->drop();
+		shapePtr->update();
+	}
+}
+
+void Matrix::clear()
+{
+	int width=mWidth;
+	int height=mHeight;
+	for(unsigned row=0;row<height;row++)
+	{
+		for(unsigned col=0;col<width;col++)
+		{
+			board[row][col]="X";
+		}
+	}
+};
+
+
 void Matrix::update()
 {
-}
+	clear();
+	PRINTVAR(shapeList.size());
+	for (auto shapePtr:shapeList)
+	{
+		vector<Point*> vector_dots_in_shape=shapePtr->getDots();
+		PRINTVAR(vector_dots_in_shape.size());
+		PRINT_DEBUG_INFO_PREFIX("core dump");
+		for(Point* dot:vector_dots_in_shape)
+		{
+		PRINT_DEBUG_INFO_PREFIX("core dump");
+		PRINTVAR(dot->x);
+		PRINTVAR(dot->y);
+			board[dot->x][dot->y]="0";
+		}
+		PRINT_DEBUG_INFO_PREFIX("core dump");
+	}
+		PRINT_DEBUG_INFO_PREFIX("core dump");
+};
+
+

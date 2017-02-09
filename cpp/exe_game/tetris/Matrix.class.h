@@ -22,7 +22,9 @@ class Matrix
 		//void addShape(Shape* shape,int ul_row=0, int ul_col=0,string anchor="up");
 		void addShape(Shape* shape);
 		void applyShape(Shape* shape);
-		void update();
+		void tick(); // time++
+		void clear(); // apply all blank to board
+		void update(); // apply data to board
 		vector<vector<string> > getBoard() {return board;};
 	private:
 		int mWidth;
