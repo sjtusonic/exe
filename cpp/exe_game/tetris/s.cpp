@@ -109,8 +109,8 @@ void test_flow()
 		if(ch=='o')// add new shape
 		{
 			cout<<"ADD NEW SHAPE!"<<""<<endl;
-			Shape* s=new Shape(WIDTH,HEIGHT);
-			//Shape* s=new Shape(1);
+			//Shape* s=new Shape(WIDTH,HEIGHT);
+			Shape* s=new Shape(WIDTH,HEIGHT,5);
 			s->init();
 			s->update();
 			m->addShape(s);
@@ -130,6 +130,17 @@ void test_flow()
 			d->show();
 			// call
 		}
+		Shape* s=m->getShape();
+		if(	ch=='s')
+			s->move("S");
+		if(	ch=='a')
+			s->move("W");
+		if(	ch=='d')
+			s->move("E");
+		if(	ch=='w')
+			s->turn("left");
+		if(	ch=='e')
+			s->turn("right");
 	}
 }
 void test_Point()

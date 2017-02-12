@@ -21,6 +21,7 @@ class Matrix
 		bool isOnEdge(int row,int col);
 		//void addShape(Shape* shape,int ul_row=0, int ul_col=0,string anchor="up");
 		void addShape(Shape* shape);
+		Shape* getShape();
 		void applyShape(Shape* shape);
 		void tick(); // time++
 		void clear(); // apply all blank to board

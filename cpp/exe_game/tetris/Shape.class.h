@@ -66,11 +66,14 @@ class Shape
 		int ul_col;
 		void init(); // apply type
 		void update(); // apply orientation,ul_row,ul_col to dots
+		void move(string orientation);
 		void drop();
+		void turn(string left_or_right);
 	private:
 		vector<Point*>  findTheMost(string orientation) ; // orientation={N,E,W,S};
 		void showVector(vector<Point*>* vecPtr);
 		void deleteFromVector(vector<Point*>* vecPtr, Point* item);
+		void initShapeFaceToN(int type);
 	public:
 		bool hit(string orientation);
 		bool hit_bottom();

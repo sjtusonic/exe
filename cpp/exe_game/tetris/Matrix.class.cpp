@@ -70,6 +70,10 @@ void Matrix::addShape(Shape* shape)
 	shapeList.push_back(shape);
 	// zjc TODO
 };
+Shape* Matrix::getShape()
+{
+	return shapeList.back();
+}
 void Matrix::applyShape(Shape* shape){// mark shape into board
 };
 void Matrix::tick()
@@ -107,14 +111,14 @@ void Matrix::update()
 		PRINT_DEBUG_INFO_PREFIX("core dump");
 		for(Point* dot:vector_dots_in_shape)
 		{
-		PRINT_DEBUG_INFO_PREFIX("core dump");
-		PRINTVAR(dot->x);
-		PRINTVAR(dot->y);
+			PRINT_DEBUG_INFO_PREFIX("core dump");
+			PRINTVAR(dot->x);
+			PRINTVAR(dot->y);
 			board[dot->x][dot->y]="0";
 		}
 		PRINT_DEBUG_INFO_PREFIX("core dump");
 	}
-		PRINT_DEBUG_INFO_PREFIX("core dump");
+	PRINT_DEBUG_INFO_PREFIX("core dump");
 };
 
 

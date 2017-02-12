@@ -113,27 +113,15 @@ vector<Point> Shape::getBorder() // return {{ul_row,ul_col},  {drx,dry}}
 	r.push_back(P_dr);
 	return r;
 }
-void Shape::init()
+void Shape::initShapeFaceToN(int type)
 {
-	// apply type
-	//dots.clear();
 	switch(type)
 	{
 		case 0:
-			if(orientation=="N" || orientation=="S")
-			{
-				dots.push_back(new Point(0,0));
-				dots.push_back(new Point(0,1));
-				dots.push_back(new Point(0,2));
-				dots.push_back(new Point(0,3));
-			}
-			else
-			{
-				dots.push_back(new Point(0,0));
-				dots.push_back(new Point(1,0));
-				dots.push_back(new Point(2,0));
-				dots.push_back(new Point(3,0));
-			}
+			dots.push_back(new Point(0,0));
+			dots.push_back(new Point(0,1));
+			dots.push_back(new Point(0,2));
+			dots.push_back(new Point(0,3));
 			break;
 		case 1:
 			dots.push_back(new Point(0,0));
@@ -142,17 +130,45 @@ void Shape::init()
 			dots.push_back(new Point(1,0));
 			break;
 		case 2:
-			// zjc TODO
+			dots.push_back(new Point(0,0));
+			dots.push_back(new Point(0,1));
+			dots.push_back(new Point(1,1));
+			dots.push_back(new Point(1,2));
 			break;
 		case 3:
+			dots.push_back(new Point(0,1));
+			dots.push_back(new Point(0,2));
+			dots.push_back(new Point(1,0));
+			dots.push_back(new Point(1,1));
 			break;
 		case 4:
+			dots.push_back(new Point(0,1));
+			dots.push_back(new Point(1,0));
+			dots.push_back(new Point(1,1));
+			dots.push_back(new Point(1,2));
 			break;
 		case 5:
+			dots.push_back(new Point(0,0));
+			dots.push_back(new Point(1,0));
+			dots.push_back(new Point(1,1));
+			dots.push_back(new Point(1,2));
 			break;
 		case 6:
+			dots.push_back(new Point(0,2));
+			dots.push_back(new Point(1,0));
+			dots.push_back(new Point(1,1));
+			dots.push_back(new Point(1,2));
 			break;
 	}
+}
+void Shape::init()
+{
+	// apply type
+	//dots.clear();
+	initShapeFaceToN(type);
+	//if(orientation=="E")
+	//if(orientation=="W")
+	//if(orientation=="S")
 }
 void Shape::update()
 {
@@ -164,6 +180,33 @@ void Shape::update()
 	findTheMost("W");
 	findTheMost("S");
 }
+void Shape::move(string orientation)
+{
+	PRINT_DEBUG_INFO();
+	if(orientation=="S")
+	{
+		drop();
+		drop();
+	}
+	else if(orientation=="E")
+	{
+		if(hit("E"))
+			return;
+		for(Point* d:dots)
+		{
+			d->y++;
+		}
+	}
+	else if(orientation=="W")
+	{
+		if(hit("W"))
+			return;
+		for(Point* d:dots)
+		{
+			d->y--;
+		}
+	}
+}
 void Shape::drop()
 {
 	PRINT_DEBUG_INFO_PREFIX("DROP");
@@ -173,6 +216,94 @@ void Shape::drop()
 	for(Point* d:dots)
 	{
 		d->x++;
+	}
+}
+void Shape::turn(string left_or_right)// zjc need UNIT_TEST
+{
+	vector<Point*> new_dots;  
+	string flag_out_of_border="";
+	if(left_or_right=="left")
+	{
+		for(Point* p:dots)
+		{
+			int newx=4-p->y;
+			int newy=p->x;
+			PRINTVAR_hor(newx);
+			PRINTVAR_hor(newy);
+			cout<<""<<""<<endl;
+			if(newx<0)
+				flag_out_of_border="N";;
+			if( newy<0)
+				flag_out_of_border="W";;
+			if(newx>height_board)
+				flag_out_of_border="S";;
+			if(newy>width_board)
+				flag_out_of_border="E";;
+			//assert(newx>=0);
+			//assert(newy>=0);
+			new_dots.push_back(new Point(newx,newy));
+		}
+	}
+	if(left_or_right=="right")
+	{
+		for(Point* p:dots)
+		{
+			int newx=p->y;
+			int newy=4-p->x;
+			PRINTVAR_hor(newx);
+			PRINTVAR_hor(newy);
+			cout<<""<<""<<endl;
+			//assert(newx>=0);
+			//assert(newy>=0);
+			if(newx<0)
+				flag_out_of_border="N";;
+			if( newy<0)
+				flag_out_of_border="W";;
+			if(newx>height_board)
+				flag_out_of_border="S";;
+			if(newy>width_board)
+				flag_out_of_border="E";;
+			new_dots.push_back(new Point(newx,newy));
+		}
+	}
+	//dots.clear();
+	if(flag_out_of_border=="") // succeed
+	{
+		dots=new_dots;
+		if(left_or_right=="left")
+		{
+			if(orientation=="N")
+				orientation="E";
+			if(orientation=="E")
+				orientation="S";
+			if(orientation=="W")
+				orientation="N";
+			if(orientation=="S")
+				orientation="W";
+		}
+		if(left_or_right=="right")
+		{
+			if(orientation=="N")
+				orientation="E";
+			if(orientation=="E")
+				orientation="S";
+			if(orientation=="W")
+				orientation="N";
+			if(orientation=="S")
+				orientation="W";
+		}
+	}
+	else
+	{
+		if(flag_out_of_border=="N")
+			move("S");
+		if(flag_out_of_border=="E")
+			move("W");
+		if(flag_out_of_border=="W")
+			move("E");
+		if(flag_out_of_border=="S")
+			move("N");
+		turn(left_or_right);
 	}
 }
 void Shape::showVector(vector<Point*>* vecPtr)
