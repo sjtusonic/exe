@@ -103,22 +103,28 @@ void Matrix::clear()
 void Matrix::update()
 {
 	clear();
-	PRINTVAR(shapeList.size());
+	//PRINTVAR(shapeList.size());
 	for (auto shapePtr:shapeList)
 	{
 		vector<Point*> vector_dots_in_shape=shapePtr->getDots();
-		PRINTVAR(vector_dots_in_shape.size());
-		PRINT_DEBUG_INFO_PREFIX("core dump");
+		//PRINTVAR(vector_dots_in_shape.size());
+		//PRINT_DEBUG_INFO_PREFIX("core dump");
 		for(Point* dot:vector_dots_in_shape)
 		{
-			PRINT_DEBUG_INFO_PREFIX("core dump");
-			PRINTVAR(dot->x);
-			PRINTVAR(dot->y);
+			//PRINT_DEBUG_INFO_PREFIX("core dump");
+			//PRINTVAR(dot->x);
+			//PRINTVAR(dot->y);
+			//PRINTVAR(mHeight);
+			//PRINTVAR(mWidth);
+			assert(dot->x>=0);
+			assert(dot->y>=0);
+			assert(dot->x<=mHeight-1);
+			assert(dot->y<= mWidth-1);
 			board[dot->x][dot->y]="0";
 		}
-		PRINT_DEBUG_INFO_PREFIX("core dump");
+		//PRINT_DEBUG_INFO_PREFIX("core dump");
 	}
-	PRINT_DEBUG_INFO_PREFIX("core dump");
+	//PRINT_DEBUG_INFO_PREFIX("core dump");
 };
 
 

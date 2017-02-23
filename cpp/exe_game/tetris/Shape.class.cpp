@@ -170,28 +170,73 @@ void Shape::init()
 	//if(orientation=="W")
 	//if(orientation=="S")
 }
+void Shape::update_ul()
+{
+	ul_row=99999;
+	ul_col=99999;
+	for(Point* d:dots)
+	{
+		//PRINTVAR_hor(d->x);
+		//PRINTVAR_hor(d->y);
+		//cout<<""<<""<<endl;
+		if(d->x<ul_row)
+			ul_row=d->x;
+		if(d->y<ul_col)
+			ul_col=d->y;
+	}
+	PRINTVAR_hor(ul_row);
+	PRINTVAR_hor(ul_col);
+	cout<<""<<""<<endl;
+}
 void Shape::update()
 {
 	// apply orientation
 	// apply ul_row,ul_col
+	update_ul();
+
 	// apply dotsMostN, E,W,S
+
+	dotsMostN.clear();
+	dotsMostE.clear();
+	dotsMostW.clear();
+	dotsMostS.clear();
 	findTheMost("N");
 	findTheMost("E");
 	findTheMost("W");
 	findTheMost("S");
 }
+void Shape::move(string orientation,unsigned times)
+{
+	cout<<"***MOVE:"<<orientation<<" x "<<times<<endl;
+	while(times!=0)
+	{
+		move(orientation);
+		times--;
+	}
+	cout<<"***END MOVE:"<<orientation<<" x "<<times<<endl;
+}
 void Shape::move(string orientation)
 {
-	PRINT_DEBUG_INFO();
+	cout<<"--------------"<<""<<endl;
+	cout<<"BEFORE MOVE:"<<""<<endl;
+	for(Point* d:dots)
+	{
+		PRINTVAR_hor(d->x);
+		PRINTVAR_hor(d->y);
+		cout<<""<<""<<endl;
+	}
+	cout<<"--------------"<<""<<endl;
+	PRINT_DEBUG_INFO_PREFIX(orientation);
 	if(orientation=="S")
 	{
-		drop();
+		//drop();
 		drop();
 	}
 	else if(orientation=="E")
 	{
 		if(hit("E"))
 			return;
+		PRINT_DEBUG_INFO_PREFIX("can move E");
 		for(Point* d:dots)
 		{
 			d->y++;
@@ -201,11 +246,37 @@ void Shape::move(string orientation)
 	{
 		if(hit("W"))
 			return;
+		PRINT_DEBUG_INFO_PREFIX("can move W");
 		for(Point* d:dots)
 		{
 			d->y--;
 		}
 	}
+	else if(orientation=="N")
+	{
+		if(hit("N"))
+			return;
+		PRINT_DEBUG_INFO_PREFIX("can move N");
+		for(Point* d:dots)
+		{
+			d->x--;
+		}
+	}
+	cout<<"--------------"<<""<<endl;
+	cout<<"AFTER MOVE:"<<""<<endl;
+	for(Point* d:dots)
+	{
+		PRINTVAR_hor(d->x);
+		PRINTVAR_hor(d->y);
+		cout<<""<<""<<endl;
+	}
+	cout<<"--------------"<<""<<endl;
+	PRINT_DEBUG_INFO();
+	update_ul();
+	dotsMostN.clear();
+	dotsMostE.clear();
+	dotsMostW.clear();
+	dotsMostS.clear();
 }
 void Shape::drop()
 {
@@ -220,91 +291,148 @@ void Shape::drop()
 }
 void Shape::turn(string left_or_right)// zjc need UNIT_TEST
 {
+	PRINT_DEBUG_INFO_PREFIX(left_or_right);
 	vector<Point*> new_dots;  
-	string flag_out_of_border="";
+	//string flag_out_of_border="";
+	//PRINTVAR(flag_out_of_border);
 	if(left_or_right=="left")
 	{
 		for(Point* p:dots)
 		{
-			int newx=4-p->y;
-			int newy=p->x;
+			int dx=p->x-ul_row;
+			int dy=p->y-ul_col;
+			int newdx=3-dy;
+			int newdy=dx;
+			int newx=ul_row+newdx;
+			int newy=ul_col+newdy;
 			PRINTVAR_hor(newx);
 			PRINTVAR_hor(newy);
 			cout<<""<<""<<endl;
-			if(newx<0)
-				flag_out_of_border="N";;
-			if( newy<0)
-				flag_out_of_border="W";;
-			if(newx>height_board)
-				flag_out_of_border="S";;
-			if(newy>width_board)
-				flag_out_of_border="E";;
+			//	if(newx<0)
+			//		flag_out_of_border="N";;
+			//	if(newy<0)
+			//		flag_out_of_border="W";;
+			//	if(newx>height_board)
+			//		flag_out_of_border="S";;
+			//	if(newy>width_board)
+			//		flag_out_of_border="E";;
 			//assert(newx>=0);
 			//assert(newy>=0);
 			new_dots.push_back(new Point(newx,newy));
 		}
+		vector<Point*> dots_bk=dots;
+		dots=new_dots;
+		if(hit_depth("E")>0)
+			move("W",hit_depth("E")+1);
+		if(hit_depth("W")>0)
+			move("E",hit_depth("W")+1);
+		if(hit_depth("S")>0)
+			move("N",hit_depth("S")+1);
 	}
+	//PRINTVAR(flag_out_of_border);
 	if(left_or_right=="right")
 	{
 		for(Point* p:dots)
 		{
-			int newx=p->y;
-			int newy=4-p->x;
+			int dx=p->x-ul_row;
+			int dy=p->y-ul_col;
+			int newdx=dy;
+			int newdy=3-dx;
+			int newx=ul_row+newdx;
+			int newy=ul_col+newdy;
+			PRINTVAR_hor(ul_row);
+			PRINTVAR_hor(ul_col);
+			PRINTVAR_hor(dx);
+			PRINTVAR_hor(dy);
+			PRINTVAR_hor(newdx);
+			PRINTVAR_hor(newdy);
 			PRINTVAR_hor(newx);
 			PRINTVAR_hor(newy);
 			cout<<""<<""<<endl;
-			//assert(newx>=0);
-			//assert(newy>=0);
-			if(newx<0)
-				flag_out_of_border="N";;
-			if( newy<0)
-				flag_out_of_border="W";;
-			if(newx>height_board)
-				flag_out_of_border="S";;
-			if(newy>width_board)
-				flag_out_of_border="E";;
+			//assert(newdx>=0);
+			//assert(newdy>=0);
+			cout<<""<<""<<endl;
+			//if(newx<0)
+			//	flag_out_of_border="N";;
+			//if(newy<0)
+			//	flag_out_of_border="W";;
+			//if(newx>height_board)
+			//	flag_out_of_border="S";;
+			//if(newy>width_board)
+			//	flag_out_of_border="E";;
 			new_dots.push_back(new Point(newx,newy));
 		}
+		vector<Point*> dots_bk=dots;
+		dots=new_dots;
+		if(hit_depth("E")>0)
+			move("W",hit_depth("E"));
+		if(hit_depth("W")>0)
+			move("E",hit_depth("W"));
+		if(hit_depth("S")>0)
+			move("N",hit_depth("S"));
 	}
+	PRINTVAR_hor(height_board);
+	PRINTVAR_hor(width_board);
+	//PRINTVAR(flag_out_of_border);
 	//dots.clear();
-	if(flag_out_of_border=="") // succeed
-	{
+
+	/*
+		if(flag_out_of_border=="") // succeed
+		{
 		dots=new_dots;
 		if(left_or_right=="left")
 		{
-			if(orientation=="N")
-				orientation="E";
-			if(orientation=="E")
-				orientation="S";
-			if(orientation=="W")
-				orientation="N";
-			if(orientation=="S")
-				orientation="W";
+		if(orientation=="N")
+		orientation="E";
+		if(orientation=="E")
+		orientation="S";
+		if(orientation=="W")
+		orientation="N";
+		if(orientation=="S")
+		orientation="W";
 		}
 		if(left_or_right=="right")
 		{
-			if(orientation=="N")
-				orientation="E";
-			if(orientation=="E")
-				orientation="S";
-			if(orientation=="W")
-				orientation="N";
-			if(orientation=="S")
-				orientation="W";
+		if(orientation=="N")
+		orientation="E";
+		if(orientation=="E")
+		orientation="S";
+		if(orientation=="W")
+		orientation="N";
+		if(orientation=="S")
+		orientation="W";
 		}
-	}
-	else
-	{
+		}
+		else
+		{
 		if(flag_out_of_border=="N")
-			move("S");
+		{
+		cout<<"OOB N"<<endl;
+		move("S");
+		PRINT_DEBUG_INFO();
+		}
 		if(flag_out_of_border=="E")
-			move("W");
+		{
+		cout<<"OOB E"<<endl;
+		move("W");
+		PRINT_DEBUG_INFO();
+		}
 		if(flag_out_of_border=="W")
-			move("E");
+		{
+		cout<<"OOB W"<<endl;
+		move("E");
+		PRINT_DEBUG_INFO();
+		}
 		if(flag_out_of_border=="S")
-			move("N");
-		turn(left_or_right);
+		{
+		cout<<"OOB S"<<endl;
+		move("N");
+		PRINT_DEBUG_INFO();
+		}
+	//turn(left_or_right);
 	}
+	*/
+	PRINT_DEBUG_INFO();
 }
 void Shape::showVector(vector<Point*>* vecPtr)
 {
@@ -343,14 +471,15 @@ vector<Point*> Shape::findTheMost(string orientation)
 {
 	cout<<"calling Shape::findTheMost "<<orientation<<""<<endl;
 	vector<Point*> r0;
-	if(orientation=="N") {r0=dotsMostN;}
-	if(orientation=="E") {r0=dotsMostE;}
-	if(orientation=="W") {r0=dotsMostW;}
-	if(orientation=="S") {r0=dotsMostS;}
-	if(r0.size()!=0) {
-		showVector(&r0);
-		return r0;
-	}
+	// CACHE:
+	//if(orientation=="N") {r0=dotsMostN;}
+	//if(orientation=="E") {r0=dotsMostE;}
+	//if(orientation=="W") {r0=dotsMostW;}
+	//if(orientation=="S") {r0=dotsMostS;}
+	//if(r0.size()!=0) {
+	//	showVector(&r0);
+	//	return r0;
+	//}
 
 	dotsMostN=dots;
 	dotsMostE=dots;
@@ -401,10 +530,13 @@ bool Shape::hit(string orientation)
 		if(to=="W"&& p->y==0)
 		{
 			cout<<"hit W"<<""<<endl;
+			PRINTVAR_hor(p->y);
 			return true;
 		}
 		if(to=="E"&& width_board-p->y==1)
 		{
+			PRINTVAR_hor(width_board);
+			PRINTVAR_hor(p->y);
 			cout<<"hit E"<<""<<endl;
 			return true;
 		}
@@ -415,6 +547,49 @@ bool Shape::hit(string orientation)
 		}
 	}
 	return false;
+}
+int Shape::hit_depth(string orientation)
+{
+	PRINT_DEBUG_INFO_PREFIX("HIT ");
+	PRINTVAR(orientation);
+
+	string to=orientation;
+	int depth=-1; // means not hit
+	// depth =0 means touch the border
+	// depth >0 means out of border
+	for(auto p:findTheMost(to))
+	{
+		if(to=="W"&& p->y<=0)
+		{
+			cout<<"hit W"<<""<<endl;
+			PRINTVAR_hor(p->y);
+			depth=-p->y;
+			PRINTVAR_hor(depth);
+			cout<<""<<""<<endl;
+			return depth;
+		}
+		if(to=="E"&& width_board-p->y<=1)
+		{
+			PRINTVAR_hor(width_board);
+			PRINTVAR_hor(p->y);
+			cout<<"hit E"<<""<<endl;
+			depth=p->y-width_board+1;
+			PRINTVAR_hor(depth);
+			cout<<""<<""<<endl;
+			return depth;
+		}
+		if(to=="S"&& height_board-p->x<=1)
+		{
+			cout<<"hit S"<<""<<endl;
+			depth=p->x-height_board+1;
+			PRINTVAR_hor(depth);
+			cout<<""<<""<<endl;
+			return depth;
+		}
+	}
+	PRINTVAR_hor(depth);
+	cout<<""<<""<<endl;
+	return depth;
 }
 bool Shape::hit_bottom()
 {

@@ -84,36 +84,32 @@ void test_flow()
 	int WIDTH=10;
 	int HEIGHT=10;
 	//
-	Display* d=new Display();
-	d->showTitle();
+	Display* display=new Display();
+	display->showTitle();
 	//
 	Matrix* m=new Matrix(HEIGHT,WIDTH,"X");
-	//PRINTVAR(d);
-	d->m=m;
-	d->show();
+	display->m=m;
+	display->show();
 
-	Control c; 
-	//c.mat=m;
-	//c.display=d;
-	//c.run();
+	Control controller; 
 
 	// LOOP:
 	while(true)
 	{
 		char ch;
 		cout<<"ch (q to break)=";
-		ch=c.getch();
+		ch=controller.getch();
 		cout<<ch<<""<<endl;
 		if(ch=='q')
 			break;
 		if(ch=='o')// add new shape
 		{
 			cout<<"ADD NEW SHAPE!"<<""<<endl;
-			//Shape* s=new Shape(WIDTH,HEIGHT);
-			Shape* s=new Shape(WIDTH,HEIGHT,5);
-			s->init();
-			s->update();
-			m->addShape(s);
+			Shape* shape=new Shape(WIDTH,HEIGHT);
+			//Shape* shape=new Shape(WIDTH,HEIGHT,5);
+			shape->init();
+			shape->update();
+			m->addShape(shape);
 			m->update();
 
 		}
@@ -121,26 +117,33 @@ void test_flow()
 		{
 			cout<<"REFRESH!"<<""<<endl;
 			// REFRESH Matrix
-			d->show();
+			display->show();
 			cout<<"TICK!"<<""<<endl;
 			m->tick();
 			cout<<"UPDATE!"<<""<<endl;
 			m->update();
 			// Display
-			d->show();
+			display->show();
 			// call
 		}
-		Shape* s=m->getShape();
+		if(ch=='p') // for debug
+		{
+			cout<<"UPDATE!"<<""<<endl;
+			m->update();
+			// Display
+			display->show();
+		}
+		Shape* shape=m->getShape();
 		if(	ch=='s')
-			s->move("S");
+			shape->move("S");
 		if(	ch=='a')
-			s->move("W");
+			shape->move("W");
 		if(	ch=='d')
-			s->move("E");
+			shape->move("E");
 		if(	ch=='w')
-			s->turn("left");
+			shape->turn("left");
 		if(	ch=='e')
-			s->turn("right");
+			shape->turn("right");
 	}
 }
 void test_Point()

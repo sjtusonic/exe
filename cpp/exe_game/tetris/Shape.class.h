@@ -66,7 +66,9 @@ class Shape
 		int ul_col;
 		void init(); // apply type
 		void update(); // apply orientation,ul_row,ul_col to dots
+		void update_ul();
 		void move(string orientation);
+		void move(string orientation,unsigned times);
 		void drop();
 		void turn(string left_or_right);
 	private:
@@ -76,6 +78,10 @@ class Shape
 		void initShapeFaceToN(int type);
 	public:
 		bool hit(string orientation);
+		int hit_depth(string orientation); 
+		// depth <0 means not hit
+		// depth =0 means touch the border
+		// depth >0 means out of border
 		bool hit_bottom();
 		string hit(Point p);// return R={N,E,W,S," "} hit the point to move towards the R orientation, " " means not hit 
 
