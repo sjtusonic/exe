@@ -16,10 +16,10 @@ Shape::Shape(int w_board,int h_board,int t,string ori)
 	orientation=ori;
 }
 
-bool Shape::touchToShape(Shape* another)
-{
-	return false;
-}
+//bool Shape::touchToShape(Shape* another)
+//{
+	//return false;
+//}
 int Shape::getWidthN() {
 	if(!legalType())
 		return 0;

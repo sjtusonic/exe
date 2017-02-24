@@ -35,6 +35,29 @@ class Point
 			return os;
 		};
 
+		string touch(Point* p)
+		{
+			// "NOT": not touch
+			// "COINCIDE": coincide 
+			// S: p is at the S of this
+			// E: p is at the E of this
+			// N: p is at the N of this
+			// W: p is at the W of this
+			if(x==p->x)
+				if(y==p->y)
+					return "COINCIDE";
+			if(x==p->x)
+				if(y-p->y==1)
+					return "W";
+			if(y-p->y==-1)
+				return "E";
+			if(y==p->y)
+				if(x-p->x==1)
+					return "N";
+			if(x-p->x==-1)
+				return "S";
+			return "NOT";
+		}
 	public:
 		int x;
 		int y;
@@ -49,7 +72,7 @@ class Shape
 		//Shape(unsigned height=4,unsigned width=4,string v="#");
 		Shape(vector<vector<string> > m);
 		Shape(int w_board,int h_board,int type=0,string ori="N");
-		bool touchToShape(Shape* another);
+		//bool touchToShape(Shape* another);
 
 		int getWidthN() ;
 		int getHeightN() ;

@@ -1,3 +1,6 @@
+
+#ifndef DISPLAY_CLASS_H
+#define DISPLAY_CLASS_H
 //--------------------------------------
 // include lib files
 //--------------------------------------
@@ -43,3 +46,4 @@ class Display {
 		Matrix* m;
 	private:
 };
+#endif

@@ -1,3 +1,5 @@
+#ifndef CONTROL_CLASS_H
+#define CONTROL_CLASS_H
 #include "global.h"
 using namespace std;
 class Control
@@ -65,3 +67,4 @@ Display* display;
 private:
 int T; // ms
 };
+#endif
