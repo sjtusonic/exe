@@ -144,5 +144,8 @@ class Shape
 		vector<Point*> dotsMostW; 
 		vector<Point*> dotsMostS; 
 
+		TEST_CASE( "getHeightN", "[getHeightN]" ) {
+			REQUIRE( getHeightN() >= 0 );
+		}
 };
 # endif

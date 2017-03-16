@@ -47,6 +47,7 @@ int Shape::getHeightN() {
 			return 2;
 	}
 };
+
 int Shape::getWidth() {
 	if(orientation=="N")
 		return getWidthN();

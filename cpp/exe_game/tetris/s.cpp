@@ -2,7 +2,6 @@
 // include lib files
 //--------------------------------------
 //#include <curses.h>
-
 #include "global.h"
 #include "Display.class.h"
 #include "Control.class.h"
@@ -24,18 +23,19 @@ using namespace std;
 
 
 #ifdef UNIT_TEST
-int main()
-{
-	cout<<"UNIT_TEST MODE"<<""<<endl;
-	//test_Control();
-
-
-	//test_Matrix();
-	test_flow();
-	//test_Point();
-	//test_deleteFromVector();
-	return 0;
-}
+//int main()
+//{
+//	cout<<"UNIT_TEST MODE"<<""<<endl;
+//	//test_Control();
+//
+//
+//	//test_Matrix();
+//	test_flow();
+//	//test_time_engine();
+//	//test_Point();
+//	//test_deleteFromVector();
+//	return 0;
+//}
 #else
 int main()
 {

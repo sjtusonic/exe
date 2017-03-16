@@ -1,6 +1,14 @@
 #ifndef GLOBAL_H
 #define GLOBAL_H
 
+//------------------------------
+#define CATCH_CONFIG_MAIN 
+#ifdef CATCH_CONFIG_MAIN
+	#define UNIT_TEST
+#endif
+#include "catch.hpp"
+//------------------------------
+
 #include <math.h>
 #include <stdio.h>
 #include <iostream>
@@ -31,7 +39,7 @@
 
 
 ////////////////////////////////
-#define UNIT_TEST
+//#define UNIT_TEST
 ////////////////////////////////
 
 #endif
