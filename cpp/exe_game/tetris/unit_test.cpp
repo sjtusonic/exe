@@ -1,4 +1,5 @@
 #include "unit_test.h"
+#include "lib.h"
 
 void test_Control() { // FUNC
 	// test control
@@ -69,6 +70,8 @@ void test_flow() // FUNC
 			m->tick();
 			cout<<"UPDATE!"<<""<<endl;
 			m->update();
+			cout<<"UPDATED!"<<""<<endl;
+			m->print();
 			// Display
 			display->show();
 			// call
@@ -77,6 +80,8 @@ void test_flow() // FUNC
 		{
 			cout<<"UPDATE!"<<""<<endl;
 			m->update();
+			cout<<"UPDATED!"<<""<<endl;
+			m->print();
 			// Display
 			display->show();
 		}
@@ -95,6 +100,10 @@ void test_flow() // FUNC
 }
 void test_flow_tick() // FUNC
 {
+	//for(int u=0;u<10;u++)
+	//	cout<<"RAND:"<<rand()%3<<""<<endl;
+	//assert(0);
+	PRINT_DEBUG_INFO();
 	// INIT:
 	int WIDTH=10;
 	int HEIGHT=10;
@@ -108,29 +117,30 @@ void test_flow_tick() // FUNC
 
 	Control controller; 
 
+
+	char ch='0';
+	int cntr=0;
+	unsigned Tms=50;
 	// LOOP:
 	while(true)
 	{
-		char ch;
-		cout<<"ch (q to break)=";
+		//cout<<"ch (q to break)=";
 		ch=controller.getch();
-		cout<<ch<<""<<endl;
-
-		int T=1;
-		sleep(T);
-
+		assert(ch);
+		//cout<<ch<<""<<endl;
 		if(ch=='q')
 			break;
 		if(ch=='o')// add new shape
 		{
 			cout<<"ADD NEW SHAPE!"<<""<<endl;
-			Shape* shape=new Shape(WIDTH,HEIGHT);
+			//Shape* shape=new Shape(WIDTH,HEIGHT);
 			//Shape* shape=new Shape(WIDTH,HEIGHT,5);
+			Shape* shape=new Shape(WIDTH,HEIGHT,rand()%7);
 			shape->init();
+			shape->setMatrixPtr(m);
 			shape->update();
 			m->addShape(shape);
 			m->update();
-
 		}
 		if(ch=='r') // will instead by timing-triggered
 		{
@@ -141,28 +151,77 @@ void test_flow_tick() // FUNC
 			m->tick();
 			cout<<"UPDATE!"<<""<<endl;
 			m->update();
+			cout<<"UPDATED!"<<""<<endl;
+			m->print();
 			// Display
 			display->show();
 			// call
 		}
 		if(ch=='p') // for debug
 		{
+			//-------------------------------
+			// PRINT
 			cout<<"UPDATE!"<<""<<endl;
 			m->update();
 			// Display
 			display->show();
+			//-------------------------------
 		}
-		Shape* shape=m->getShape();
-		if(	ch=='s')
-			shape->move("S");
-		if(	ch=='a')
-			shape->move("W");
-		if(	ch=='d')
-			shape->move("E");
-		if(	ch=='w')
-			shape->turn("left");
-		if(	ch=='e')
-			shape->turn("right");
+		Shape* shape=0;
+		if(m)
+			shape=m->getShape();
+		//assert(shape);
+		if(shape)
+		{
+			if(ch=='s')
+				shape->move("S");
+			if(ch=='a')
+				shape->move("W");
+			if(ch=='d')
+				shape->move("E");
+			if(ch=='w')
+				shape->turn("left");
+			if(ch=='e')
+				shape->turn("right");
+		}
+
+		bool isDead=false;
+		sleep_ms(Tms);
+		if(cntr%10==0)
+		{
+			cout<<ch<<""<<endl;
+			PRINTVAR(ch);
+			//PRINTVAR(cntr);
+			cout<<"TICK!"<<""<<endl;
+			isDead=!(m->tick());
+			//-------------------------------
+			// PRINT
+			cout<<"UPDATE!"<<""<<endl;
+			m->update();
+			cout<<"UPDATED!"<<""<<endl;
+			m->print();
+			// Display
+			display->show();
+			//-------------------------------
+			if(m->getAllShapesAreSteady() && !isDead) // all steady -> add new
+			{
+				cout<<"STEADY, ADD NEW SHAPE!"<<""<<endl;
+				//Shape* shape=new Shape(WIDTH,HEIGHT);
+				//Shape* shape=new Shape(WIDTH,HEIGHT,5);
+				Shape* shape=new Shape(WIDTH,HEIGHT,rand()%7);
+				shape->init();
+				shape->setMatrixPtr(m);
+				shape->update();
+				m->addShape(shape);
+				m->update();
+			}
+		}
+		if(isDead)
+			break;
+
+		if(cntr==99999)
+			cntr=0;
+		cntr++;
 	}
 }
 void test_Point() // FUNC
@@ -205,7 +264,7 @@ void test_time_engine()
 	int cnt=0;
 	while(true)
 	{
-		int T=1;// seconds
+		unsigned T=1;// seconds
 		cout<<"cnt="<<cnt<<""<<endl;
 		sleep(T);
 		cnt++;

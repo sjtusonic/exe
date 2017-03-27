@@ -92,7 +92,7 @@ class Shape
 		void update_ul();
 		void move(string orientation);
 		void move(string orientation,unsigned times);
-		void drop();
+		bool drop();
 		void turn(string left_or_right);
 	private:
 		vector<Point*>  findTheMost(string orientation) ; // orientation={N,E,W,S};
@@ -106,8 +106,22 @@ class Shape
 		// depth =0 means touch the border
 		// depth >0 means out of border
 		bool hit_bottom();
-		string hit(Point p);// return R={N,E,W,S," "} hit the point to move towards the R orientation, " " means not hit 
+		bool contain(Point* p);
+		bool contain(Shape* s);
+		bool contain();
+		bool hit(Point* p,string to="S");
+		bool hit(Shape* s,string to="S");
+		bool hitInMatrix(string to="S");
+		void setMatrixPtr(void* m){mat=m;};
+		bool steady;
+		void cleanRow(int row);
 
+		friend ostream& operator<< (ostream& os, Shape rhs) {
+			os<<"Shape\t:";
+			for(Point* d:rhs.getDots())
+				os<<*d;
+			return os;
+		};
 		// LV1 MEMBERS:
 		// written by outside
 	private:
@@ -143,9 +157,6 @@ class Shape
 		vector<Point*> dotsMostE; 
 		vector<Point*> dotsMostW; 
 		vector<Point*> dotsMostS; 
-
-		TEST_CASE( "getHeightN", "[getHeightN]" ) {
-			REQUIRE( getHeightN() >= 0 );
-		}
+		void* mat; // because Matrix.h include Shape.h, so Shape.h can't have Matrix variable, void* can be used to declear a Matrix* in the future, and using casting.
 };
 # endif

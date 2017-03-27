@@ -1,10 +1,12 @@
 #include "global.h"
 #include "Shape.class.h"
+#include "Matrix.class.h"
 using namespace std;
 
 //Shape::Shape(unsigned height,unsigned width,string v){}
 
 Shape::Shape(vector<vector<string> > m){
+	steady=false;
 }
 Shape::Shape(int w_board,int h_board,int t,string ori)
 {
@@ -13,12 +15,15 @@ Shape::Shape(int w_board,int h_board,int t,string ori)
 	ul_row=0;
 	ul_col=0;
 	type=t;
+	assert(type<7);
+	assert(type>-1);
 	orientation=ori;
+	steady=false;
 }
 
 //bool Shape::touchToShape(Shape* another)
 //{
-	//return false;
+//return false;
 //}
 int Shape::getWidthN() {
 	if(!legalType())
@@ -80,6 +85,8 @@ bool Shape::legalType()
 };
 void Shape::setDots()
 {
+	assert(type<7);
+	assert(type>-1);
 	switch(type)
 	{
 		case 0:
@@ -237,6 +244,8 @@ void Shape::move(string orientation)
 	{
 		if(hit("E"))
 			return;
+		if(hitInMatrix("E"))
+			return;
 		PRINT_DEBUG_INFO_PREFIX("can move E");
 		for(Point* d:dots)
 		{
@@ -247,6 +256,8 @@ void Shape::move(string orientation)
 	{
 		if(hit("W"))
 			return;
+		if(hitInMatrix("W"))
+			return;
 		PRINT_DEBUG_INFO_PREFIX("can move W");
 		for(Point* d:dots)
 		{
@@ -256,6 +267,8 @@ void Shape::move(string orientation)
 	else if(orientation=="N")
 	{
 		if(hit("N"))
+			return;
+		if(hitInMatrix("N"))
 			return;
 		PRINT_DEBUG_INFO_PREFIX("can move N");
 		for(Point* d:dots)
@@ -279,18 +292,21 @@ void Shape::move(string orientation)
 	dotsMostW.clear();
 	dotsMostS.clear();
 }
-void Shape::drop()
+bool Shape::drop()
 {
 	PRINT_DEBUG_INFO_PREFIX("DROP");
 	//if(hit_bottom())
 	if(hit("S"))
-		return;
+		return false;
+	if(hitInMatrix("S"))
+		return false;
 	for(Point* d:dots)
 	{
 		d->x++;
 	}
+	return true;
 }
-void Shape::turn(string left_or_right)// zjc need UNIT_TEST
+void Shape::turn(string left_or_right)
 {
 	PRINT_DEBUG_INFO_PREFIX(left_or_right);
 	vector<Point*> new_dots;  
@@ -323,12 +339,17 @@ void Shape::turn(string left_or_right)// zjc need UNIT_TEST
 		}
 		vector<Point*> dots_bk=dots;
 		dots=new_dots;
-		if(hit_depth("E")>0)
-			move("W",hit_depth("E")+1);
-		if(hit_depth("W")>0)
-			move("E",hit_depth("W")+1);
-		if(hit_depth("S")>0)
-			move("N",hit_depth("S")+1);
+		if(contain())
+			dots=dots_bk;
+		else
+		{
+			if(hit_depth("E")>0)
+				move("W",hit_depth("E")+1);
+			if(hit_depth("W")>0)
+				move("E",hit_depth("W")+1);
+			if(hit_depth("S")>0)
+				move("N",hit_depth("S")+1);
+		}
 	}
 	//PRINTVAR(flag_out_of_border);
 	if(left_or_right=="right")
@@ -365,12 +386,23 @@ void Shape::turn(string left_or_right)// zjc need UNIT_TEST
 		}
 		vector<Point*> dots_bk=dots;
 		dots=new_dots;
-		if(hit_depth("E")>0)
-			move("W",hit_depth("E"));
-		if(hit_depth("W")>0)
-			move("E",hit_depth("W"));
-		if(hit_depth("S")>0)
-			move("N",hit_depth("S"));
+		if(contain())
+		{
+			PRINT_DEBUG_INFO();
+			dots=dots_bk;
+			;
+		}
+		else
+		{
+			PRINT_DEBUG_INFO();
+
+			if(hit_depth("E")>0)
+				move("W",hit_depth("E"));
+			if(hit_depth("W")>0)
+				move("E",hit_depth("W"));
+			if(hit_depth("S")>0)
+				move("N",hit_depth("S"));
+		}
 	}
 	PRINTVAR_hor(height_board);
 	PRINTVAR_hor(width_board);
@@ -456,7 +488,7 @@ void Shape::deleteFromVector(vector<Point*>* vecPtr, Point* item)
 		//int ind=t.transformIsCombined(unit_transforms_wo_zeros);
 		if (t==item)
 		{
-			cout<<"erase Point: ("<<item->x<<","<<item->y<<")"<<endl;
+			//cout<<"erase Point: ("<<item->x<<","<<item->y<<")"<<endl;
 			//vec.erase(iter); // delete the combined transform
 			vecPtr->erase(iter);
 			size=vecPtr->size();
@@ -470,7 +502,7 @@ void Shape::deleteFromVector(vector<Point*>* vecPtr, Point* item)
 }
 vector<Point*> Shape::findTheMost(string orientation) 
 {
-	cout<<"calling Shape::findTheMost "<<orientation<<""<<endl;
+	//cout<<"calling Shape::findTheMost "<<orientation<<""<<endl;
 	vector<Point*> r0;
 	// CACHE:
 	//if(orientation=="N") {r0=dotsMostN;}
@@ -517,8 +549,8 @@ vector<Point*> Shape::findTheMost(string orientation)
 	if(orientation=="E") {r=dotsMostE;}
 	if(orientation=="W") {r=dotsMostW;}
 	if(orientation=="S") {r=dotsMostS;}
-	cout<<"Shape::findTheMost "<<orientation<<" return:"<<endl;
-	showVector(&r);
+	//cout<<"Shape::findTheMost "<<orientation<<" return:"<<endl;
+	//showVector(&r);
 
 	return r;
 }
@@ -531,13 +563,13 @@ bool Shape::hit(string orientation)
 		if(to=="W"&& p->y==0)
 		{
 			cout<<"hit W"<<""<<endl;
-			PRINTVAR_hor(p->y);
+			//PRINTVAR_hor(p->y);
 			return true;
 		}
 		if(to=="E"&& width_board-p->y==1)
 		{
-			PRINTVAR_hor(width_board);
-			PRINTVAR_hor(p->y);
+			//PRINTVAR_hor(width_board);
+			//PRINTVAR_hor(p->y);
 			cout<<"hit E"<<""<<endl;
 			return true;
 		}
@@ -551,8 +583,8 @@ bool Shape::hit(string orientation)
 }
 int Shape::hit_depth(string orientation)
 {
-	PRINT_DEBUG_INFO_PREFIX("HIT ");
-	PRINTVAR(orientation);
+	//PRINT_DEBUG_INFO_PREFIX("HIT ");
+	//PRINTVAR(orientation);
 
 	string to=orientation;
 	int depth=-1; // means not hit
@@ -563,19 +595,19 @@ int Shape::hit_depth(string orientation)
 		if(to=="W"&& p->y<=0)
 		{
 			cout<<"hit W"<<""<<endl;
-			PRINTVAR_hor(p->y);
+			//PRINTVAR_hor(p->y);
 			depth=-p->y;
-			PRINTVAR_hor(depth);
+			//PRINTVAR_hor(depth);
 			cout<<""<<""<<endl;
 			return depth;
 		}
 		if(to=="E"&& width_board-p->y<=1)
 		{
-			PRINTVAR_hor(width_board);
-			PRINTVAR_hor(p->y);
+			//PRINTVAR_hor(width_board);
+			//PRINTVAR_hor(p->y);
 			cout<<"hit E"<<""<<endl;
 			depth=p->y-width_board+1;
-			PRINTVAR_hor(depth);
+			//PRINTVAR_hor(depth);
 			cout<<""<<""<<endl;
 			return depth;
 		}
@@ -583,12 +615,12 @@ int Shape::hit_depth(string orientation)
 		{
 			cout<<"hit S"<<""<<endl;
 			depth=p->x-height_board+1;
-			PRINTVAR_hor(depth);
+			//PRINTVAR_hor(depth);
 			cout<<""<<""<<endl;
 			return depth;
 		}
 	}
-	PRINTVAR_hor(depth);
+	//PRINTVAR_hor(depth);
 	cout<<""<<""<<endl;
 	return depth;
 }
@@ -606,11 +638,55 @@ bool Shape::hit_bottom()
 	}
 	return false;
 }
-string Shape::hit(Point p)
+bool Shape::contain(Point* pother)
 {
-	// zjc TODO
+	//PRINT_DEBUG_INFO();
+	for(Point* p1:dots)
+	{
+		//PRINTVAR_hor(*p1);
+		//PRINTVAR_hor(*pother);
+		if(p1->x==pother->x &&
+				p1->y==pother->y)
+		{
+			//PRINT_DEBUG_INFO_PREFIX("TRUE!");
+			return true;
+		}
+	}
+	//PRINT_DEBUG_INFO_PREFIX("FALSE!");
+	return false;
+}
+bool Shape::contain(Shape* other)
+{
+	//PRINT_DEBUG_INFO();
+	for(Point* pother:other->getDots())
+	{
+		if(contain(pother))
+			return true;
+	}
+	return false;
+}
+bool Shape::contain()
+{
+	//PRINT_DEBUG_INFO();
+	Matrix* m=(Matrix*)mat;
+	for(Shape* one_shape:m->getShapeList())
+	{
+		if(one_shape==this)
+			continue;
+		if(contain(one_shape))
+			return true;
+	}
+	return false;
+}
+bool Shape::hit(Point* pother,string to)
+{
+	//PRINT_DEBUG_INFO_PREFIX("JUDGE HIT SHAPE VS POINT");
+	//PRINTVAR_hor(this);
+	//PRINTVAR_hor(pother);
 	// foreach dot findTheMost(S), if dot is up neighbor of p, return S
-	string to="S";
+	//string to="S";
+	assert(!contain(pother));
+#if 0
 	for(auto p:findTheMost(to))
 	{
 		if(p->y>=height_board)
@@ -619,6 +695,85 @@ string Shape::hit(Point p)
 			return "S";
 		}
 	}
+#endif
+	for(Point* p1:dots)
+	{
+		//PRINT_DEBUG_INFO_PREFIX("JUDGE HIT POINTS");
+		//PRINTVAR_hor(p1);
+		//PRINTVAR_hor(pother);
+		//PRINTVAR_hor(*p1);
+		//PRINTVAR_hor(*pother);
+		//PRINTVAR(to);
+		if((to=="E") && (p1->x==pother->x) && (p1->y+1==pother->y))
+			return true;
+		if((to=="W") && (p1->x==pother->x) && (p1->y-1==pother->y))
+			return true;
+		if((to=="S") && (p1->x+1==pother->x) && (p1->y==pother->y))
+			return true;
+		if((to=="N") && (p1->x-1==pother->x) && (p1->y==pother->y))
+			return true;
+	}
+	return false;
 	// foreach dot findTheMost(W), if dot is up neighbor of p, return W
 	// foreach dot findTheMost(E), if dot is up neighbor of p, return E
+}
+bool Shape::hit(Shape* other,string to)
+{
+	//PRINT_DEBUG_INFO_PREFIX("JUDGE HIT SHAPE");
+	//PRINTVAR_hor(this);
+	//PRINTVAR_hor(other);
+	for(Point* pother:other->getDots())
+	{
+		assert(!contain(pother));
+		bool hitOtherShape=hit(pother,to);
+		//PRINT_DEBUG_INFO_PREFIX("=============================================");
+		//PRINTVAR_hor(to);
+		//PRINTVAR(hitOtherShape);
+		//PRINT_DEBUG_INFO_PREFIX("=============================================");
+		if(hitOtherShape)
+		{
+			return true;
+		}
+	}
+	return false;
+}
+bool Shape::hitInMatrix(string to)
+{
+	//PRINT_DEBUG_INFO();
+	Matrix* m=(Matrix*)mat;
+	for(Shape* one_shape:m->getShapeList())
+	{
+		if(one_shape==this)
+			continue;
+		if(hit(one_shape,to))
+		{
+			PRINT_DEBUG_INFO_PREFIX("HIT IN MAT!!!!!!!!!!!!!!!!!!!!!!!!");
+			return true;
+		}
+	}
+	PRINT_DEBUG_INFO_PREFIX("NOT HIT----------------------");
+	return false;
+}
+
+void Shape::cleanRow(int row)
+{
+	PRINT_DEBUG_INFO();
+	PRINTVAR(*this);
+	if(!steady)
+		return;
+	for (auto iter=dots.begin();iter!=dots.end();)
+	{
+		Point* p=*iter;
+		cout<<"Point: ("<<p->x<<","<<p->y<<") is under checking"<<""<<endl;
+		if(p->x==row)
+		{
+			cout<<"Point: ("<<p->x<<","<<p->y<<") is to be deleted!"<<""<<endl;
+			deleteFromVector(&dots,p);
+		}
+		else
+		{
+			iter++;
+		}
+	}
+	PRINT_DEBUG_INFO();
 }

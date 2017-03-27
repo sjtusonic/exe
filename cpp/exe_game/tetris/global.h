@@ -6,9 +6,11 @@
 #ifdef CATCH_CONFIG_MAIN
 	#define UNIT_TEST
 #endif
-#include "catch.hpp"
+//#include "catch.hpp"
 //------------------------------
 
+#include <stdio.h>
+#include <sys/select.h>
 #include <math.h>
 #include <stdio.h>
 #include <iostream>
@@ -24,8 +26,14 @@
 #include <unistd.h>  
 #include <stdio.h>  
 
+#include <unistd.h>
+#include <fcntl.h> 
+#include "lib.h"
 
 ////////////////////////////////
+#define DEBUG 1
+
+#if DEBUG
 #define PRINTVAR(a) std::cout<<#a<<"\t=\t"<<a<<"\t@"<<__FILE__<<":"<<__LINE__<<":"<<__FUNCTION__<<"()"<<std::endl;
 #define PRINTVAR_hor(a) std::cout<<#a<<"("<<a<<")\t";
 #define PRINT_ARRAY(a,len)  for(int u=0;u<len;u++) {std::cout<<u<<":\t"<<*a+u<<std::endl;}
@@ -36,7 +44,17 @@
 	(::std::cout<<"DEBUG: FILE="<<__FILE__<<":LINE=" <<__LINE__<<":FUNC="<<__FUNCTION__<<"() compiled in " <<__TIME__<<"-" <<__DATE__<<"" <<::std::endl)
 #define PRINT_DEBUG_INFO_PREFIX(p) \
 	(::std::cout<<p<<"zjc debug: FILE=" <<__FILE__<<":\tLINE=" <<__LINE__<<":\tFUNC="<<__FUNCTION__<<" \tcompiled in " <<__TIME__<<"-" <<__DATE__<<"" <<::std::endl    )
+#else
+#define PRINTVAR(a)
+#define PRINTVAR_hor(a)
+#define PRINT_ARRAY(a,len)
+#define PRINT_VECTOR(a) 
+#define PRINT_VECTOR_hor(a)
 
+#define PRINT_DEBUG_INFO()
+#define PRINT_DEBUG_INFO_PREFIX(p)
+
+#endif
 
 ////////////////////////////////
 //#define UNIT_TEST

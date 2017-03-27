@@ -49,6 +49,8 @@ void run(){
 };
 #endif
 int getch(void) {  
+
+	fcntl( 0, F_SETFL, O_NONBLOCK); // make it non-blocking
 	struct termios tm, tm_old;  
 	int fd = STDIN_FILENO, c;  
 	if(tcgetattr(fd, &tm) < 0)  
