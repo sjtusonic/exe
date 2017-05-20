@@ -1,0 +1,86 @@
+#define PRINTVAR(a) std::cout<<#a<<"\t=\t"<<a<<"\t@"<<__FILE__<<":"<<__LINE__<<":"<<__FUNCTION__<<"()"<<std::endl;
+
+//#define PRINT_VECTOR_hor(a)  for(auto u=a.begin();u!=a.end();u++) {std::cout<<*u<<"\t";};std::cout<<""<<std::endl;
+#define PRINT_VECTOR_hor(a) 
+#define PRINT_DEBUG_INFO() \
+  (::std::cout<<"DEBUG: FILE="<<__FILE__<<":LINE=" <<__LINE__<<":FUNC="<<__FUNCTION__<<"() compiled in " <<__TIME__<<"-" <<__DATE__<<"" <<::std::endl)
+
+#define PRINT_DEBUG_INFO_PREFIX(p) \
+     (::std::cout<<p<<"zjc debug: FILE=" <<__FILE__<<":\tLINE=" <<__LINE__<<":\tFUNC="<<__FUNCTION__<<" \tcompiled in " <<__TIME__<<"-" <<__DATE__<<"" <<::std::endl    )
+
+
+class Johnann
+{
+public:
+    static std::vector<long long> john(long long n);
+    static std::vector<long long> ann(long long n);
+    static long long sumJohn(long long n);
+    static long long sumAnn(long long n);
+};
+
+std::vector<long long> Johnann::john(long long n)
+{
+	std::cout<<"========================"<<std::endl;
+	std::cout<<"john"<<n<<std::endl;
+	std::vector<long long>r;
+  long long ind=n-1;
+  if(ind==0)
+  	r.push_back(0);
+  else
+  {
+  	auto v_john=john(n-1);
+    auto v_ann=ann(n-1);
+    r=v_john;
+  	r.push_back(ind-v_ann[v_john[ind-1]]);
+  }
+  for(auto val:r)
+	  std::cout<<"\tjohn:"<<val<<std::endl;
+  
+	std::cout<<"-john"<<n<<std::endl;
+	std::cout<<"------------------------"<<std::endl;
+	return r;
+}
+std::vector<long long> Johnann::ann(long long n)
+{
+	std::cout<<"========================"<<std::endl;
+	std::cout<<"ann"<<n<<std::endl;
+	std::vector<long long>r;
+  
+    long long ind=n-1;
+  if(ind==0 )
+  	r.push_back(1);
+  else
+  {
+  	auto v_john=john(n-1);
+    auto v_ann=ann(n-1);
+    r=v_ann;
+  	r.push_back(ind-v_john[v_ann[ind-1]]);
+  }
+  for(auto val:r)
+	  std::cout<<"\tann:"<<val<<std::endl;
+	std::cout<<"-ann"<<n<<std::endl;
+	std::cout<<"------------------------"<<std::endl;
+	return r;
+}
+long long Johnann::sumJohn(long long n)
+{
+	std::cout<<"========================"<<std::endl;
+	std::cout<<"sumJohn"<<n<<std::endl;
+  long long r=0;
+  for(auto v:john(n))
+  	r+=v;
+	std::cout<<"-sumJohn"<<n<<std::endl;
+	std::cout<<"------------------------"<<std::endl;
+	return r;
+}
+long long Johnann::sumAnn(long long n)
+{
+	std::cout<<"========================"<<std::endl;
+	std::cout<<"sumAnn"<<n<<std::endl;
+  long long r=0;
+  for(auto v:ann(n))
+  	r+=v;
+	std::cout<<"-sumAnn"<<n<<std::endl;
+	std::cout<<"------------------------"<<std::endl;
+	return r;
+}

@@ -4,6 +4,12 @@ using namespace std;
 //void printvar (int& var) ;
 int main()  // FUNC
 {
+	float f=3.121;
+	printf("========= %f \n",f);
+	printf("========= %d \n",f);
+	printf("========= %x \n",f);
+	printf("========= %s \n",f);
+
 	time_t timer;
 	struct tm *tblock;
 	timer=time(NULL);
@@ -22,10 +28,9 @@ int main()  // FUNC
 
 	int a = 1010;
 	string b="test";
-	//printf("%s  = %d\n", VNAME(a), a);
-	//
-	cout<<VNAME(a)<<" = "<<a<<endl;
-	cout<<VNAME(b)<<" = "<<b<<endl;
+
+	PRINTVAR(a);
+	PRINTVAR(b);
 	//printvar (a);
 
 	////////////////////////////////////////////////

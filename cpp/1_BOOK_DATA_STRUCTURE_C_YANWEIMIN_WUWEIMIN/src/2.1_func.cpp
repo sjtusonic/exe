@@ -101,9 +101,10 @@ int f_test_LinkList() { // FUNC
 	l01.ListUnshift(9);
 	l01.ListUnshift(8);
 	l01.ListUnshift(7);
-	l01.PrintList(-1);
+	l01.PrintList(-1,1);
 
 	return 0;
+
 	int u[5]={101,77,303,7,21};
 	MyLinkList l0(u,15,"l0");
 	//MyList l0(u,23);

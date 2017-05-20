@@ -9,22 +9,32 @@ MyLinkList::MyLinkList() // a blank list, name is NA
 //===============================================================================
 MyLinkList::MyLinkList(string name):m_name(name) // a blank list, name is NA
 {
+	HeadPtr=NULL;
 }
 //===============================================================================
 MyLinkList::MyLinkList(int[],int)
-{}
+{
+	HeadPtr=NULL;
+}
 //===============================================================================
 MyLinkList::MyLinkList(int[],int,string)
-{}
+{
+	HeadPtr=NULL;
+}
 //===============================================================================
 MyLinkList::MyLinkList(MyLinkList& other)//copying construct func
-{}
+{
+	HeadPtr=NULL;
+}
 //===============================================================================
 MyLinkList & MyLinkList::operator=(MyLinkList& other)//copying construct func
-{}
+{
+	HeadPtr=NULL;
+}
 //===============================================================================
 MyLinkList::~MyLinkList()
-{}
+{
+}
 
 
 
@@ -32,8 +42,8 @@ MyLinkList::~MyLinkList()
 void MyLinkList::ListUnshift(int e)
 {
 	cout<<"ListUnshift "<<e<<""<<endl;
-	Node curNode=Node(e,HeadPtr);
-	HeadPtr=&curNode;
+	Node* curNode=new Node(e,HeadPtr);
+	HeadPtr=curNode;
 }
 //===============================================================================
 int MyLinkList::ListShift()
@@ -60,7 +70,9 @@ void MyLinkList::PrintList(int printLength,bool detailed) // default value setti
 
 			cout<<"("<<cnt<<")"<<curPtr->GetData()<<endl;
 			cnt++;
+			auto curPtr_bk=curPtr;
 			curPtr=curPtr->GetNext();
+			assert(curPtr_bk!=curPtr);
 			if (printLength!=-1&& cnt>printLength) {
 				break;
 			}
