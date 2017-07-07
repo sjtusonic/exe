@@ -14,7 +14,7 @@
 #define PRINT_DEBUG_INFO_PREFIX(p) \
 	(::std::cout<<p<<"zjc debug: FILE=" <<__FILE__<<":\tLINE=" <<__LINE__<<":\tFUNC="<<__FUNCTION__<<" \tcompiled in " <<__TIME__<<"-" <<__DATE__<<"" <<::std::endl    )
 
-//#define SIMPLE_LOG 
+#define SIMPLE_LOG 
 
 
 #define verbose_PRINT_VECTOR_hor(a)  std::cout<<#a<<":\t";for(auto u=a.begin();u!=a.end();u++) {std::cout<<*u<<"\t";};std::cout<<""<<std::endl;
