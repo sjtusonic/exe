@@ -1,0 +1,86 @@
+package LifeGame;
+
+import java.util.ArrayList;
+
+
+public class LifeWorld {
+	LifeWorld (Integer [][] config) {
+		arrayName=config;
+	}
+	LifeWorld (Integer width, Integer height) {
+		arrayName=new Integer[width][height];
+
+	}
+
+	public void init () {
+
+		for (int i = 0; i < arrayName.length; i++) {
+			for (int j = 0; j < arrayName[i].length; j++) {
+				arrayName[i][j]=0;
+			}
+		}
+	}
+	public void add (Integer col,Integer row) {
+		arrayName[col][row]=1;
+	}
+	public void showConfig () {
+//		System.out.println(arrayName.toString());
+
+		for (int i = 0; i < arrayName.length; i++) {
+			for (int j = 0; j < arrayName[i].length; j++) {
+				System.out.print(arrayName[i][j] + " ");
+			}
+			System.out.println();
+		}
+	}
+	
+	private Integer getNeighbourSum (Integer col,Integer row) {
+		Boolean colDownIsEdge=false;
+		Boolean colUpIsEdge=false;
+		Boolean rowDownIsEdge=false;
+		Boolean rowUpIsEdge=false;
+
+		if (col==0) 				{colDownIsEdge=true;}
+		if (col==arrayName.length) 	{colUpIsEdge=true;}
+		if (row==0) 				{rowDownIsEdge=true;}
+		if (row==arrayName.length) 	{rowUpIsEdge=true;}
+		
+		Integer sum=0;
+		if (!colDownIsEdge &&!rowDownIsEdge) {sum+=arrayName[col-1][row-1];}
+		if (!colDownIsEdge                 ) {sum+=arrayName[col-1][row];}
+		if (!colDownIsEdge &&!rowUpIsEdge)   {sum+=arrayName[col-1][row+1];}
+		
+		if (                 !rowDownIsEdge) {sum+=arrayName[col][row-1];}
+		if (                 !rowDownIsEdge) {sum+=arrayName[col][row+1];}
+		
+		if (!colUpIsEdge &&!rowDownIsEdge) {sum+=arrayName[col+1][row-1];}
+		if (!colUpIsEdge                 ) {sum+=arrayName[col+1][row];}
+		if (!colUpIsEdge &&!rowUpIsEdge) {sum+=arrayName[col+1][row+1];}
+		
+		return null;
+	}
+	public void update () {
+		System.out.println(this+"UPDATE");
+
+		for (int i = 0; i < arrayName.length; i++) {
+			for (int j = 0; j < arrayName[i].length; j++) {
+				System.out.print(arrayName[i][j] + " ");
+			}
+			System.out.println();
+		}
+	}
+	public void update (Integer steps) {
+		while (steps>0) {
+			update();
+			steps--;
+		}
+	}
+	Integer [][]arrayName;
+	private String name;
+
+	Integer WIDTH=10;
+	Integer HEIGHT=10;
+	
+//	Boolean [][] config=new Boolean[WIDTH][HEIGHT];
+	  
+}

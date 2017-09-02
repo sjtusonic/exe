@@ -1,0 +1,5 @@
+java: robocode
+
+python:
+	python_eclipse-SDK-3.3-win32
+	
