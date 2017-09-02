@@ -1,0 +1,93 @@
+#   FUNC:
+def power(x):
+    return x*x
+
+def power_m(x,n=2):
+    return x**n
+
+print power(3)
+print power_m(4)
+print power_m(2,3)
+
+def enroll(name, gender, age=6, city='Beijing'):
+    print '---------'
+    print 'name:', name
+    print 'gender:', gender
+    print 'age:', age
+    print 'city:', city
+    
+enroll('john','M',3,'Kaifeng')
+
+enroll('Jenny','F',city='Wuhan',age=11);# not ordered args
+enroll('Jenny','F',city='Wuhan' );# single special args
+
+#   a grammar that can cause bug:
+def add_end (L=[]):
+    L.append('END')
+    return L
+    
+print add_end()
+print add_end()
+print add_end();# END END END...
+
+def add_end_right (L=None):
+    if L is None:
+        L=[]
+    L.append('END')
+    return L
+
+print add_end_right()
+print add_end_right()
+print add_end_right();# END END END...
+
+#    args# can be changed
+def calc(numbers):
+    sum = 0
+    for n in numbers:
+        sum = sum + n * n
+    return sum
+
+print calc([1,2,3])
+
+def calc2(*numbers):
+    sum = 0
+    for n in numbers:
+        sum = sum + n * n
+    return sum
+
+print calc2(1,2)
+print calc2()
+    
+#    a good using
+nums=[1,2,3,4]
+print calc2(*nums)
+    
+#    keyword arg:
+def person(name, age, **kw):
+    print 'name:', name, 'age:', age, 'other:', kw
+
+print person('John','M')
+ 
+print person('John','M',u1=1,u2=2,u3=3,addr='a street')
+
+#参数定义的顺序必须是：必选参数、默认参数、可变参数和关键字参数
+#比如定义一个函数，包含上述4种参数：
+
+def func(a, b, c=0, *args, **kw):
+    print 'a =', a, 'b =', b, 'c =', c, 'args =', args, 'kw =', kw
+
+print func('avalue','bvalue',)
+
+#在函数调用的时候，Python解释器自动按照参数位置和参数名把对应的参数传进去。
+
+>>> func(1, 2)
+>>> func(1, 2, c=3)
+>>> func(1, 2, 3, 'a', 'b')
+>>> func(1, 2, 3, 'a', 'b', x=99)
+a = 1 b = 2 c = 3 args = ('a', 'b') kw = {'x': 99}
+#最神奇的是通过一个tuple和dict，你也可以调用该函数：
+
+>>> args = (1, 2, 3, 4)
+>>> kw = {'x': 99}
+>>> func(*args, **kw)
+a = 1 b = 2 c = 3 args = (4,) kw = {'x': 99}

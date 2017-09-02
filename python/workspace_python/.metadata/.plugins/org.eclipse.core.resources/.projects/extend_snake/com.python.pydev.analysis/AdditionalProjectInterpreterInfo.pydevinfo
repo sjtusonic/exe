@@ -1,0 +1,81 @@
+-- VERSION_4
+-- START DISKCACHE
+D:\workspace_python\.metadata\.plugins\org.eclipse.core.resources\.projects\extend_snake\com.python.pydev.analysis\v2_indexcache
+gl|1432046710911|D:\workspace_python\extend_snake\src\gl.py
+level|1432046710913|D:\workspace_python\extend_snake\src\level.py
+AI|1432046710909|D:\workspace_python\extend_snake\src\AI.py
+ss_simple_snake|1439215130936|D:\workspace_python\extend_snake\src\ss_simple_snake.py
+food|1432046710910|D:\workspace_python\extend_snake\src\food.py
+player|1432046710914|D:\workspace_python\extend_snake\src\player.py
+-- END DISKCACHE
+-- START DICTIONARY
+27
+10=Game_Window
+17=AI.turn_up
+16=AI.update_position
+18=AI.turn_down
+23=Snake.restart
+22=Snake.__init__
+13=Food_piece.__init__
+24=Snake.update_position
+12=Snake_part.__init__
+27=Food.update
+25=AI.check_dead
+19=AI.turn_left
+21=AI.check_loop
+4=player
+9=Food
+5=gl
+7=Snake
+8=Food_piece
+1=AI
+3=ss_simple_snake
+26=Snake.check_dead
+14=Food.__init__
+2=food
+15=Food.restart
+11=Game_Window.__init__
+20=AI.turn_right
+6=Snake_part
+-- END DICTIONARY
+-- START TREE 1
+4
+AI|1|AI!9@
+foo|2|Food_piece!17@Food!17@
+gam|1|Game_Window!25@
+sna|4|Snake!33@SNAKE_SPEED!43@Snake_part!33@snake_list!43@
+-- END TREE
+-- START TREE 2
+31
+__i|6|__init__!6&34@__init__!7&34@__init__!1&10@__init__!8&18@__init__!9&18@__init__!10&26@
+app|1|app!10&27@
+bli|4|blit!6&34@blit!7&34@blit_grid!10&26@blit!8&18@
+che|7|check_dangerous_up!1&10@check_dangerous_right!1&10@check_dangerous_down!1&10@check_dead!1&10@check_dead!7&34@check_loop!1&10@check_dangerous_left!1&10@
+clo|1|clock!11&27@
+col|2|color!12&35@color!13&19@
+fon|1|font!11&27@
+foo|3|Food!11&27@food!14&19@food!15&19@
+gam|1|game_over!10&26@
+h_x|9|h_x!16&11@h_x!17&11@h_x!18&11@h_x!19&11@h_x!20&11@h_x!21&11@h_x!22&35@h_x!23&35@h_x!24&35@
+h_y|9|h_y!22&35@h_y!23&35@h_y!24&35@h_y!16&11@h_y!17&11@h_y!18&11@h_y!19&11@h_y!20&11@h_y!21&11@
+hea|2|head!22&35@head_color!22&35@
+inc|1|increase_length!7&34@
+is_|4|is_dead!25&11@is_dead!22&35@is_dead!23&35@is_dead!26&35@
+las|1|last_key!22&35@
+len|2|length!22&35@length!23&35@
+m_x|2|m_x!12&35@m_x!13&19@
+m_y|2|m_y!13&19@m_y!12&35@
+nam|1|name!22&35@
+poi|1|point!22&35@
+ran|1|random_pos!9&18@
+res|2|restart!7&34@restart!9&18@
+run|1|run!10&26@
+scr|1|screen!11&27@
+spe|2|speed!22&35@speed!23&35@
+tai|2|tail!22&35@tail!23&35@
+tim|9|time!22&35@time!23&35@time!24&35@time!14&19@time!15&19@time!27&19@time_tick!22&35@time!16&11@time_tick!14&19@
+tur|6|turn_up!1&10@turn_right!1&10@turn_up_down!1&10@turn_down!1&10@turn_left_right!1&10@turn_left!1&10@
+upd|5|update_position!7&34@update!9&18@update_position!1&10@update!1&10@update!7&34@
+x|4|x!12&35@x!22&35@x!23&35@x!13&19@
+y|4|y!13&19@y!12&35@y!22&35@y!23&35@
+-- END TREE

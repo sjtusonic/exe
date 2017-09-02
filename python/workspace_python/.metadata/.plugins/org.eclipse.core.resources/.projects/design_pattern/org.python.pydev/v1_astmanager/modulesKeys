@@ -1,0 +1,4 @@
+MODULES_MANAGER_V2
+factory_method.CalcAbstract|D:\workspace_python\design_pattern\src\factory_method\CalcAbstract.py
+factory_method.Factory|D:\workspace_python\design_pattern\src\factory_method\Factory.py
+factory_method.FactoryOfCalc|D:\workspace_python\design_pattern\src\factory_method\FactoryOfCalc.py

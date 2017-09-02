@@ -1,0 +1,7 @@
+MODULES_MANAGER_V2
+AI|D:\workspace_python\extend_snake\src\AI.py
+food|D:\workspace_python\extend_snake\src\food.py
+gl|D:\workspace_python\extend_snake\src\gl.py
+level|D:\workspace_python\extend_snake\src\level.py
+player|D:\workspace_python\extend_snake\src\player.py
+ss_simple_snake|D:\workspace_python\extend_snake\src\ss_simple_snake.py

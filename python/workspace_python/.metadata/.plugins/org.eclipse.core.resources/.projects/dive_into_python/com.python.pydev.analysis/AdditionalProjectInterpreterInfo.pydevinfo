@@ -1,0 +1,74 @@
+-- VERSION_4
+-- START DISKCACHE
+D:\workspace_python\.metadata\.plugins\org.eclipse.core.resources\.projects\dive_into_python\com.python.pydev.analysis\v2_indexcache
+1.1.1p1|1433078751148|D:\workspace_python\dive_into_python\src\1\1\1p1.py
+1.1.1p2|1433079142081|D:\workspace_python\dive_into_python\src\1\1\1p2.py
+1.1.1p4_if_for|1411824258718|D:\workspace_python\dive_into_python\src\1\1\1p4_if_for.py
+1.1.1p3|1411823373021|D:\workspace_python\dive_into_python\src\1\1\1p3.py
+1.1.1p5_hash|1415540115131|D:\workspace_python\dive_into_python\src\1\1\1p5_hash.py
+1.1.1p6_func_arg|1412091180347|D:\workspace_python\dive_into_python\src\1\1\1p6_func_arg.py
+1.1.__init__|1411817841823|D:\workspace_python\dive_into_python\src\1\1\__init__.py
+1.1.group|1433573178962|D:\workspace_python\dive_into_python\src\1\1\group.py
+1.1.advanced|1433078774582|D:\workspace_python\dive_into_python\src\1\1\advanced.py
+1.__init__|1411817841775|D:\workspace_python\dive_into_python\src\1\__init__.py
+1.word_sum.word_sum|1433078607074|D:\workspace_python\dive_into_python\src\1\word_sum\word_sum.py
+-- END DISKCACHE
+-- START DICTIONARY
+9
+2=1.1.1p1
+1=1.1.1p2
+9=1.1.1p4_if_for
+3=1.1.1p6_func_arg
+5=1.1.1p3
+8=1.1.1p5_hash
+4=1.1.group
+7=1.1.advanced
+6=1.word_sum.word_sum
+-- END DICTIONARY
+-- START TREE 1
+41
+L|1|L!11@
+a|1|a!19@
+add|2|add_end_right!26@add_end!26@
+arg|1|args!27@
+b|1|b!19@
+c|1|c!19@
+cal|2|calc!26@calc2!26@
+che|1|check_group!34@
+cla|1|classmates!11@
+cm|1|cm!43@
+cnt|1|cntr!51@
+d|1|d!59@
+enr|1|enroll!26@
+f|3|f!34@f!51@f!59@
+f1|1|f1!34@
+f_i|3|f_info!51@f_info_LOW!51@f_info_list!51@
+fun|1|func!26@
+g|1|g!59@
+i|1|i!59@
+kw|1|kw!27@
+l|1|l!59@
+ll|1|ll!67@
+n|1|n!75@
+nam|1|name!19@
+num|1|nums!27@
+per|1|person!26@
+pow|2|power!26@power_m!26@
+pr_|1|pr_value!51@
+s|1|s!67@
+sco|1|score!67@
+sor|1|sort_by_value!50@
+sub|1|subset!35@
+sum|2|sum!75@sum!51@
+swa|1|swap!18@
+t|1|t!75@
+tmp|2|tmp1!51@tmp!51@
+u|2|u!43@u!75@
+v|2|v!43@v!75@
+val|1|value!51@
+w|1|w!75@
+wor|1|word_cnt!51@
+-- END TREE
+-- START TREE 2
+0
+-- END TREE

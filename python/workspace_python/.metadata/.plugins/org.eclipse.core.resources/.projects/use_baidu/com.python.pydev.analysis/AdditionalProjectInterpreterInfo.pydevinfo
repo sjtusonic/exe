@@ -1,0 +1,22 @@
+-- VERSION_4
+-- START DISKCACHE
+D:\workspace_python\.metadata\.plugins\org.eclipse.core.resources\.projects\use_baidu\com.python.pydev.analysis\v2_indexcache
+search|1440248915955|D:\workspace_python\use_baidu\search.py
+test|1440248640106|D:\workspace_python\use_baidu\test.py
+gl|1440248608740|D:\workspace_python\use_baidu\gl.py
+-- END DISKCACHE
+-- START DICTIONARY
+2
+1=search
+2=gl
+-- END DICTIONARY
+-- START TREE 1
+4
+cle|1|clearTag!10@
+get|4|get_abstract!10@get_res_list_and_next_page_url!10@get_url!10@get_title!10@
+my_|1|my_urlencode!10@
+pri|1|printGB!18@
+-- END TREE
+-- START TREE 2
+0
+-- END TREE
