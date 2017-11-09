@@ -1,0 +1,8 @@
+
+set output "data_p.ps"
+set terminal postscript portrait
+set size ratio 1
+set title "Sample data plot"
+plot 'data.dat' using 1:2 t 'data points', \
+  "data.dat" using 1:2 t "lines" with lines
+
