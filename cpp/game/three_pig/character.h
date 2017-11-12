@@ -8,6 +8,20 @@ class Point
 		int x;
 		int y;
 		bool isIn(){return 0;};
+		bool  operator== (const Point& rhs) const
+		{
+			return (x==rhs.x && y==rhs.y);
+		}
+		void transform()
+		{
+			int tmp=x;
+			x=y;
+			y=tmp;
+		}
+		void mirrorX()
+		{
+			y=-y;
+		}
 };
 
 class Character
