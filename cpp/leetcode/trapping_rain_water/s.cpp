@@ -117,37 +117,66 @@ std::ostream & operator <<(std::ostream &os, const std::map<U, V> &m)
 
 class Solution {
 	public:
-		int trap(vector<int>& height) {
-			DLOG(height);
-			int p1=0;
-			int p2=0;
-			int MAX=height.size()-1;
-			int maxArea=0;
-			while(p1!=MAX && p2!=MAX)
-			{
-				DLOG1(p1);
-				DLOG(p2);
-				int h1=height[p1];
-				int h2=height[p2];
-				int area=min(h1,h2)*(p2-p1);
-				DLOG(area);
-				if(area>maxArea)
-				{
-					maxArea=area;
-					DLOG(maxArea);
-				}
 
-				if(h1>=h2)
+		template <class T>  
+			T min(T& a,T& b) {
+				return a>b?b:a;
+			}
+
+
+		vector<int> search(vector<int>& height, bool left) {// left==1 from left to right
+
+			DENTER;
+			DLOG(left);
+			vector<int> r;
+			vector<int> lv;
+			bool flagIn=0;
+			int hEdge=-1;
+			if(!left) // from right to left
+			{
+				//int size=height.size();
+				int curMax=0;
+				for(int i=height.size()-1;i>=0;i-- )
 				{
-					p2++;
+					if(height[i]>curMax)
+						curMax=height[i];
+					lv.push_back(curMax);
 				}
-				else
+				std::reverse(lv.begin(),lv.end());
+			}
+			else 
+			{
+				int curMax=0;
+				for(int i=0;i<height.size();i++ )
 				{
-					p1++;
+					if(height[i]>curMax)
+						curMax=height[i];
+					lv.push_back(curMax);
 				}
 			}
-			return 0;
-		}
+			DLOG(lv);
+			DLOG(r);
+			DRETURN;
+			return lv;
+		};
+		int trap(vector<int>& height) {
+			DLOG(height);
+			auto l1=search(height,1);
+			auto l2=search(height,0);
+			auto l=l1;
+			auto depth=l1;
+			int r=0;
+			for(int i=0;i<l.size();i++)
+			{
+				if(l[i]>l2[i])
+					l[i]=l2[i];
+				depth[i]=l[i]-height[i];
+				r+=depth[i];
+			}
+			DLOG(l);
+			DLOG(depth);
+			return r;
+		};
 };
 
 
@@ -158,7 +187,8 @@ int main()
 	start = clock();
 	////////////////////////////////////////////////
 	Solution sol;
-	vector<int> height={1,2,0,0,7};
+	vector<int> height={2,0,3,0,7,1,5};
+	            height={0,1,0,2,1,0,1,3,2,1,2,1};
 	//auto ans=sol.combinationSum(height,6);
 	auto ans=sol.trap(height);
 	DLOG(ans);
