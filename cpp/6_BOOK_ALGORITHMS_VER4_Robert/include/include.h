@@ -62,6 +62,7 @@
 #include <vector>
 #include <string>
 #include <iostream>
+#include <fstream>
 #include <algorithm>
 #include <deque>
 #include <regex>
@@ -72,7 +73,7 @@ using namespace std;
 #if !SIMPLE_LOG
 static int LV=0;
 static int LVCALL=-1;
-//#define PRLV     std::cout<<LV<<"\t"; for(int u12=LV;    u12>0;u12--) {std::cout<<" .. ";}
+#define PRLV     std::cout<<LV<<"\t"; for(int u12=LV;    u12>0;u12--) {std::cout<<" .. ";}
 #define PRLV                          for(int u12=LV;    u12>0;u12--) {std::cout<<" .. ";}
 #define PRLVCALL std::cout<<"L"<<LVCALL<<"\t"; for(int u12=LVCALL;u12>0;u12--) {std::cout<<" .. ";}
 	template <class U>

@@ -1,7 +1,6 @@
-
-
 class GraphBase {
 	public:
+		GraphBase();
 		GraphBase(int v);
 
 		virtual int  V();
@@ -14,8 +13,5 @@ class GraphBase {
 		int avgDegree();
 		int numberOfSelfLoops();
 	private:
-
-
-
 
 };

@@ -1,6 +1,12 @@
 #include "../../include/include.h"
 #include "GraphBase.h"
-GraphBase::GraphBase(int v){
+GraphBase::GraphBase(){
+	DENTER;
+	DRETURN;
+}
+GraphBase::GraphBase(int ve){
+	DENTER;
+	DRETURN;
 }
 
 int  GraphBase::V(){
@@ -12,16 +18,18 @@ void GraphBase::addEdge(int v,int w){
 vector<int> GraphBase::adj(int v){
 }
 string GraphBase::toString(){
+	DENTER;
 	string s= ""+ 
 	to_string(V())+" vertices, "+
 	to_string(E())+"edges\n";
 	for(int v=0;v<V();v++)
 	{
-		s+=v+":";
+		s+=to_string(v)+":";
 		for(int w:adj(v)) 
-			s+=w+" ";
+			s+=to_string(w)+" ";
 		s+="\n";
 	}
+	DRETURN;
 	return s;
 }
 // freq used methods:
