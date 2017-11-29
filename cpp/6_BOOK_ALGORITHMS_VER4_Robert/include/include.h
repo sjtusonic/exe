@@ -1,3 +1,6 @@
+#ifndef INCLUDE_H_
+#define INCLUDE_H_
+
 #define SIMPLE_LOG 0
 #define LNX 1
 
@@ -21,8 +24,12 @@
 #if (!SIMPLE_LOG)
 #define DENTER \
 	LVCALL++; PRLVCALL; ::std::cout<<"-->"<<__FUNCTION__<<::std::endl; 
+#define DENTERV(x) \
+	LVCALL++; PRLVCALL; ::std::cout<<"-->"<<__FUNCTION__<<"("<<x<<")"<<::std::endl; 
 #define DRETURN \
 	PRLVCALL; ::std::cout<<"<--"<<__FUNCTION__<<"@" <<__LINE__<<::std::endl; LVCALL--;
+#define DRETURNV(x) \
+	PRLVCALL; ::std::cout<<"<--"<<__FUNCTION__<<"("<<x<<")@" <<__LINE__<<::std::endl; LVCALL--;
 #endif
 
 #define DEBUG_MARK PRINT_DEBUG_INFO()
@@ -56,7 +63,9 @@
 #define PRINT_COUT(p) 
 
 #define DENTER 
+#define DENTERV
 #define DRETURN 
+#define DRETURNV
 #endif
 
 #include <vector>
@@ -120,4 +129,5 @@ std::ostream & operator <<(std::ostream &os, const std::map<U, V> &m)
 //int main()
 //{
 //}
+#endif
 #endif
