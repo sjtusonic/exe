@@ -1,42 +1,34 @@
 #include "../../include/include.h"
-#include "Graph.h"
 #include "DepthFirstSearch.h"
-void testSearch(Graph* g); // test table 4.1.4
-void testPath(Graph* g); // test table 4.1.5
-void testCC(Graph* g); // test table 4.1.6
+#include "DepthFirstPaths.h"
+//void testSearch(Graph* g); // test table 4.1.4
+//void testPath(Graph* g); // test table 4.1.5
+//void testCC(Graph* g); // test table 4.1.6
 //////////////////////////////
 // MAIN
 //////////////////////////////
 int main() 
 {
-	//Graph* g=new Graph (10);
-	Graph* g=new Graph ("tinyG.txt");
-	//Graph* g=new Graph ("tinyG.connected.txt");
-	//g->addEdge(1,2);
-	DLOG(g->toString());
-	testSearch(g);
-	//testPath(g);
-	//testCC(g);
+	//testGraph(); //table
+	//testSearch();
+	testPath();
+	DPRINT("-------------------------");
+
+bool * ttt;
+ttt=new bool[10];
+ttt[0]=1;
+ttt[1]=0;
+ttt[2]=1;
+for(int i=0;i<10;i++)
+{
+	DLOG(ttt[i]);
+}
 	return 0;
-
 }
 
 //////////////////////////////
 //////////////////////////////
 //////////////////////////////
-void testGraph()
-{
-	Graph* g=new Graph ("tinyG.txt");
-	//g->addEdge(1,2);
-	DLOG(g->toString());
-}
-void testSearch(Graph* g)
-{
-	DENTER;
-	int SOURCE=1;
-	TestSearch* ts=new TestSearch(g,SOURCE);
-	DRETURN;
-}
 #if 0
 void testPath(Graph* g)
 {

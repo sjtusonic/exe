@@ -41,8 +41,8 @@ Graph::Graph(int ve){
 	mV=ve;
 	mE=0;
 	mAdj={};
-	for(int i=0;i<ve;i++)
-		mAdj.push_back({});
+	//for(int i=0;i<ve;i++)
+	mAdj.resize(ve,{});
 	DRETURN;
 }
 Graph::Graph(string fname){
@@ -56,16 +56,16 @@ Graph::Graph(string fname){
 	while (infile >> a >> b)
 	{
 		cntLine++;
-		DLOG(cntLine);
-		DLOG(a);
-		DLOG(b);
+		//DLOG(cntLine);
+		//DLOG(a);
+		//DLOG(b);
 		if(cntLine==1)
 		{
 			mV=a;
 			mE=0;
 			mAdj={};
-			for(int i=0;i<a;i++)
-				mAdj.push_back({});
+			//for(int i=0;i<a;i++)
+			mAdj.resize(a,{});
 		}
 		else
 		{
@@ -82,7 +82,7 @@ int  Graph::E(){
 	return mE;
 }
 void Graph::addEdge(int v,int w){
-	DENTER;
+	//DENTER;
 	//DLOG(v);
 	//DLOG(w);
 	mAdj[v].push_back(w);
@@ -90,7 +90,7 @@ void Graph::addEdge(int v,int w){
 	//DLOG(mAdj.size());
 	//DLOG(mAdj[v].size());
 	mE++;
-	DRETURN;
+	//DRETURN;
 }
 vector<int> Graph::adj(int v){
 	//DENTER;
@@ -101,6 +101,14 @@ vector<int> Graph::adj(int v){
 	return mAdj[v];
 }
 
+void testGraph()
+{
+	DENTER;
+	Graph* g=new Graph ("tinyG.txt");
+	//g->addEdge(1,2);
+	DLOG(g->toString());
+	DRETURN;
+}
 #if 0
 /////////////////////////////////
 // P342 Table 4.1.5	Paths

@@ -20,14 +20,8 @@ class DepthFirstSearch {
 			for(int w:G->adj(v))
 				if(!mMarked[w]) dfs(G,w);
 		}
-		bool marked(int w)
-		{
-			return mMarked[w];
-		}
-		int count()
-		{
-			return mCount;
-		}
+		bool marked(int w) { return mMarked[w]; }
+		int count() { return mCount; }
 };
 class Search:public DepthFirstSearch
 {
@@ -58,3 +52,12 @@ class TestSearch {
 	private:
 		;
 };
+void testSearch()
+{
+	DENTER;
+	Graph* g=new Graph ("tinyG.txt");
+	DLOG(g->toString());
+	int SOURCE=1;
+	new TestSearch(g,SOURCE);
+	DRETURN;
+}

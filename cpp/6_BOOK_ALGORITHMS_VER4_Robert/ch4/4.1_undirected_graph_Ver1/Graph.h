@@ -4,6 +4,9 @@
 #include <set>
 typedef vector<int> PATHTYPE;
 class Graph:public GraphBase {
+		/////////////////////////////////
+		// P333 Table 4.1.1	Graph API
+		/////////////////////////////////
 	public:
 		Graph(int ve);
 		Graph(string fname);
@@ -41,6 +44,10 @@ class Graph:public GraphBase {
 		/////////////////////////////////
 
 };
+
+#if 1
+void testGraph();
+#endif
 
 
 #endif
