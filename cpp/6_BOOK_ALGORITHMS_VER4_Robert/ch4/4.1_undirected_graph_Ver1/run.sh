@@ -1,3 +1,4 @@
+  /usr/bin/ctags -R --sort=yes --c++-kinds=+pl --fields=+iaSKz . 
  rm a.out;
  rm compile.log;
  rm out.log 

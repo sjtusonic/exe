@@ -1,28 +1,23 @@
 /////////////////////////////////
 // P342 Table 4.1.5	Paths
 /////////////////////////////////
+#define USE_DFS_SEARCH 1
+
+#include "BreadthFirstPaths.h"
 class DepthFirstPaths
 {
-	private:
-		bool* mMarked;
-		int* mEdgeTo;
+	protected:
+		vector<bool> mMarked;// MEMBER
+		vector<int> mEdgeTo;// MEMBER
 		int mS;
 	public:
-		DepthFirstPaths() {
-			DENTER;
-			DRETURN;
-		}
-		DepthFirstPaths(Graph* G,int s)
+		DepthFirstPaths() {}//METHOD
+		DepthFirstPaths(Graph* G,int s)//METHOD
 		{
-			DENTER;
-			DLOG(this);//0x7f
-			mMarked=new bool[G->V()];
-			DLOG(mMarked);//0x55
-			mEdgeTo=new int[G->V()];
+			mMarked.resize(G->V(),0);
+			mEdgeTo.resize(G->V(),-2); // -2 is init value
+			mEdgeTo[s]=-1; // -1 is root value
 			mS=s;
-			for(int i=0;i<G->V();i++)
-				mEdgeTo[i]=-2; // init
-			mEdgeTo[s]=-1; // root
 			dfs(G,s);
 			cout<<"mEdgeTo:";
 			for(int i=0;i<G->V();i++)
@@ -30,18 +25,15 @@ class DepthFirstPaths
 				cout<<i<<":"<<mEdgeTo[i]<<endl;
 			}
 			cout<<endl;
-			DLOG(mMarked);//0x55
-			DRETURN;
 		}
 	private:
-		void dfs(Graph*G,int v)
+		void dfs(Graph*G,int v)//METHOD
 		{
-			DENTER;
-			DLOG(v);
+			//DENTER;
+			//DLOG(v);
 			mMarked[v]=1;
-			DLOG(this);//0x7f
-			DLOG(mMarked);//0x55
-			DPRINT("set mMarked["<<v<<"]=1");
+			//DPRINT("set mMarked["<<v<<"]=1");
+			//DLOG(mMarked[v]);
 			for(int w:G->adj(v))
 				if(!mMarked[w]) 
 				{
@@ -49,69 +41,56 @@ class DepthFirstPaths
 					DPRINT(" EdgeTo["<<w<<"]="<<v);
 					dfs(G,w);
 				}
-			DRETURN;
+			//DRETURN;
 		}
 	public: 
-		bool hasPathTo(int v) { 
-			DENTER;
-			bool r= mMarked[v]; 
-			DLOG(this);//0x55
-			DLOG(mMarked);//0x7f
-			DPRINT("mMarked["<<v<<"]="<<r);
-			DRETURN;
-			return r;
-		}
-		vector<int> pathTo(int v)
+		bool hasPathTo(int v) { return mMarked[v]; }//METHOD
+		vector<int> pathTo(int v)//METHOD
 		{
-			DENTER;
 			if(!hasPathTo(v)) return {};
-			DEBUG_MARK;
 			vector<int> path={};
-			DEBUG_MARK;
 			for(int x=v;x!=mS;x=mEdgeTo[x])
 				path.push_back(x);
-			DEBUG_MARK;
 			path.push_back(mS);
-			DEBUG_MARK;
-			DLOG(path.size());
-			DEBUG_MARK;
-			DRETURN;
 			return path;
-
 		}
 };
+#if USE_DFS_SEARCH
 class Paths:public DepthFirstPaths
 {
 	public:
-		Paths(Graph*g,int s){ 
-			DENTER;
-			DLOG(this);//0x55
-			//DLOG(mMarked); no this member
-			DepthFirstPaths(g,s);
-			DRETURN;
-		};
+		using DepthFirstPaths::DepthFirstPaths;//METHOD
 };
+#else
+class Paths:public BreadthFirstPaths
+{
+	public:
+		using BreadthFirstPaths::BreadthFirstPaths;//METHOD
+};
+#endif
 class TestPath
 {
 	public:
-		TestPath(Graph* G,int s)
+		TestPath(Graph* G,int s)//METHOD
 		{
 			DENTER;
 			Paths* search=new Paths(G,s);
 			DLOG(search);//0x55
 			for(int v=0;v<G->V();v++)
 			{
-				cout<<"from "<<s<<" to "<<v<<":";
-				if(search->hasPathTo(v)) // call a wrong addres, which make the addr of mMarked wrong
+				cout<<"from "<<s<<" to "<<v<<":\t";
+				if(search->hasPathTo(v))
 					for(int x:search->pathTo(v))
 						if(x==s) cout<<x;
-						else     cout<<"-"<<x;
+						else     cout<<x<<"-";
+				else
+					cout<<"NA";
 				cout<<endl;
 			}
 			DRETURN;
 		}
 };
-void testPath()
+void testPath()//METHOD
 {
 	DENTER;
 	Graph* g=new Graph("tinyG.txt");

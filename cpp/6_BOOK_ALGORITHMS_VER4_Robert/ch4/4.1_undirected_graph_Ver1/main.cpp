@@ -1,6 +1,7 @@
 #include "../../include/include.h"
 #include "DepthFirstSearch.h"
 #include "DepthFirstPaths.h"
+#include "CC.h"
 //void testSearch(Graph* g); // test table 4.1.4
 //void testPath(Graph* g); // test table 4.1.5
 //void testCC(Graph* g); // test table 4.1.6
@@ -9,20 +10,12 @@
 //////////////////////////////
 int main() 
 {
+	//assert(0);
 	//testGraph(); //table
 	//testSearch();
-	testPath();
+	//testPath();
+	testCC();
 	DPRINT("-------------------------");
-
-bool * ttt;
-ttt=new bool[10];
-ttt[0]=1;
-ttt[1]=0;
-ttt[2]=1;
-for(int i=0;i<10;i++)
-{
-	DLOG(ttt[i]);
-}
 	return 0;
 }
 
