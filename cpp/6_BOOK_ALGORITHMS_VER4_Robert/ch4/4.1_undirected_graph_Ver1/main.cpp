@@ -2,6 +2,9 @@
 #include "DepthFirstSearch.h"
 #include "DepthFirstPaths.h"
 #include "CC.h"
+#include "Cycle.h"
+#include "TwoColor.h"
+#include "SymbolGraph.h"
 //void testSearch(Graph* g); // test table 4.1.4
 //void testPath(Graph* g); // test table 4.1.5
 //void testCC(Graph* g); // test table 4.1.6
@@ -14,7 +17,10 @@ int main()
 	//testGraph(); //table
 	//testSearch();
 	//testPath();
-	testCC();
+	//testCC();
+	//testCycle();
+	//testTwoColor();
+	testSymbolGraph();
 	DPRINT("-------------------------");
 	return 0;
 }

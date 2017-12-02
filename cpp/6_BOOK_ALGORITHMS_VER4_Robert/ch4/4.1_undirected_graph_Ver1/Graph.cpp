@@ -82,22 +82,23 @@ int  Graph::E(){
 	return mE;
 }
 void Graph::addEdge(int v,int w){
-	//DENTER;
-	//DLOG(v);
-	//DLOG(w);
+	DENTER;
+	DLOG(v);
+	DLOG(w);
+	DLOG(mAdj.size());
 	mAdj[v].push_back(w);
 	mAdj[w].push_back(v);
-	//DLOG(mAdj.size());
-	//DLOG(mAdj[v].size());
+	DLOG(mAdj.size());
+	DLOG(mAdj[v].size());
 	mE++;
-	//DRETURN;
+	DRETURN;
 }
 vector<int> Graph::adj(int v){
-	//DENTER;
-	//DLOG(v);
-	//DLOG(mAdj.size());
-	//DLOG(mAdj[v].size());
-	//DRETURN;
+	DENTER;
+	DLOG(v);
+	DLOG(mAdj.size());
+	DLOG(mAdj[v].size());
+	DRETURN;
 	return mAdj[v];
 }
 

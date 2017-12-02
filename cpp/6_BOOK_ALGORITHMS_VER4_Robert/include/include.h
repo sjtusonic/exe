@@ -39,6 +39,8 @@
 	(::std::cout<<::std::endl)
 #define DPRINT(x) \
 	(::std::cout<<x<<::std::endl   )
+#define DPRINT_hor(x) \
+	(::std::cout<<x                )
 #define PRINT_DEBUG_INFO_PREFIX(p) \
 	(::std::cout<<p<<"zjc debug: FILE=" <<__FILE__<<":\tLINE=" <<__LINE__<<":\tFUNC="<<__FUNCTION__<<" \tcompiled in " <<__TIME__<<"-" <<__DATE__<<"" <<::std::endl    )
 
@@ -60,6 +62,7 @@
 #define DEBUG_MARK 
 #define PRINT_DEBUG_INFO_PREFIX(p)
 #define DPRINT(x)
+#define DPRINT_hor(x)
 #define PRINT_COUT(p) 
 
 #define DENTER 
