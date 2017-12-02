@@ -1,86 +1,67 @@
 /////////////////////////////////
-// P352 	Table 4.1.7	Cycle
+// P372 	Table 4.2.5	DirectedCycle
 /////////////////////////////////
-class Cycle
+class DirectedCycle
 {
 	private:
 		vector<bool> mMarked;// MEMBER
-		bool mHasCycle;// MEMBER
-		vector<int> mCycle;
+		vector<int> mEdgeTo;// MEMBER
+		vector<int> mDirectedCycle;
+		vector<bool> mOnStack;
+		bool mHasDirectedCycle;// MEMBER
 	public:
-		Cycle(Graph* G)// METHOD
+		DirectedCycle(Digraph * G)// METHOD
 		{
-			mMarked.resize(G->V(),0);
-			mCycle={};
-			for(int s=0;s<G->V();s++)
+			auto v=G->V();
+			mOnStack.resize(v,0);
+			mEdgeTo.resize(v,-1);
+			mMarked.resize(v,0);
+			for(int s=0;s<v;s++)
 				if(!mMarked[s])
-					dfs(G,s,s);
+					dfs(G,s);
+			reverse(mDirectedCycle.begin(),mDirectedCycle.end());
 		}
-		void dfs(Graph* G,int v,int u)// METHOD
+	private:
+		void dfs(Digraph* G,int v)// METHOD
 		{
-			// print some cycles but not all
-			// how to print all cycles?
 			//DENTER;
+			mOnStack[v]=1;
 			mMarked[v]=1;
-			mCycle.push_back(v);
-#if 0
-			cout<<"mMarked:";
-			for(int ii=0;ii<mMarked.size();ii++)
-			{
-				if(mMarked[ii])
-					cout<<ii<<" ";
-			}
-			cout<<endl;
-#endif
-			//DLOG(mCycle);
-			//DPRINT("set mId["<<v<<"]="<<mCount );
 			for(int w:G->adj(v))
-			{
-				//PRINTVAR_hor(v);
-				//DPRINT_hor(" ref:"<<u<<",");
-				//DPRINT(w<<" of adj("<<v<<")");
-				if(!mMarked[w]) 
+				if(hasCycle()) 
+					return;
+				else if(!mMarked[w])
 				{
-					dfs(G,w,v);
+					mEdgeTo[w]=v;
+					dfs(G,w);
 				}
-				else if(w!=u) 
+				else if(mOnStack[w])
 				{
-					auto iter=find(mCycle.begin(),mCycle.end(),w);
-					if(iter!=mCycle.end())
-					{
-						int ind=iter-mCycle.begin();
-						mCycle.push_back(w);
-						//DPRINT("hasCycle because: "<<w<<"!="<<u);
-						DPRINT("hasCycle:");
-						for(int ii=ind;ii<mCycle.size();ii++)
-						{
-							cout<<mCycle[ii]<<" ";
-						}
-						cout<<endl;
-						mHasCycle=true;
-						mCycle.pop_back();
-					}
+					mDirectedCycle={};
+					for(int x=v;x!=w;x=mEdgeTo[x])
+						mDirectedCycle.push_back(x);
+					mDirectedCycle.push_back(w);
+					mDirectedCycle.push_back(v);
 				}
-			}
-			mCycle.pop_back();
+			mOnStack[v]=0;
 			//DRETURN;
 		}
-		//bool connected(int v,int w) { return mId[v]==mId[w];	}// METHOD
-		//int id(int v){return mId[v];}// METHOD
-		//int count(){return mCount;}// METHOD
+	public:
+		bool hasCycle() {return mDirectedCycle.size()!=0;}
+		vector<int> cycle() {return mDirectedCycle;}
 };
 
-class TestCycle// METHOD
+class TestDirectedCycle// METHOD
 {
 	public:
-		TestCycle(Graph* G)//METHOD
+		TestDirectedCycle()//METHOD
 		{
-			Cycle* cy=new Cycle(G);
+			Digraph* g=new Digraph("tinyG.hasDirectedCycle.txt");
+			DLOG(g->toString());
+			g->dumpDOT("TestDirectedCycle.dot");
+			auto dc=new DirectedCycle(g);
+			DLOG(dc->hasCycle());
+			if(dc->hasCycle())
+				DLOG(dc->cycle());
 		}
 };
-void testCycle()//METHOD
-{
-	Graph* g=new Graph("tinyG.txt");
-	DLOG(g->toString());
-	new TestCycle(g);
-}
