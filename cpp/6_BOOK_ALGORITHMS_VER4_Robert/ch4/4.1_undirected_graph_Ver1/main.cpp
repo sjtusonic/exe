@@ -5,6 +5,8 @@
 #include "Cycle.h"
 #include "TwoColor.h"
 #include "SymbolGraph.h"
+#include "DegreeOfSeparation.h"
+#include "GraphProperties.h"
 //void testSearch(Graph* g); // test table 4.1.4
 //void testPath(Graph* g); // test table 4.1.5
 //void testCC(Graph* g); // test table 4.1.6
@@ -20,7 +22,9 @@ int main()
 	//testCC();
 	//testCycle();
 	//testTwoColor();
-	testSymbolGraph();
+	//testSymbolGraph();
+	//testDegreeOfSeparation();
+	testGraphProperties();
 	DPRINT("-------------------------");
 	return 0;
 }

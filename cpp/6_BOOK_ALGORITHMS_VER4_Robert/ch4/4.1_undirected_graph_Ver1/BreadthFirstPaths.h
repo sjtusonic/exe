@@ -7,6 +7,8 @@ class BreadthFirstPaths
 		vector<bool> mMarked;// MEMBER
 		vector<int> mEdgeTo;// MEMBER
 		int mS;
+		//int mEccentricity; // the min distance the farest node of node mS
+		int mFarestNode;
 	public:
 		BreadthFirstPaths() {}//METHOD
 		BreadthFirstPaths(Graph* G,int s)//METHOD
@@ -36,6 +38,7 @@ class BreadthFirstPaths
 				for(int w:G->adj(v))
 					if(!mMarked[w]) 
 					{
+						mFarestNode=w;
 						mEdgeTo[w]=v;
 						mMarked[w]=1;
 						DPRINT(" EdgeTo["<<w<<"]="<<s);
@@ -53,5 +56,13 @@ class BreadthFirstPaths
 				path.push_back(x);
 			path.push_back(mS);
 			return path;
+		}
+		int getEccentricity()
+		{
+			auto path=pathTo(mFarestNode);
+			int dist=path.size()-1;
+			DPRINT("mFarestNode from "<<mS<<" is "<<mFarestNode<<", dist="<<dist);
+			DLOG(path);
+			return dist;
 		}
 };
