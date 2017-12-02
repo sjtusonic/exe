@@ -1,0 +1,13 @@
+beijing shanghai
+kaifeng xuzhou
+xuzhou shanghai
+chongqing xian
+xian zhengzhou
+zhengzhou kaifeng
+nanjing xuzhou
+shanghai hangzhou
+nanjing guangzhou
+guangzhou taiwan
+chengdu chongqing
+guangzhou xianggang
+chengdu xian

@@ -12,7 +12,7 @@
 #define DLOG1(x)
 #endif
 
-#define PRINTVAR(a) std::cout<<#a<<"\t=\t"<<a<<"\t@"<<__FILE__<<":"<<__LINE__<<":"<<__FUNCTION__<<"()"<<std::endl;
+#define PRINTVAR(a) std::cout<<#a<<"\t=\t"<<a<<"\t@["<<__FILE__<<":"<<__LINE__<<":"<<__FUNCTION__<<"()]"<<std::endl;
 #define PRINTVAR_hor(a) std::cout<<#a<<"("<<a<<")\t";
 
 #define PRINT_VECTOR(a)  for(auto u=a.begin();u!=a.end();u++) {std::cout<<"VEC:\t"<<#a<<"="<<*u<<std::endl;}
@@ -27,9 +27,9 @@
 #define DENTERV(x) \
 	LVCALL++; PRLVCALL; ::std::cout<<"-->"<<__FUNCTION__<<"("<<x<<")"<<::std::endl; 
 #define DRETURN \
-	PRLVCALL; ::std::cout<<"<--"<<__FUNCTION__<<"@" <<__LINE__<<::std::endl; LVCALL--;
+	PRLVCALL; ::std::cout<<"<--"<<__FUNCTION__<<"@["<<__FILE__<<":"<<__LINE__<<"]"<<::std::endl; LVCALL--;
 #define DRETURNV(x) \
-	PRLVCALL; ::std::cout<<"<--"<<__FUNCTION__<<"("<<x<<")@" <<__LINE__<<::std::endl; LVCALL--;
+	PRLVCALL; ::std::cout<<"<--"<<__FUNCTION__<<"("<<x<<")@["<<__FILE__<<":"<<__LINE__<<"]"<<::std::endl; LVCALL--;
 #endif
 
 #define DEBUG_MARK PRINT_DEBUG_INFO()
@@ -48,7 +48,7 @@
 
 #define verbose_PRINT_VECTOR_hor(a)  std::cout<<#a<<":\t";for(auto u=a.begin();u!=a.end();u++) {std::cout<<*u<<"\t";};std::cout<<""<<std::endl;
 #define verbose_PRINTVAR_hor(a) std::cout<<#a<<"("<<a<<")\t";
-#define verbose_PRINTVAR(a) std::cout<<#a<<"\t=\t"<<a<<"\t@"<<__FILE__<<":"<<__LINE__<<":"<<__FUNCTION__<<"()"<<std::endl;
+#define verbose_PRINTVAR(a) std::cout<<#a<<"\t=\t"<<a<<"\t@["<<__FILE__<<":"<<__LINE__<<":"<<__FUNCTION__<<"()]"<<std::endl;
 #define verbose_PRINT_DEBUG_INFO_PREFIX(p) \
 	(::std::cout<<p<<"zjc debug: FILE=" <<__FILE__<<":\tLINE=" <<__LINE__<<":\tFUNC="<<__FUNCTION__<<" \tcompiled in " <<__TIME__<<"-" <<__DATE__<<"" <<::std::endl    )
 
