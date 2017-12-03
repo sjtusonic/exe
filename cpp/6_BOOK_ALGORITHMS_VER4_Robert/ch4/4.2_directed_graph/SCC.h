@@ -1,0 +1,6 @@
+class SCC
+{
+}
+class TestSCC
+{
+}
