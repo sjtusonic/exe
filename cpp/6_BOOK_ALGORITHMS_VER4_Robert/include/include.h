@@ -5,7 +5,7 @@
 #define LNX 1
 
 #if (!SIMPLE_LOG)
-#define DLOG(x) cout<<#x<<"="<<x<<" @"<<__LINE__<<endl;
+#define DLOG(x) cout<<#x<<"="<<x<<" @"<<__FILE__<<":"<<__LINE__<<endl;
 #define DLOG1(x) cout<<#x<<"="<<x<<"\t";
 #else
 #define DLOG(x)
@@ -110,6 +110,29 @@ std::ostream & operator <<(std::ostream &os, const std::vector<U> &m)
 
 	return os;
 }
+	template <class U>
+std::ostream & operator <<(std::ostream &os, const std::deque<U> &m)
+{
+	if(m.size()==0)
+		return os;
+	os << std::endl;
+	PRLV(LV);
+	os << "->";
+	os << std::endl;
+	LV++;
+	PRLV(LV);
+	for (const auto &p : m)
+	{
+		os << p << ", " ;
+	}
+	os << std::endl;
+	LV--;
+	PRLV(LV);
+	os << "<-";
+
+	return os;
+}
+
 
 	template <class U, class V>
 std::ostream & operator <<(std::ostream &os, const std::map<U, V> &m)

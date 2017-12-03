@@ -47,7 +47,12 @@ class DirectedCycle
 			//DRETURN;
 		}
 	public:
-		bool hasCycle() {return mDirectedCycle.size()!=0;}
+		bool hasCycle() {
+			bool r= mDirectedCycle.size()!=0;
+			if(r)
+				DLOG(mDirectedCycle);
+			return r;
+		}
 		vector<int> cycle() {return mDirectedCycle;}
 };
 
@@ -57,11 +62,10 @@ class TestDirectedCycle// METHOD
 		TestDirectedCycle()//METHOD
 		{
 			Digraph* g=new Digraph("tinyG.hasDirectedCycle.txt");
+			//Digraph* g=new Digraph("tinyG.nocycle.txt");
 			DLOG(g->toString());
 			g->dumpDOT("TestDirectedCycle.dot");
 			auto dc=new DirectedCycle(g);
 			DLOG(dc->hasCycle());
-			if(dc->hasCycle())
-				DLOG(dc->cycle());
 		}
 };

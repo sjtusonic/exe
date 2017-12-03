@@ -8,12 +8,13 @@ class SymbolDigraph
 		vector<string> mKeys;
 		Digraph* mG;
 	public:
-		SymbolDigraph(string filename,string delim)
+		SymbolDigraph(string filename,string delim)//METHOD
 		{
 			DENTER;
 			std::ifstream infile(filename);
 			if (!infile)
 				std::cerr << "Couldn't open " << filename << " for reading\n";
+			cout<<"READING file: "<<filename<<" ..."<<endl;
 			string a, b;
 			int cntLine=0;
 			while (infile >> a >> b)
@@ -36,33 +37,80 @@ class SymbolDigraph
 			std::ifstream infile1(filename);
 			if (!infile1)
 				std::cerr << "Couldn't open " << filename << " for reading\n";
+			cout<<"READING file: "<<filename<<" ..."<<endl;
 			cntLine=0;
 			while (infile1 >> a >> b)
 			{
-				if(cntLine>mSt.size())
-					break;
 				cntLine++;
 				int u=mSt[a];
 				int v=mSt[b];
+				DPRINT("addEdge:"<<a<<"("<<u<<"),"<<b<<"("<<v<<")");
 				mG->addEdge(u,v);
 				//DPRINT("addEdge");
 			}
 			DLOG(mG->toString());
 			DRETURN;
 		}
-		Digraph* G() {
+		Digraph* G() {//METHOD
 			return mG;}
-		bool contains(string key) { return mSt.find(key)!=mSt.end(); }
-		int index(string key)
+		bool contains(string key) { return mSt.find(key)!=mSt.end(); }//METHOD
+		int index(string key)//METHOD
 		{
 			DENTER;
 			auto r= mSt[key];
 			DRETURN;
 			return r;
 		}
-		string name(int v)
+		string name(int v)//METHOD
+		{ return mKeys[v]; }
+		string toString()
 		{
-			return mKeys[v];
+			DENTER;
+			string s= ""; 
+			s+="\n-----------------------------\n";
+			s+=to_string(mG->V())+" vertices, "+
+				to_string(mG->E())+"edges\n";
+			for(int v=0;v<mG->V();v++)
+			{
+				s+=name(v)+"("+to_string(v)+")\t->\t";
+				auto vv=mG->adj(v);
+				auto sz= vv.size();
+				if(sz!=0)
+				{
+					for(int w:mG->adj(v))
+					{
+						s+=name(w)+"("+to_string(w)+") ";
+					}
+				}
+				s+="\n";
+			}
+			s+="-----------------------------\n";
+			DRETURN;
+			return s;
+		}
+		void dumpDOT(string fname)
+		{
+			//----------------------------------------------------------
+			string filename_out=fname;
+			std::ofstream outfile(filename_out);
+			if (!outfile)
+			{
+				std::cerr << "Couldn't open " << filename_out << " for writing\n";
+				return;
+			}
+			cout<<"DUMPING FILE: "<<fname<<" ..."<<endl;
+			outfile<<"digraph \""<<this<<"\" {"<<endl;
+			for(int ii=0;ii<mG->V();ii++)
+			{
+				outfile<<ii<<"[label =\""<<ii<<","<<name(ii)<<"\"];"<<endl;
+			}
+			for(int v=0;v<mG->V();v++)
+			{
+				for(auto to:mG->adj(v))
+					outfile<<v<<"->"<<to<<";"<<endl;
+			}
+			outfile<<"}"<<endl;
+			//----------------------------------------------------------
 		}
 };
 class TestSymbolDigraph
