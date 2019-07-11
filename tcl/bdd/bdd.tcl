@@ -58,23 +58,29 @@ proc deleteColon {n} {
 	regsub -all {:} $n {} ret;
 	return $ret;
 }
-proc graph2dot {g} {
-	set fp [open ${g}.dot w]
-		puts $fp "digraph G \{"
-		foreach _arc [$g arcs] {
-			puts "$_arc : [$g arc source $_arc] -> [$g arc target $_arc]";
-			set from     "[deleteColon [$g arc source $_arc]]";
-			set to       "[deleteColon [$g arc target $_arc]]";
-			if {[$g arc keyexists $_arc label]} {
-				set label [$g arc get $_arc label]
-			} else {
-				set label NA
-			}
-			puts $fp     "$from -> $to \[label=$label\]"
-		}
-	puts $fp "\}"
 
-		close $fp;
+proc graph2dot {g {dotFileName ""}} {
+	puts "CALL graph2dot $g $dotFileName ";
+	if {$dotFileName eq ""} {
+		set dotFileName ${g}.dot;
+	} 
+	show_var dotFileName 
+		set fp [open $dotFileName w];
+	puts $fp "digraph G \{";
+	foreach _arc [$g arcs] {
+		puts "$_arc : [$g arc source $_arc] -> [$g arc target $_arc]";
+		set from     "[deleteColon [$g arc source $_arc]]";
+		set to       "[deleteColon [$g arc target $_arc]]";
+		if {[$g arc keyexists $_arc label]} {
+			set label [$g arc get $_arc label];
+		} else {
+			set label NA;
+		}
+		puts $fp     "$from -> $to \[label=$label\]";
+	}
+	puts $fp "\}";
+
+	close $fp;
 }
 
 proc insert_node_wrp {g node_name} {
@@ -82,7 +88,7 @@ proc insert_node_wrp {g node_name} {
 	if {![$g node exists $node_name]} {
 		puts "CREATE NEW NODE";
 		set n [$g node insert $node_name;]
-			return $n
+			return $n;
 #set newArcName $digit;
 	} else {
 		return $node_name;
@@ -184,24 +190,52 @@ proc build_bdd_leaf {g ref cfg} {
 proc show_all_arcs {g} {
 	foreach arc [$g arcs] {
 #show_var arc
-		puts "arc=$arc:"
-			foreach key [$g arc keys $arc] {
-				puts "key=$key,[$g arc get $arc $key]"
-			}
+		puts "arc=$arc:";
+		foreach key [$g arc keys $arc] {
+			puts "key=$key,[$g arc get $arc $key]";
+		}
 #puts "[$g arc set $arc label]"
 #puts "[$g arc attr label]"
 	}
 }
-proc reduce_bdd { g ref cfg} {
-	puts "[string repeat --> [info level]]CALLING [info level 0]";
-	show_all_arcs $g
-		foreach arc [$g arcs] {
-			if {[$g arc keyexists $arc label] && [$g arc get $arc label] eq "toLeaf"} {
+proc del_arc_and_pred {g arc} {
+# predNode --(arc)--> succNode
+#     del     del
+# 1.   --(lInArcs)->predNode --(arc)--> succNode
+#      change lInArcs' target to succNode
+# 2.   delete predNode and arc
+	set predNode [$g arc source $arc];
+	set succNode [$g arc target $arc];
+	show_var predNode ;
+#1:
+	set lInArcs [$g arcs -in $predNode];
+	puts "lInArcs=$lInArcs";
+	foreach _inarc $lInArcs {
+		$g arc move-target $_inarc $succNode ;
+	}
+	set lOutArcs [$g arcs -out $predNode];
+	puts "lOutArcs=$lOutArcs";
+#2:
+	$g node delete $predNode ;
+
+#$g swap $predNode $succNode ;
+#$g node delete $predNode 
+}
+proc reduce_P_in_arcs {g} {
+	foreach arc [$g arcs] {
+		if {[$g arc exists $arc ] && 
+			[$g arc keyexists $arc label] && [$g arc get $arc label] eq "toLeaf"} {
 				puts "ZJC this is toLeaf! $arc"
 #puts "ZJC";
 # TODO delete this arc and its predecessor
+					del_arc_and_pred $g $arc
 			}
-		}
+	}
+}
+proc reduce_bdd { g ref cfg} {
+	puts "[string repeat --> [info level]]CALLING [info level 0]";
+	show_all_arcs $g;
+	reduce_P_in_arcs $g;
 	puts "[string repeat <-- [info level]]RETURN [info level 0]";
 }
 proc build_bdd {ref cfg} {
@@ -233,6 +267,7 @@ proc build_bdd {ref cfg} {
 	build_bdd_var_tree ::G $ref $cfg;
 	build_bdd_leaf     ::G $ref $cfg;
 
+	graph2dot ::G G.before_reduce.dot;
 	reduce_bdd ::G $ref $cfg;
 #::ROOT insert root end $node;
 #puts [::ROOT serialize]
@@ -373,7 +408,7 @@ while {[gets $fp line]>=0} {
 	set cell [lindex $ll 0];
 	set ref [lindex $ll 1];
 	set cfg [lindex $ll 2];
-	set filterName LUT1;
+	set filterName LUT2;
 	if {$ref ne $filterName } {
 		puts  "NOT MATCH $filterName, continue!";
 		continue;
