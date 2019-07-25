@@ -58,6 +58,7 @@ sub dot2graph {
 			$from=~s/\n//g;
 			$to=~s/.*->//;
 			$to=~s/ //g;
+			$to=~s/;$//;
 			$to=~s/\n//g;
 
 			print "from:$from\n";
@@ -100,7 +101,7 @@ foreach my $i (@n) {
 ##########################
 # show sptg, (span tree?)
 ##########################
-my $sptg = $g->SPT_Dijkstra("N01");
+my $sptg = $g->SPT_Dijkstra("x_addr_0_i_i_i621_i41");
 print "SPTG: $sptg\n";
 
 # self defined function
@@ -110,8 +111,8 @@ my $writer=Graph::Writer::Dot->new();
 # use lib:
 $writer->write_graph($g,"./output/$sptg_file_name ");
 
-#my $sptg = $g->SPT_Dijkstra("N01");
-#print "$sptg\n";
+my $sptg = $g->SPT_Dijkstra("x_addr_0_i_i_i621_i41");
+print "$sptg\n";
 
 
 
@@ -119,7 +120,7 @@ $writer->write_graph($g,"./output/$sptg_file_name ");
 # get path
 ##########################
 print "SSST:\n";
-@path = $g->SP_Dijkstra("N01","N0100");
+@path = $g->SP_Dijkstra("sub_ln183_15","x_addr_0_i_i_i621_i41");
 
 print "#path=$#path\n";
 foreach my $i (@path) {

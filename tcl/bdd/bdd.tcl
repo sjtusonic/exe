@@ -221,6 +221,8 @@ proc del_arc_and_pred {g arc} {
 #$g swap $predNode $succNode ;
 #$g node delete $predNode 
 }
+proc del_arc_and_succ {g arc} {
+}
 proc reduce_P_in_arcs {g} {
 	foreach arc [$g arcs] {
 		if {[$g arc exists $arc ] && 
@@ -269,11 +271,14 @@ proc build_bdd {ref cfg} {
 
 	graph2dot ::G G.before_reduce.dot;
 	reduce_bdd ::G $ref $cfg;
+	graph2dot ::G after_reduce_gdd.dot;
+	reduce_bdd_rule1 ::G $ref $cfg;
+	graph2dot ::G after_reduce_gdd.rule1.dot;
 #::ROOT insert root end $node;
 #puts [::ROOT serialize]
 	puts [::G serialize];
 	showSerialize ::G;
-	graph2dot ::G;
+	#graph2dot ::G;
 	puts "[string repeat <-- [info level]]RETURN build_bdd";
 }
 
@@ -284,7 +289,22 @@ proc build_bdd {ref cfg} {
 # 4. back to 1.
 
 # parent-B=C-son  => parent-C-son
-proc reduce_bdd_rule1 {} { }
+proc reduce_bdd_rule1 {g ref cfg} { 
+	foreach n [$g nodes] {
+		set degree [$g node degree -out $n ];
+		if {$degree <2} {continue;}
+		puts "node=$n;deg=$degree";
+		set ll_target ""
+		foreach _arc [$g arcs -out $n] {
+			puts "arc=$_arc:target=[$g arc target $_arc ]"
+			lappend ll_target      [$g arc target $_arc ]
+		}
+		if {[llength [lsort -u $ll_target]]==1} {
+			puts "UNIQ TARGET"
+			del_arc_and_pred $g [lindex [$g arcs -out $n] 0]
+		}
+	}
+}
 
 # A-B-{C D} E-B-{C D}
 # => {A E}-B-{C D}
@@ -408,7 +428,7 @@ while {[gets $fp line]>=0} {
 	set cell [lindex $ll 0];
 	set ref [lindex $ll 1];
 	set cfg [lindex $ll 2];
-	set filterName LUT2;
+	set filterName LUT3;
 	if {$ref ne $filterName } {
 		puts  "NOT MATCH $filterName, continue!";
 		continue;
