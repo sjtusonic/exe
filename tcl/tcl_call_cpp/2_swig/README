@@ -1,0 +1,35 @@
+
+ 
+ 【fract.i】：
+ %module fract
+ extern double myfract(int);
+ swig的语法这里就不详述了，具体可参见www.swig.org。
+ 第一行表示模块名称叫做fract，对应前面的c/c++代码，就是说要创建的动态库叫做libfract.so；
+ 第二行表示将要导出的函数，这个函数是需要你自己定义的。
+  
+  【fract.c】：
+  double myfract(int n)
+  {
+	    double res=1.0;
+		   int j;
+			  for (j=1;j<=n;j++)
+				    {
+						     res *= j;
+							    }
+								   return(res);
+  }
+   
+	【Makefile】：
+	t = fract_wrap.c libfract.so
+	all: $t
+	clean:
+	  rm -f $t core *.doc *.o
+	  fract_wrap.c: fract.i
+	    swig -tcl fract.i
+		 libfract.so:fract_wrap.c
+		   gcc -c fract.c fract_wrap.c
+			 
+			 运行：
+			 linux:~/test/tcl/swig # ./test.tcl
+			 2.0
+			  

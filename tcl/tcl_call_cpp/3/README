@@ -1,0 +1,43 @@
+ 
+ 2.如果当前tcl版本不支持load命令
+   我不知道哪个版本会这么原始，但即便如此，仍然有解决方法，那就是把扩展模块静态链接到执行文件中去，具体操作如下：
+	【main.c】：
+#include <tcl.h>
+#include <stdio.h>
+	int Tcl_AppInit(Tcl_Interp *interp);
+	int main(int argc, char *argv[]) {
+		  Tcl_Main(argc, argv, Tcl_AppInit);
+	}
+	int Tcl_AppInit(Tcl_Interp *interp) {
+		  /* Initialize Tcl */
+		    if (Tcl_Init(interp) == TCL_ERROR) {
+				     return TCL_ERROR;
+					    }
+						   /* Initialize our extension */
+							  if (Fract_Init(interp) == TCL_ERROR) {
+								      return TCL_ERROR;
+										  }
+										    return TCL_OK;
+	}
+	 
+	 【Makefile】：
+	 t = main
+	 TCL_LIBS = -L/usr/lib -ltcl8.4
+	 all: $t
+	 clean:
+	   rm -f $t core
+		main:main.c fract.c
+		  gcc -I. ${TCL_LIBS} -o $@ main.c fract.c
+		   
+			运行：
+			linux:~/test/tcl # ./main
+			% myfract 8
+			4.032)0e+04
+			% exit
+			linux:~/test/tcl # ldd main
+			        linux-gate.so.1 =>  (0xffffe)0)
+					          libtcl8.4.so => /usr/lib/libtcl8.4.so (0x4)3)))
+								         libc.so.6 => /lib/tls/libc.so.6 (0x4)d8)0)
+											        libdl.so.2 => /lib/libdl.so.2 (0x401f1)0)
+													          libm.so.6 => /lib/tls/libm.so.6 (0x401f5)0)
+																         /lib/ld-linux.so.2 (0x4)))0)
