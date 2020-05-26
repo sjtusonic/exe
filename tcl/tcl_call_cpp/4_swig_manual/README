@@ -1,0 +1,78 @@
+
+
+Tcl Extension Building
+Tcl provides an extensive C API that can be used to create compiled extensions in C or C++. To integrate Tcl and C/C++, it is necessary to write "wrapper functions" that provide the glue between C and the Tcl interpreter. To illustrate, suppose that you wanted to access the pow(x,y) function in the C math library from Tcl. To do this, you would write a wrapper function such as the following :
+
+/* PowObjCmd 
+ *
+  * Tcl 8.x wrapper for the pow(x,y) function.
+   */
+
+#include <math.h>
+int 
+PowObjCmd(ClientData clientData, Tcl_Interp *interp,
+          int objc, Tcl_Obj *CONST objv[])
+{
+			Tcl_Obj  *resultptr;
+					double    x,y,result;
+							int       error;
+
+									if (objc != 3) {
+													Tcl_WrongNumArgs(interp,2,objv,
+													                           "Usage : pow x y");
+																return TCL_ERROR;
+																		}
+																				error = Tcl_GetDoubleFromObj(interp, objv[1], &x);
+																						if (error != TCL_OK) return error;
+																								error = Tcl_GetDoubleFromObj(interp, objv[2], &y);
+																										if (error != TCL_OK) return error;
+
+																												result = pow(x,y);
+																														resultptr = Tcl_GetObjResult(interp);
+																																Tcl_SetDoubleObj(resultptr,result);
+																																		return TCL_OK;
+}
+
+To make this new command available to Tcl, you also need to write an initialization function such as follows:
+int 
+Example_Init(Tcl_Interp *interp) {
+			Tcl_CreateObjCommand(interp, "pow", PowObjCmd,
+					        (ClientData) NULL, (Tcl_CmdDeleteProc *) NULL);
+					return TCL_OK;
+}
+
+Finally, to build the Tcl extension, these functions (and the original C functions) are compiled into an extension module. In newer versions of Tcl, this is usually done by compiling the extension module into a shared library or DLL that can be dynamically loaded into the Tcl interpreter. In this case, using the module from Tcl might look like this :
+tclsh
+% load ./example.so Example
+% pow 2 3
+8.0
+%
+
+In cases where dynamic loading is not supported, extension modules can be compiled into the tclsh or wish executable directly (also known as static linking). This is accomplished by writing a Tcl_AppInit() function and a main() function.
+/* main.c */
+#include <tcl.h>
+int Tcl_AppInit(Tcl_Interp *interp);
+
+int main(int argc, char *argv[]) {
+	    Tcl_Main(argc, argv, Tcl_AppInit);
+}
+int Tcl_AppInit(Tcl_Interp *interp) {
+	      /* Initialize Tcl */
+			      if (Tcl_Init(interp) == TCL_ERROR) {
+						           return TCL_ERROR;
+									        }
+											        /* Initialize our extension */
+													        if (Example_Init(interp) == TCL_ERROR) {
+																             return TCL_ERROR;
+																				       }
+																						       return TCL_OK;
+}
+
+Although writing a simple Tcl extension may be easy enough, consider the problem of providing a Tcl interface to a large C/C++ library containing hundreds of functions, class NAME {
+	public:
+	NAME(){
+	}
+	~NAME(){
+	}
+	private:
+}es, objects, variables, and constants. In this case, it would be necessary to write hundreds of complicated wrapper functions---a time consuming task to be certain. Not only that, providing a mapping between C and Tcl is further complicated by data representation issues and object management (i.e. how do you manage C/C++ objects, pointers, arrays, etc>.). To make matters worse, consider the use of Tcl in a rapidly changing C/C++ application development environment where APIs are evolving, packages might only be partially implemented, and designs are being revised. Needless to say, it is difficult to write and maintain Tcl wrappers in this setting. Given the choice, most developers would rather concentrate on the job at hand--not the task of writing Tcl wrapper code. As a result, the use of Tcl might be ignored entirely or only considered much later in a project (after the code has stabilized).

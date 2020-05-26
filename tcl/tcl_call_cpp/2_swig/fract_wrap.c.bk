@@ -1692,25 +1692,19 @@ extern "C" {
 			int ecode1 = 0 ;
 			double result;
 
-			printf("LINE:%d\n",__LINE__);
 			if (SWIG_GetArgs(interp, objc, objv,"o:myfract int ",(void *)0) == TCL_ERROR) SWIG_fail;
-			printf("LINE:%d\n",__LINE__);
 			ecode1 = SWIG_AsVal_int SWIG_TCL_CALL_ARGS_2(objv[1], &val1);
 			if (!SWIG_IsOK(ecode1)) {
-				printf("LINE:%d\n",__LINE__);
 				SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "myfract" "', argument " "1"" of type '" "int""'");
 			} 
-			printf("LINE:%d\n",__LINE__);
 			arg1 = (int)(val1);
-			// double t=myfract(arg1);
-			// printf("t=%lf\n",t);
+			printf("WRAP:arg1=%d\n",arg1);
+			printf("WRAP:r1=%d\n", myfract(arg1));
 			result = (double)myfract(arg1);
-			printf("result=%lf\n",result);
+			printf("WRAP:result=%lf\n",result);
 			Tcl_SetObjResult(interp,SWIG_From_double((double)(result)));
-			printf("LINE:%d\n",__LINE__);
 			return TCL_OK;
 fail:
-			printf("LINE:%d\n",__LINE__);
 			return TCL_ERROR;
 		}
 
