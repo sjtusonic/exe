@@ -1,4 +1,5 @@
-source ~/sonic/github/small_lib/include.tcl
+#source ~/sonic/github/small_lib/include.tcl
+source ~/workspace/github/small_lib/include.tcl
 
 proc RecordAppend {listName arrayName} {
    upvar $listName list

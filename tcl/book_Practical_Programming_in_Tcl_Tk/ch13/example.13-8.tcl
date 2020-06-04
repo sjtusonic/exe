@@ -25,6 +25,10 @@ proc ReaOnlyTrace { varName index op} {
 set a 1
 ReadOnlyVar a
 
+puts "a=$a"
 set a 1
+puts "a=$a"
 set a 2
+puts "a=$a"
 incr a
+puts "a=$a"
